@@ -1,0 +1,41 @@
+format: jb-book
+root: introduction
+parts:
+  - caption: Quickstart
+    chapters:
+    - file: quickstart
+  - caption: Examples
+    chapters:
+    - file: examples
+  - caption: Reference
+    chapters:
+    - file: controls
+    - file: configuration
+    - file: states
+  - caption: Installation
+    chapters:
+    - file: installation
+  - caption : Common task patterns
+    chapters:
+    - file: patterns
+  - caption: Peripherals
+    chapters:
+    - file: device_library
+    - file: cameras
+    - file: microphones
+    - file: arduino_custom
+    - file: outside_devices
+  - caption: Features
+    chapters:
+    - file: modes # keyboard and agent
+    - file: UIs
+    - file: ai_ml_cv
+    - file: tools
+    - file: runner_mode
+  - caption: Hardware
+    chapters:
+    - file: building_your_setup
+  - caption: Advanced
+    chapters:
+    - file: for_developers
+    - file: faq.md
