@@ -1,0 +1,960 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Controls and Task development &#8212; Book Of The Neurokraken</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'controls';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration - The Neurokraken Object" href="configuration.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="introduction.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/book.png" class="logo__image only-light" alt="Book Of The Neurokraken - Home"/>
+    <script>document.write(`<img src="_static/book.png" class="logo__image only-dark" alt="Book Of The Neurokraken - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introduction.html">
+                    Neurokraken Introduction and Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Controls and Task development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">States and Task Progression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common task patterns</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="patterns.html">Common task patterns</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Peripherals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameras.html">Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arduino_custom.html">Add your own device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Keyboard and Agent Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UIs.html">User Interfaces (UIs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ai_ml_cv.html">AI/ML/Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Neurokraken Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner_mode.html">Runner Mode</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="building_your_setup.html">Building Your Setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="for_developers.html">For Developers - Hacking the Neurokraken</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/PasseckerLab/Neurokraken" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/controls.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Controls and Task development</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-development">task development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-task">The task</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#controls-get">controls.get</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-log">The log</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-organization">log organization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-the-log">extending the log</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Controls (.get)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-ms-int">time_ms:int</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-dict">log:dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-device-name-str">read_in(&lt;device name&gt;:str)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#send-out-device-name-str-value">send_out(&lt;device name&gt;:str, value)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#camera-i-int-preview-false">camera(i:int, preview=False)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-dir-path">log_dir :Path</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#threads-info-dict">threads_info :dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-str">mode :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start">start()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stop">stop()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quit">quit()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitting-bool">quitting :bool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#active-bool">active :bool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permanent-states-list">permanent_states :list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#blocks-dict">blocks :dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#switch-block-next-block-name-str">switch_block(&lt;next block name&gt;:str)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#progress-state-next-state-name-str">progress_state((&lt;next state name&gt;:str))</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-block-str">current_block :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state-str">current_state :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-block-trials-count-int">current_block_trials_count :int</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config">config</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment">experiment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-connected-recording-devices">list_connected_recording_devices()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-file-file-path-str-add-to-syspath-false">import_file(&lt;file_path&gt;:str, add_to_syspath=False)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="controls-and-task-development">
+<h1>Controls and Task development<a class="headerlink" href="#controls-and-task-development" title="Link to this heading">#</a></h1>
+<section id="task-development">
+<h2>task development<a class="headerlink" href="#task-development" title="Link to this heading">#</a></h2>
+<p>A task consists of 3 main steps. You can see practical examples within the <a class="reference internal" href="quickstart.html"><span class="doc std std-doc">Quickstart</span></a> and <a class="reference internal" href="examples.html"><span class="doc std std-doc">Examples</span></a>.</p>
+<ol class="arabic simple">
+<li><p>The configuration of your experiment setup elements and creating of a <code class="docutils literal notranslate"><span class="pre">Neurokraken()</span></code> object using them.</p></li>
+<li><p>Creating a task in the form of at least one <code class="docutils literal notranslate"><span class="pre">neurokraken.State</span></code> and loading the task into the Neurokraken.</p></li>
+<li><p>Run the task.</p></li>
+</ol>
+<p>Optionally additional code to run in parallel like a UI can be launched as step 2.5</p>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span><span class="p">,</span> <span class="n">Display</span><span class="p">,</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">Microphone</span>
+</pre></div>
+</div>
+<p>This part is where you decide on the physical components to utilize in your setup using Neurokraken.configurators. This includes electronic components to use (sensors, stimuli) as well as displays, cameras, and microphones. Further you can decide where to save the log and wether to run with electronics connected or in simulated keyboard or agent mode.</p>
+<p>You can find a walkthrough of configuration options in the <a class="reference internal" href="configuration.html"><span class="doc std std-doc">configurations chapter</span></a> with <a class="reference internal" href="cameras.html"><span class="std std-doc">cameras</span></a>, <a class="reference internal" href="microphones.html"><span class="doc std std-doc">microphones</span></a> and <a class="reference internal" href="modes.html"><span class="doc std std-doc">modes</span></a> having their own pages.</p>
+<p>Arduino-Side devices are covered in the <a class="reference internal" href="device_library.html"><span class="doc std std-doc">device library</span></a></p>
+</section>
+<section id="the-task">
+<h3>The task<a class="headerlink" href="#the-task" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+</pre></div>
+</div>
+<p>After creating the Neurokraken object with the configurators of interest, the next step is to create a task consisting of at least one neurokraken.State.</p>
+<p>The state only serves as a flexible container for your task’s python code. However, more advanced tasks can benefit from the organization, compartimentalization and flexibility multiple states or even blocks of states that one can switch between can provide.
+States can contain <code class="docutils literal notranslate"><span class="pre">on_start()</span></code>, <code class="docutils literal notranslate"><span class="pre">on_end()</span></code> and <code class="docutils literal notranslate"><span class="pre">loop_main()</span></code> functions allowing you to distribute your task’s python code accordingly.</p>
+<p>Within your task’s python code, the main interface to neurokraken’s live and logged data as well as controls for its managed devices is <code class="docutils literal notranslate"><span class="pre">controls.get</span></code>. While <code class="docutils literal notranslate"><span class="pre">controls.get</span></code> is an essential interface for any task, the features of states can be explored as they become useful to you and your developing task.</p>
+<p>You can find the documentation for states in the <a class="reference internal" href="states.html"><span class="doc std std-doc">states</span></a> chapter while <code class="docutils literal notranslate"><span class="pre">get</span></code> is documented below in <a class="reference internal" href="#controls-get"><span class="std std-ref">controls.get</span></a>.</p>
+</section>
+</section>
+<section id="controls-get">
+<span id="id1"></span><h2>controls.get<a class="headerlink" href="#controls-get" title="Link to this heading">#</a></h2>
+<p>Neurokraken’s controls.get servers as your main interface to neurokraken’s managed functionalities enabling to</p>
+<ul class="simple">
+<li><p>read live sensor values defined in serial_in</p></li>
+<li><p>change the state of controlled devices defiend in serial_out</p></li>
+<li><p>read and add to the automated log dictionary of previous sensor/control value changes and task events.</p></li>
+<li><p>access current camera frames for display or live-analysis</p></li>
+<li><p>override the current state or switch to an alternative block of states</p></li>
+<li><p>read the current experiment time</p></li>
+<li><p>start, stop, and quit the experiment</p></li>
+<li><p>…</p></li>
+</ul>
+<p>Due to its central position in neurokraken data and controls, get and its managed elements are the main way to direct events and conditions of your task complemented by states for optional compartimentalization of more advanced experiment progressions.</p>
+<p><code class="docutils literal notranslate"><span class="pre">get</span></code> can be accessed across components, i.e. you can turn on an LED as part of a tasks states’ loop_main() or on_start() as well as from a UI element.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in your experiment code following creation of the Neurokraken object</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">My_state</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;my_led&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="c1"># in your UI code</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">light_on</span><span class="p">():</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;my_led&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">gui</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;shine&#39;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">on_click</span><span class="o">=</span><span class="n">light_on</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This unified importable live access to neurokraken enables adding arbitrary novel elements to your task like observer protocols scheduling task progression based on logged performance.</p>
+<p>As get is a universally used component in neurokraken tasks even for tasks split over multiple files, it can serve as a useful dumping ground for global variables you want to access across elements. For example, we might define a probability for a reward state actually providing a reward at the start of our script. If we store this probability in <code class="docutils literal notranslate"><span class="pre">get</span></code> we can access it within our state to run the probability as well as from a UI element to live update the probability.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in your experiment code following creation of the Neurokraken object</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="n">get</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Reward</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">get</span><span class="o">.</span><span class="n">probability</span><span class="p">:</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">:</span> <span class="mi">70</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="c1"># in your UI code</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_probability</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">probabilities</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">gui</span><span class="o">.</span><span class="n">Text_Input</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">on_enter</span><span class="o">=</span><span class="n">update_probability</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Practically in this example we might further want to wrap the float conversion with a try statement to guard against crashes from accidental non-numeric inputs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While a controls.get object exists before the creation of the Neurokraken() object, as its content depends on the configuration provided to Neurokraken it is not yet populated and should only be imported after the creation of Neurokraken().</p>
+</div>
+</section>
+<section id="the-log">
+<span id="log"></span><h2>The log<a class="headerlink" href="#the-log" title="Link to this heading">#</a></h2>
+<p>A key element for live tasks and their successive analysis is the log dictionary. During the task it can be accessed with <code class="docutils literal notranslate"><span class="pre">get.log</span></code>. After the task you will find the same data as a log.json file in the log_dir you set for the Neurokraken object. A json file can easily imported into a python dictionary allowing you to work with exactly the same data structure within the experiment and the following analysis.</p>
+<section id="log-organization">
+<h3>log organization<a class="headerlink" href="#log-organization" title="Link to this heading">#</a></h3>
+<p>While some log entries are automatically added and maintained by neurokraken depending on the components of your task (see below) the log is a standard python dictionary allowing you to manually add entries or extend existing ones depending on your task requirements.</p>
+<p>Automatically maintained and extended data includes the following, generally time-stamped, elements.</p>
+<ul class="simple">
+<li><p>the data, time and subject data provided to Neurokraken() (dict or simple ID string)</p></li>
+<li><p>progressions of the current state, block and trial</p></li>
+<li><p>millisecond precision changes in sensor values</p></li>
+<li><p>enacted changes to controlled devices</p></li>
+<li><p>time of camera frames</p></li>
+<li><p>time of microphone keypoints</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>get.log
+├── experiment_data
+│   ├── datetime: str(datetime.now())
+│   └── subject data
+├── states {time/name}: []
+├── blocks {time/name}: []
+├── trials {time}: []
+├── events: []
+├── read_in_device_0_name (t ms/value): []
+├── read_in_device_1_name (t ms/value): []
+├── ...
+├── controls
+|   ├── send_out_device_0_name (t ms/value): []
+|   ├── send_out_device_1_name (t ms/value): []
+|   ... 
+├── camera_0_name: [] (frame time ms/#idx/vid time)
+├── camera_1_name: [] (frame time ms/#idx/vid time)
+│   ...
+├── microphone_0_name: [] (frame time ms/audio time)
+|   ...
+├── Your added log list A: []
+├── Your added log list B: []
+├── Your added log dict C: {}
+└── ...
+</pre></div>
+</div>
+</section>
+<section id="extending-the-log">
+<h3>extending the log<a class="headerlink" href="#extending-the-log" title="Link to this heading">#</a></h3>
+<p>Outside of these elements, you can add any data to the log that helps your task or even extend automatically created entries.
+For example, your task might include a state where a choice left or right is made each trial. Within this state you could add the <code class="docutils literal notranslate"><span class="pre">'choice'</span></code> as an entry to the current trial (which is the last so far and thus [-1] in the list).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;choice&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
+</pre></div>
+</div>
+<p>And then in live or post-experiment analysis you can iterate through the trials to count up specific events like left choices</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">left_trials</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;choice&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span><span class="p">]</span>
+<span class="n">num_left_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">left_trials</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively you could add a new entry to the log solely managed by you.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># before you begin the task with neurokraken.start()</span>
+<span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Within the task loop, after making a choice</span>
+<span class="k">if</span> <span class="o">...</span><span class="p">:</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">],</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id2">
+<h2>Controls (.get)<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="time-ms-int">
+<h3>time_ms:int<a class="headerlink" href="#time-ms-int" title="Link to this heading">#</a></h3>
+<p>The current experiment time in milliseconds</p>
+</section>
+<section id="log-dict">
+<h3>log:dict<a class="headerlink" href="#log-dict" title="Link to this heading">#</a></h3>
+<p>The log dictionary of your experiment so far. See <a class="reference internal" href="#log"><span class="std std-ref">the log</span></a> for a list of automatic content</p>
+</section>
+<section id="read-in-device-name-str">
+<h3>read_in(&lt;device name&gt;:str)<a class="headerlink" href="#read-in-device-name-str" title="Link to this heading">#</a></h3>
+<p>access the current value of a peripheral electronic sensor defined in serial_in.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for the Neurokraken() initialization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+<span class="n">serial_in</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;beam_break&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">5</span><span class="p">)}</span>
+
+<span class="c1"># in your task specific code</span>
+<span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;beam_break&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">400</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>If needed you can also access the serial_in dictionary itself as <code class="docutils literal notranslate"><span class="pre">get.serial_in</span></code></p>
+</section>
+<section id="send-out-device-name-str-value">
+<h3>send_out(&lt;device name&gt;:str, value)<a class="headerlink" href="#send-out-device-name-str-value" title="Link to this heading">#</a></h3>
+<p>Control a peripheral electronic device defined in serial_out to a different value. Open a Valve, turn on an LED, move a Motor Arm,…</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for the Neurokraken() initialization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">5</span><span class="p">)}</span>
+
+<span class="c1"># in your task specific code</span>
+<span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If needed you can also access the serial_in dictionary itself as <code class="docutils literal notranslate"><span class="pre">get.serial_out</span></code></p>
+</section>
+<section id="camera-i-int-preview-false">
+<h3>camera(i:int, preview=False)<a class="headerlink" href="#camera-i-int-preview-false" title="Link to this heading">#</a></h3>
+<p>Access the current frame from the i-th camera, i.e. <code class="docutils literal notranslate"><span class="pre">frame</span> <span class="pre">=</span> <span class="pre">get.camera(0)</span></code> for the first camera of your setup.</p>
+<p><code class="docutils literal notranslate"><span class="pre">preview=True</span></code> provides a py5image ready to display in py5-based UIs. This is only possible when your camera uses <code class="docutils literal notranslate"><span class="pre">ui_view_enabled=True</span></code>. (<code class="docutils literal notranslate"><span class="pre">preview=True</span></code> will apply the <a class="reference internal" href="cameras.html#cameras"><span class="std std-ref">Camera’s</span></a> set <code class="docutils literal notranslate"><span class="pre">ui_view_scale</span></code> and <code class="docutils literal notranslate"><span class="pre">ui_view_step</span></code>.)</p>
+<p><code class="docutils literal notranslate"><span class="pre">preview=False</span></code> Will return the full scale numpy image.</p>
+<p><code class="docutils literal notranslate"><span class="pre">preview=True</span></code> is reccommended for live usage in the UI due to its lower performance impact. <code class="docutils literal notranslate"><span class="pre">preview=False</span></code> is reccommended for computer vision applications that can make full use of the entire numpy pixel aray. Live displayed camera frames are the dominant impact on compute that is easy to reduce in typical tasks when higher performance is needed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">get.cameras</span></code> can be used to access a list of the neurokraken-internal Camera classes if needed.</p>
+</section>
+<section id="log-dir-path">
+<h3>log_dir :Path<a class="headerlink" href="#log-dir-path" title="Link to this heading">#</a></h3>
+<p>The log Path - can be used to save additional files with the rest of the log.</p>
+</section>
+<section id="threads-info-dict">
+<h3>threads_info :dict<a class="headerlink" href="#threads-info-dict" title="Link to this heading">#</a></h3>
+<p>A dictionary containing <code class="docutils literal notranslate"><span class="pre">'framerate_main'</span></code>, <code class="docutils literal notranslate"><span class="pre">'framerate_visual'</span></code> and <code class="docutils literal notranslate"><span class="pre">'framerate_cams'</span></code> useful for development and maximizing a camera’s viable fps. framerate_cams is a dict[str:float] with individual cameras accessible by their configured name</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example live framerate within a py5 UI&#39;s draw()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;main loop fps: </span><span class="si">{</span><span class="n">get</span><span class="o">.</span><span class="n">threads_info</span><span class="p">[</span><span class="s2">&quot;framerate_main&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="mode-str">
+<h3>mode :str<a class="headerlink" href="#mode-str" title="Link to this heading">#</a></h3>
+<p>The mode in which the task is run, one of ‘teensy’, ‘keyboard’ or ‘agent’. You can use get.mode to change task behavior depending on how the task is run, i.e. to skip parts of your task code if you are in keyboard mode.</p>
+</section>
+<section id="start">
+<h3>start()<a class="headerlink" href="#start" title="Link to this heading">#</a></h3>
+<p>Begin your task. Only needs to be called if your config is set to autostart=False.
+A manually timed start can be useful in cases where extended preparation and the highest accuracy of the first few seconds is required.
+Components outside of the actual state loops and automatic logging are already executing before get.start() allowing you to monitor camera feeds and sensor values before starting the actual task.</p>
+</section>
+<section id="stop">
+<h3>stop()<a class="headerlink" href="#stop" title="Link to this heading">#</a></h3>
+<p>manual non-program-quitting task end</p>
+</section>
+<section id="quit">
+<h3>quit()<a class="headerlink" href="#quit" title="Link to this heading">#</a></h3>
+<p>stop the state machine, save the log and exit the program.
+A practical use case is to bind <code class="docutils literal notranslate"><span class="pre">get.quit()</span></code> to the shutdown function of your UI or when a specific time point is surpassed.</p>
+</section>
+<section id="quitting-bool">
+<h3>quitting :bool<a class="headerlink" href="#quitting-bool" title="Link to this heading">#</a></h3>
+<p>Check whether a shutdown has been triggered - useful for shutting down self-developed parallel code</p>
+</section>
+<section id="active-bool">
+<h3>active :bool<a class="headerlink" href="#active-bool" title="Link to this heading">#</a></h3>
+<p>get.active can be read by elements like cameras or your code to fit their activity with the active experiment time. If you configure Neurokraken with autostart=False, active will be False until get.start() and be inactive again after get.stop()</p>
+</section>
+<section id="permanent-states-list">
+<h3>permanent_states :list<a class="headerlink" href="#permanent-states-list" title="Link to this heading">#</a></h3>
+<p>The list of your permanent states provided for your task</p>
+</section>
+<section id="blocks-dict">
+<h3>blocks :dict<a class="headerlink" href="#blocks-dict" title="Link to this heading">#</a></h3>
+<p>Your task states.</p>
+<p>You can dynamically access states and modify their variables through get.block, i.e. <code class="docutils literal notranslate"><span class="pre">get.blocks['my_block']['my_state'].variable</span> <span class="pre">=</span> <span class="pre">5</span></code></p>
+<p>In the common case that you provided a non-nested dictionary of task states to neurokraken.load_task() this dict will contain a single default block (fittingly named get.blocks[‘block’]) containing your dictionary of states.</p>
+</section>
+<section id="switch-block-next-block-name-str">
+<h3>switch_block(&lt;next block name&gt;:str)<a class="headerlink" href="#switch-block-next-block-name-str" title="Link to this heading">#</a></h3>
+<p>switch to a different block/state flow of your task by its name.
+Useful for manual override of the general task or its varations.</p>
+<p>Synonymous with get.current_block = ‘x’</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">State</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State_A</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State_B</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State_C</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;consistent_block&#39;</span><span class="p">:</span>  <span class="p">{</span><span class="s1">&#39;single_state&#39;</span><span class="p">:</span> <span class="n">State_A</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;single_state&#39;</span><span class="p">)},</span>
+<span class="s1">&#39;alternating_block&#39;</span><span class="p">:</span>  <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="n">State_B</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)}</span>
+                      <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">State_C</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)}</span>
+<span class="p">}</span>
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="o">...</span>
+
+<span class="c1"># Switch within a UI-triggered element of code</span>
+<span class="n">get</span><span class="o">.</span><span class="n">switch_block</span><span class="p">(</span><span class="s1">&#39;alternating_block&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="progress-state-next-state-name-str">
+<h3>progress_state((&lt;next state name&gt;:str))<a class="headerlink" href="#progress-state-next-state-name-str" title="Link to this heading">#</a></h3>
+<p>Override the task flow to progress to a different state of this block now.
+When overriding progressing from a state, its on_end() and run_at_end() won’t be called.</p>
+<p>Synonymous with get.current_state = ‘x’</p>
+</section>
+<section id="current-block-str">
+<h3>current_block :str<a class="headerlink" href="#current-block-str" title="Link to this heading">#</a></h3>
+<p>Property to get and set the current block in your task.</p>
+<p>This property provides convenient access to the current block of the state machine,
+allowing both reading and modification of the current block depending on task conditions or manual intervention.
+Setting a block can alternatively be performed with get.switch_block(block_name)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="n">num_rewards</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">get</span><span class="o">.</span><span class="n">current_block</span> <span class="o">==</span> <span class="s1">&#39;easy_difficulty_block&#39;</span><span class="p">:</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">current_block</span> <span class="o">=</span> <span class="s1">&#39;medium_difficulty_block&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="current-state-str">
+<h3>current_state :str<a class="headerlink" href="#current-state-str" title="Link to this heading">#</a></h3>
+<p>Property to check and override the current state outside of the existing state_flow.
+Progressing to a new state can alternatively performed with get.progress_state(state_name)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">key_pressed</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">get_key</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;old state was </span><span class="si">{</span><span class="n">get</span><span class="o">.</span><span class="n">current_state</span><span class="si">}</span><span class="s1">. Override moving to &quot;reward_state&quot;&#39;</span><span class="p">)</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">current_state</span> <span class="o">=</span> <span class="s1">&#39;reward_state&#39;</span>
+</pre></div>
+</div>
+<p>Please note that during a state’s <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">on_start()</span></code> or a state’s provided <code class="docutils literal notranslate"><span class="pre">run_at_start=</span></code> get.current_state still points
+to the previous state rather than the one currently starting up. This is so that parallel code like loop_visual
+does not try to already run a state that may be reliant on a variable set up during on_start() and that the
+<code class="docutils literal notranslate"><span class="pre">current_state</span></code> accessed by elements of your task will always have its <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">on_start()</span></code> and <code class="docutils literal notranslate"><span class="pre">run_at_start=</span></code> executed
+before becoming available as the <code class="docutils literal notranslate"><span class="pre">get.current.state</span></code>. If you require access to the state during these 2 startup functions,
+utilize the respective self/first argument; def on_start(self): and `def my_at_start_function(state):</p>
+</section>
+<section id="current-block-trials-count-int">
+<h3>current_block_trials_count :int<a class="headerlink" href="#current-block-trials-count-int" title="Link to this heading">#</a></h3>
+<p>The numebr of trials completed within the current block.</p>
+<p>To access the number of total trials so far you can access your log: <code class="docutils literal notranslate"><span class="pre">len(get.log['trials])</span></code></p>
+</section>
+<section id="config">
+<h3>config<a class="headerlink" href="#config" title="Link to this heading">#</a></h3>
+<p>Runner mode only</p>
+<p>Access and/or update your <a class="reference external" href="http://config.py">config.py</a> variables from other files like <a class="reference external" href="http://task.py">task.py</a> or <a class="reference external" href="http://launch.py">launch.py</a>. Useful if your experiment requires information you provide for a specific setup in <a class="reference external" href="http://config.py">config.py</a> like setup-specific thresholds for a given setup.</p>
+<p>Alternatively values to be shared across files can be maintained in .get itself or within the log</p>
+</section>
+<section id="experiment">
+<h3>experiment<a class="headerlink" href="#experiment" title="Link to this heading">#</a></h3>
+<p>Runner mode only
+Access and/or update your <a class="reference external" href="http://experiment.py">experiment.py</a> variables from other files</p>
+<p>Alternatively values to be shared across files can be maintained in .get itself or within the log</p>
+</section>
+</section>
+<section id="tools">
+<h2>tools<a class="headerlink" href="#tools" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools</span>
+</pre></div>
+</div>
+<p>tools are additional helper utilities</p>
+<section id="list-connected-recording-devices">
+<h3>list_connected_recording_devices()<a class="headerlink" href="#list-connected-recording-devices" title="Link to this heading">#</a></h3>
+<p>prints out which microphones and cameras are detected at which idx and what respective camera resolutions are supported.</p>
+<p>Does not yet check for GenICam type cameras</p>
+</section>
+<section id="import-file-file-path-str-add-to-syspath-false">
+<h3>import_file(&lt;file_path&gt;:str, add_to_syspath=False)<a class="headerlink" href="#import-file-file-path-str-add-to-syspath-false" title="Link to this heading">#</a></h3>
+<p>Import a python script from a file path.</p>
+<p>This can be useful to integrate 3rd party scripts/tools into neurokraken tasks, that have not yet been made into proper packages.</p>
+<p>add_to_syspath is an optional argument to automatically add the file’s directory to sys.path which enables imports of the imported script itself to work.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We want to import cutils.py from a different location on our pc to run live image analysis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools</span>
+<span class="n">cutils_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;C:/path/to/cutils.py&#39;</span><span class="p">))</span>
+<span class="n">cutils</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">import_file</span><span class="p">(</span><span class="n">cutils_path</span><span class="p">)</span>
+
+<span class="n">cutils</span><span class="o">.</span><span class="n">create_cutie</span><span class="p">(</span><span class="n">cutie_config_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Examples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="configuration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Configuration - The Neurokraken Object</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-development">task development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-task">The task</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#controls-get">controls.get</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-log">The log</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-organization">log organization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-the-log">extending the log</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Controls (.get)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-ms-int">time_ms:int</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-dict">log:dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-device-name-str">read_in(&lt;device name&gt;:str)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#send-out-device-name-str-value">send_out(&lt;device name&gt;:str, value)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#camera-i-int-preview-false">camera(i:int, preview=False)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-dir-path">log_dir :Path</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#threads-info-dict">threads_info :dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-str">mode :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start">start()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stop">stop()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quit">quit()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitting-bool">quitting :bool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#active-bool">active :bool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permanent-states-list">permanent_states :list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#blocks-dict">blocks :dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#switch-block-next-block-name-str">switch_block(&lt;next block name&gt;:str)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#progress-state-next-state-name-str">progress_state((&lt;next state name&gt;:str))</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-block-str">current_block :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state-str">current_state :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-block-trials-count-int">current_block_trials_count :int</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config">config</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment">experiment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-connected-recording-devices">list_connected_recording_devices()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-file-file-path-str-add-to-syspath-false">import_file(&lt;file_path&gt;:str, add_to_syspath=False)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Neuroraken developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC0 (2025).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

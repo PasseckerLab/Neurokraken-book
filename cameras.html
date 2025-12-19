@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cameras &#8212; Book Of The Neurokraken</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cameras';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Microphones" href="microphones.html" />
+    <link rel="prev" title="Device Library - Sensors, Stimuli, Peripheral Devices, Arduino" href="device_library.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="introduction.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/book.png" class="logo__image only-light" alt="Book Of The Neurokraken - Home"/>
+    <script>document.write(`<img src="_static/book.png" class="logo__image only-dark" alt="Book Of The Neurokraken - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introduction.html">
+                    Neurokraken Introduction and Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="controls.html">Controls and Task development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">States and Task Progression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common task patterns</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="patterns.html">Common task patterns</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Peripherals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arduino_custom.html">Add your own device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Keyboard and Agent Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UIs.html">User Interfaces (UIs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ai_ml_cv.html">AI/ML/Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Neurokraken Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner_mode.html">Runner Mode</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="building_your_setup.html">Building Your Setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="for_developers.html">For Developers - Hacking the Neurokraken</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/PasseckerLab/Neurokraken" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/cameras.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cameras</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-cameras-to-your-task">Adding cameras to your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#camera-arguments">Camera() arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name">name</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idx">idx</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#width-height">width, height</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-capture-fps">max_capture_fps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-fps">vid_fps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-enabled">ui_view_enabled</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-step-and-ui-view-scale">ui_view_step and ui_view_scale</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cv2-backend">cv2 backend</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capturer">capturer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color2grey-using-color-cameras">color2grey (using color cameras)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-image">turn_image</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-vid">save_as_vid</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-codec">vid_codec</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-container">vid_container</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-images">save_as_images</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-active">stream_active</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-port">stream_port</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-step-and-stream-scaling">stream_step and stream_scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-cameras-genicam">Advanced cameras (GenICam)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-harvesters">Installing harvesters:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-video-audio-frame-times">on video/audio frame times</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hacking-cameras-py">Hacking cameras.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#my-camera-is-suddenly-having-a-slow-framerate-or-extreme-contrast-it-wasn-t-having-issues-before">My camera is suddenly having a slow framerate or extreme contrast. It wasn’t having issues before</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improving-camera-performance">Improving camera performance</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cameras">
+<span id="id1"></span><h1>Cameras<a class="headerlink" href="#cameras" title="Link to this heading">#</a></h1>
+<section id="adding-cameras-to-your-task">
+<span id="camera-examples"></span><h2>Adding cameras to your task<a class="headerlink" href="#adding-cameras-to-your-task" title="Link to this heading">#</a></h2>
+<p>Adding a camera can be as simple as adding a Camera element to your config cameras list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">utils.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
+
+<span class="n">cameras</span> <span class="o">=</span> <span class="p">[</span><span class="n">Camera</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>Neurokraken supports USB connectable cameras ranging from minimal embedded application camera modules and webcams to specialized high framerate, high resolution GenICam protocol cameras.</p>
+<p>Here are 3 more typical example with specified parameters</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Kayeton_mono_2.8-12mm&#39;</span><span class="p">,</span>
+       <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1280</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span>
+       <span class="n">max_capture_fps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">vid_fps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+       <span class="n">ui_view_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ui_view_step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ui_view_scale</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;main_view&#39;</span><span class="p">,</span>
+       <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="p">,</span>
+       <span class="n">cv2_backend</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_MSMF</span><span class="p">,</span>
+       <span class="n">max_capture_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">vid_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+       <span class="n">color2grey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># a color camera</span>
+       <span class="n">ui_view_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ui_view_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ui_view_scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;scientific_camera&#39;</span><span class="p">,</span>
+       <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="c1"># 2,592 x 1,944</span>
+       <span class="n">capturer</span><span class="o">=</span><span class="s1">&#39;harvesters&#39;</span><span class="p">,</span> <span class="n">harvesters_path_GenTL_cti</span><span class="o">=</span><span class="s1">&#39;C:/path/to/.cti/file&#39;</span><span class="p">,</span>
+       <span class="n">max_capture_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">vid_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+       <span class="n">ui_view_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ui_view_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ui_view_scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can provide multiple cameras to the cameras list to use them together in the same experiment</p>
+</div>
+</section>
+<section id="camera-arguments">
+<h2>Camera() arguments<a class="headerlink" href="#camera-arguments" title="Link to this heading">#</a></h2>
+<section id="name">
+<span id="camera-name"></span><h3>name<a class="headerlink" href="#name" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The name of the camera in the log. Defaults to <code class="docutils literal notranslate"><span class="pre">_</span></code></p></li>
+</ul>
+</section>
+<section id="idx">
+<h3>idx<a class="headerlink" href="#idx" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>use the nth camera connected to your pc. Defaults to 0.</p>
+<ul>
+<li><p>for cameras using <code class="docutils literal notranslate"><span class="pre">capturer='harvester'</span></code> idx refers to the nth connected genICam protocol camera</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="width-height">
+<h3>width, height<a class="headerlink" href="#width-height" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Cameras typically support different width/height combinations at different framerates. These combinations are often noted on the packaging and store webpage but can also easily be checked with the windows build-in “Camera” application (open the settings in the top left corner, then open the entry “video settings” which will show you supported resolutions, i.e. <code class="docutils literal notranslate"><span class="pre">1080p</span> <span class="pre">16:9</span> <span class="pre">30fps</span></code> and <code class="docutils literal notranslate"><span class="pre">720</span> <span class="pre">16:9</span> <span class="pre">60fps</span></code> and <code class="docutils literal notranslate"><span class="pre">480p</span> <span class="pre">4:3</span> <span class="pre">60fps</span></code>).</p></li>
+<li><p>If width and height are unspecified you may end up with resolution video data than your camera can provide.</p></li>
+</ul>
+</section>
+<section id="max-capture-fps">
+<h3>max_capture_fps<a class="headerlink" href="#max-capture-fps" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The maximum rate of image aquisition. Neurokraken will capture images as fast as your camera, and computer resources allow. Setting a maximum fps can help when you i.e. only want to use a 120fps camera at 60fps. Default to 5_000.</p></li>
+</ul>
+</section>
+<section id="vid-fps">
+<span id="id2"></span><h3>vid_fps<a class="headerlink" href="#vid-fps" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The framerate for the saved video. Neurokraken logs each frame time so the playback speed of these frames does not matter much, but keeping it in the neighborhood of your capturing framerate creates a reasonable speed when the video file is watched on its own. Defaults to 30.</p></li>
+<li><p>You can check the fps your cameras practically achieve on a given setup with <code class="docutils literal notranslate"><span class="pre">ui_utils.framerates_to_string()</span></code></p></li>
+</ul>
+</section>
+<section id="ui-view-enabled">
+<h3>ui_view_enabled<a class="headerlink" href="#ui-view-enabled" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Prepare a py5image for live camera display in the ui. Default to False.</p></li>
+<li><p>With ui_view_enabled=True you can access the current frame for display in your py5-based gui.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in your ui.py</span>
+<span class="n">preview</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">camera</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">preview</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">preview</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">frame</span> <span class="pre">=</span> <span class="pre">get.camera(idx,</span> <span class="pre">preview=False)</span></code> retrieves the full size current numpy array frame image for live processing applications/computer vision or displaying it in non-py5-based UIs.</p>
+<ul>
+<li><p>This numpy array data is also available with cameras where preview=False, however high framerate, high resolution camera create a lot of pixel data which can be demanding to process at this full scale. Thus when the purpose is only a live preview in the ui, reducing the data to be displayed can save resources and allow higher framerates on limited systems.</p></li>
+</ul>
+</li>
+</ul>
+<section id="ui-view-step-and-ui-view-scale">
+<h4>ui_view_step and ui_view_scale<a class="headerlink" href="#ui-view-step-and-ui-view-scale" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>When ui_view_enabled=True, only update the the ui preview image every nth frame and reduce the size to a lower resolution.</p></li>
+</ul>
+</section>
+</section>
+<section id="cv2-backend">
+<h3>cv2 backend<a class="headerlink" href="#cv2-backend" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Neurokraken uses <code class="docutils literal notranslate"><span class="pre">cv2.CAP_DSHOW</span></code> as default backend.</p></li>
+<li><p>cv2 provides different capturing backends that can work differently well or not with different accessed cameras. <code class="docutils literal notranslate"><span class="pre">cv2.CAP_DSHOW</span></code> was found to be most suitable for most cameras tested in our lab.</p></li>
+<li><p>Try <code class="docutils literal notranslate"><span class="pre">cv2.CAP_MSMF</span></code> if you encounter issues with <code class="docutils literal notranslate"><span class="pre">cv2.CAP_DSHOW</span></code>, i.e. a 60fps camera only producing frames at 10fps.</p></li>
+</ul>
+</section>
+<section id="capturer">
+<h3>capturer<a class="headerlink" href="#capturer" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>the capturer defaults to <code class="docutils literal notranslate"><span class="pre">capturer='cv2'</span></code> but you can use a different capturer for different purposes or even <a class="reference internal" href="#hacking-cameras"><span class="std std-ref">hack in new capturing sources</span></a></p></li>
+<li><p>Cameras using the GenICam protocol require a different capturer than cv2 and can be used with <code class="docutils literal notranslate"><span class="pre">capturer='harvesters'</span></code>. See <a class="reference internal" href="#genicam"><span class="std std-ref">Advanced cameras (GenICam)</span></a> on how to configure and use these cameras effectively.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">capturer='iio'</span></code> uses imageiio[ffmpeg] for frame aquisition. You need to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">imageio[ffmpeg]</span></code> to use it.</p></li>
+</ul>
+</section>
+<section id="color2grey-using-color-cameras">
+<h3>color2grey (using color cameras)<a class="headerlink" href="#color2grey-using-color-cameras" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>By default neurokraken processes images as single-channel greyscale (<code class="docutils literal notranslate"><span class="pre">color2grey=True</span></code>).</p></li>
+<li><p>If you are using a color camera and want to preserve the color channels set <code class="docutils literal notranslate"><span class="pre">color2grey=False</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color2grey_use_single_RGB_channel=None</span></code> will merge channels to greyscale intelligently and is the default approach when using <code class="docutils literal notranslate"><span class="pre">color2grey=True</span></code>. If you want to extract a specific channel using <code class="docutils literal notranslate"><span class="pre">color2grey=True</span></code>, provide the respective channel index, i.e. for blue <code class="docutils literal notranslate"><span class="pre">color2grey_use_single_RGB_channel=2</span></code>.</p></li>
+</ul>
+<section id="turn-image">
+<h4>turn_image<a class="headerlink" href="#turn-image" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>rotate the captured image by 180 degrees - useful when you have to mount the camera inverted. Carries a small performance cost.</p></li>
+</ul>
+</section>
+</section>
+<section id="save-as-vid">
+<h3>save_as_vid<a class="headerlink" href="#save-as-vid" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Save the capture to a video file in the log folder throughout the experiment duration. Defaults to True.</p></li>
+<li><p>The filename will be the provided <a class="reference internal" href="#camera-name"><span class="std std-ref">name</span></a> of this camera.</p></li>
+<li><p>The video will use the framerate provided to <a class="reference internal" href="#vid-fps"><span class="std std-ref">vid_fps</span></a></p></li>
+</ul>
+<section id="vid-codec">
+<h4>vid_codec<a class="headerlink" href="#vid-codec" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The codec used by the videowriter. Defaults to ‘mp4v’</p></li>
+</ul>
+</section>
+<section id="vid-container">
+<h4>vid_container<a class="headerlink" href="#vid-container" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The container used by the videowriter. Defaults to ‘mp4’</p></li>
+</ul>
+</section>
+<section id="save-as-images">
+<h4>save_as_images<a class="headerlink" href="#save-as-images" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Save the frames as individual .png images. Impacts performance. Defaults to False</p></li>
+</ul>
+</section>
+</section>
+<section id="stream-active">
+<h3>stream_active<a class="headerlink" href="#stream-active" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Stream the capture to your local network</p></li>
+<li><p>Experimental feature, impacts performance.</p></li>
+</ul>
+<section id="stream-port">
+<h4>stream_port<a class="headerlink" href="#stream-port" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>When stream_active=True, Port number for streaming. Defaults to 50_000. You can access your stream through PC.IP.ADD.RESS:stream_port</p></li>
+</ul>
+</section>
+<section id="stream-step-and-stream-scaling">
+<h4>stream_step and stream_scaling<a class="headerlink" href="#stream-step-and-stream-scaling" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>When stream_active=True, only stream every nth captured frame and reduce the size to a lower resolution like 0.5</p></li>
+<li><p>Defaults to 10 and 0.5</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="advanced-cameras-genicam">
+<span id="genicam"></span><h2>Advanced cameras (GenICam)<a class="headerlink" href="#advanced-cameras-genicam" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>advanced scientific cameras (the kind you find on sources like edmund optics) often use the GenICam protocol (Generic Interface for Cameras)</p></li>
+<li><p>These cameras can be accessed and used in neurokraken through the python harvesters package <a class="github reference external" href="https://github.com/genicam/harvesters">genicam/harvesters</a></p></li>
+</ul>
+<section id="installing-harvesters">
+<h3>Installing harvesters:<a class="headerlink" href="#installing-harvesters" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/genicam/harvesters/blob/master/docs/INSTALL.rst">instructions from harvesters</a></p></li>
+<li><p>Harvesters relies on the genicam package. Official python genicam support for newer python packages takes a while, so depending on your python version you have 2 choices as of the time of this writing with python3.13 being the most current version</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">genicam</span></code> if you run python &lt;= 11</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-i</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">genicam==1.5.0</span></code> if you run a newer python version,</p></li>
+<li><p>see the <a class="reference external" href="https://github.com/genicam/harvesters/issues/472">harvesters github issues</a> for information on which python the official genicam package currently supports and alternatives for newer python versions</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">harvesters</span></code></p></li>
+<li><p>.cti file:</p>
+<ul>
+<li><p>Harvesters requires a .cti file (often referred to as the GenTL Producer)</p></li>
+<li><p>While harvesters reccommends using a .cti file from Matrix Vision, they also note that some camera manufacturers may only enable their cameras to work with their own .cti files.</p></li>
+<li><p>As an example of how to proceed if if the general .cti file won’t work for you; For a camera from Allied Vision, the manufacturer provides camera software (Vimba 6.0) that will install itself into a chosen folder. Looking for .cti files within this folder, we can find Vimba_6.0\VimbaUSBTL\Bin\Win64\VimbaUSBTL.cti which can be used by harvesters and thus Neurokraken with harvesters. Other manufacturers should have a similar usable file amidst their respective camera software.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="on-video-audio-frame-times">
+<h2>on video/audio frame times<a class="headerlink" href="#on-video-audio-frame-times" title="Link to this heading">#</a></h2>
+<p>Due to a technical limitation video and audio file time can be run at a different speed from from the task’s current milliseconds. The file framerate has to be decided when the file/recording is started while the capabilities of a system may still be unclear or capturing intentionally is performed as fast as the system can process at a non-standard framerate. Neurokraken saves video and audio files with timestamps to ensure that frames are accurately relateable to the respective task time and events.</p>
+<p>We are working on an optional feature to automatically re-encode video and audio post-experiment completion for easier analysis.</p>
+</section>
+<section id="hacking-cameras-py">
+<span id="hacking-cameras"></span><h2>Hacking cameras.py<a class="headerlink" href="#hacking-cameras-py" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Higher end manufacturers may also create an individual python api for their products that might provide more control or performance. If you want to provide neurokraken with a new video input source feel free to have a look at <code class="docutils literal notranslate"><span class="pre">utils/cameras.py</span></code>. You will find the <code class="docutils literal notranslate"><span class="pre">self.capturer</span></code> variable which defines the backend (i.e. ‘cv2’ or ‘harvesters’) used in 3 places; setup, frame retrieval, and closedown. To add a new backend add a new case in these 3 places and implement your capturer’s intended behaviors.</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
+<section id="my-camera-is-suddenly-having-a-slow-framerate-or-extreme-contrast-it-wasn-t-having-issues-before">
+<span id="autoexposure"></span><h3>My camera is suddenly having a slow framerate or extreme contrast. It wasn’t having issues before<a class="headerlink" href="#my-camera-is-suddenly-having-a-slow-framerate-or-extreme-contrast-it-wasn-t-having-issues-before" title="Link to this heading">#</a></h3>
+<p>Many cameras automatically adjust their exposure time depending on the received brightness. If you are testing a camera pointed at a dark area, the framerate may go down as a result of the camera increasing its exposure time. To reset a camera stuck with a long exposure time, move point the camera towards a brighter area or if it has a light aperture turn it more open and back to stimulate exposure adjustments. Opening the camera in the windows built-in “Camera” application also can help reset stuck camera settings. Cameras may also automatically increase their exposure time or internal processing in insufficient light conditions like night conditions or lack of suitable wavelengths in cameras that utilize a specific spectrum like near-visibleInfrared. If your camera exposes its settings you can also manually adjust the exposure to a fitting value.</p>
+</section>
+</section>
+<section id="improving-camera-performance">
+<h2>Improving camera performance<a class="headerlink" href="#improving-camera-performance" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>When using high resolution/high framerate cameras like <a class="reference internal" href="#camera-examples"><span class="std std-ref">the examples above</span></a> computers may reach their processing limit leading to reduced capturing speed. More modern PCs and PCs with more CPU cores will generally do better than repurposed old PCs in their capabilities. We found modern mini PCs to be surprisingly capable experiment hardware for their price. However when requiring more frames per second or a higher resolution from an important but limited camera the following steps can be taken:</p>
+<ul>
+<li><p>reduce the <code class="docutils literal notranslate"><span class="pre">max_capture_fps</span></code> or <code class="docutils literal notranslate"><span class="pre">width</span></code>/<code class="docutils literal notranslate"><span class="pre">height</span></code> of other less important cameras.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">ui_view=True</span></code>: increase the <code class="docutils literal notranslate"><span class="pre">ui_view_step</span></code> and lower the <code class="docutils literal notranslate"><span class="pre">ui_view_scale</span></code></p></li>
+<li><p>Process color camera data in greyscale <code class="docutils literal notranslate"><span class="pre">color2grey=True</span></code></p></li>
+<li><p>You can trade <code class="docutils literal notranslate"><span class="pre">max_capture_fps</span></code> against the resolution. i.e. on one pc a camera with <code class="docutils literal notranslate"><span class="pre">width=1920,</span> <span class="pre">height=1080</span></code> may achieve 60 fps but when used with <code class="docutils literal notranslate"><span class="pre">width=1280,</span> <span class="pre">height=720</span></code> run at 90fps. Note that cameras have a specific set of width/height combinations can will only work properly using one of these combinations.</p></li>
+<li><p>GenICam cameras have a lower impact than typical USB cameras.</p></li>
+<li><p>You can check the performance of your last run experiment with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">tools/performance_test.py</span> <span class="pre">--last</span></code></p>
+<ul>
+<li><p>If you observe latency spikes (tens of milliseconds) when using your camera revisit the cv2_backend choice and test your camera in bright light conditions against issues caused by autoexposure <a class="reference internal" href="#autoexposure"><span class="std std-ref">(see Troubleshooting)</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="device_library.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="microphones.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Microphones</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-cameras-to-your-task">Adding cameras to your task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#camera-arguments">Camera() arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name">name</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idx">idx</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#width-height">width, height</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-capture-fps">max_capture_fps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-fps">vid_fps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-enabled">ui_view_enabled</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-step-and-ui-view-scale">ui_view_step and ui_view_scale</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cv2-backend">cv2 backend</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capturer">capturer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color2grey-using-color-cameras">color2grey (using color cameras)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-image">turn_image</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-vid">save_as_vid</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-codec">vid_codec</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-container">vid_container</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#save-as-images">save_as_images</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-active">stream_active</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-port">stream_port</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-step-and-stream-scaling">stream_step and stream_scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-cameras-genicam">Advanced cameras (GenICam)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-harvesters">Installing harvesters:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-video-audio-frame-times">on video/audio frame times</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hacking-cameras-py">Hacking cameras.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#my-camera-is-suddenly-having-a-slow-framerate-or-extreme-contrast-it-wasn-t-having-issues-before">My camera is suddenly having a slow framerate or extreme contrast. It wasn’t having issues before</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improving-camera-performance">Improving camera performance</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Neuroraken developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC0 (2025).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

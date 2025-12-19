@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add your own device &#8212; Book Of The Neurokraken</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'arduino_custom';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Integrating Outside Devices" href="outside_devices.html" />
+    <link rel="prev" title="Microphones" href="microphones.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="introduction.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/book.png" class="logo__image only-light" alt="Book Of The Neurokraken - Home"/>
+    <script>document.write(`<img src="_static/book.png" class="logo__image only-dark" alt="Book Of The Neurokraken - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introduction.html">
+                    Neurokraken Introduction and Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="controls.html">Controls and Task development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">States and Task Progression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common task patterns</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="patterns.html">Common task patterns</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Peripherals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameras.html">Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Add your own device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Keyboard and Agent Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UIs.html">User Interfaces (UIs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ai_ml_cv.html">AI/ML/Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Neurokraken Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner_mode.html">Runner Mode</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="building_your_setup.html">Building Your Setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="for_developers.html">For Developers - Hacking the Neurokraken</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/PasseckerLab/Neurokraken" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/arduino_custom.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Add your own device</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensors-controls-and-processes">Sensors, Controls and Processes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-h">Config.h</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-new-heavy-compute-arduino-side-device">Adding a new heavy-compute arduino-side device</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example">Code Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring">Wiring</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="add-your-own-device">
+<h1>Add your own device<a class="headerlink" href="#add-your-own-device" title="Link to this heading">#</a></h1>
+<p>This is a guide to add custom arduino code to Neurokraken. This covers electronics and libraries that have not yet been considered in the existing device libary.</p>
+<p>To add a piece of arduino code as a device that neurokraken can read as a sensor or control, the code needs to be wrapped in a simple simple Arduino class that inherits from a Control, Sensor, or Process base class depending on its utility.</p>
+<p>Neurokraken’s arduino codebase provides useable functions like <code class="docutils literal notranslate"><span class="pre">int8ToBytes(i)</span></code>, <code class="docutils literal notranslate"><span class="pre">int16Tobytes(i)</span></code>, and <code class="docutils literal notranslate"><span class="pre">longToBytes(i)</span></code> that allow sending values to neurokraken as a read_in sensor with int8, int16 and long meaning a maximum value of 255, 65,535 or 4,294,967,295 respectively.</p>
+<p>Correspondingly <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">boolFromByte()</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">intFromByte()</span></code> and <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">int16FromBytes()</span></code> can allow reading different precision control values from the python side to act upon.</p>
+<section id="sensors-controls-and-processes">
+<h2>Sensors, Controls and Processes<a class="headerlink" href="#sensors-controls-and-processes" title="Link to this heading">#</a></h2>
+<p>This subchapter will be available soon</p>
+</section>
+<section id="config-h">
+<h2>Config.h<a class="headerlink" href="#config-h" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">config2teensy.py</span></code> automatically generates a file Config.h matching the python side device dictionary. This file enables the arduino side to know which devices to run on which pins.
+As it is automatically generated one generally does not have to interact with it. As it can however help illuminate how neurokraken works, this subchapter will walk through its content.</p>
+<p>A minimal Config.h is structured like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Sensors.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">config</span><span class="p">{</span>
+<span class="w">  </span><span class="n">StartStop</span><span class="o">*</span><span class="w"> </span><span class="n">startStop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StartStop</span><span class="p">();</span>
+<span class="w">  </span><span class="n">MillisReader</span><span class="o">*</span><span class="w"> </span><span class="n">msRead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MillisReader</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">Control</span><span class="o">*</span><span class="w"> </span><span class="n">controls</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">startStop</span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">Sensor</span><span class="o">*</span><span class="w"> </span><span class="n">sensors</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">msRead</span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">Process</span><span class="o">*</span><span class="w"> </span><span class="n">processes</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The instructions for manually filling out Config.h (as config2teensy would automatically do) are as follows:</p>
+<p>add your controlled classes to this array. Your class should:</p>
+<ul class="simple">
+<li><p>subclass Control, so that it can access the received bytes as a entry of its data property, i.e. class MyValve : public Control{}</p></li>
+<li><p>contain a void act(){} function that utilizes its updated data to run your written arduino code</p></li>
+<li><p>if you are using more than 1 byte of information, overwrite the classe’s default numCtrlBytes, i.e. by running numCtrlBytes = 2 in its constructor;</p></li>
+<li><p>This array should follow the same order you chose in your python side <a class="reference external" href="http://config.py">config.py</a>’s serial_out. i.e. startStop, valve0, valve1, rotary encoder control</p></li>
+</ul>
+<p>add your data reading classes to this array. Your class should:</p>
+<ul class="simple">
+<li><p>subclass Sensor, so that it can provide send its read data, i.e. class MyAnalogSensor : public Sensor{}</p></li>
+<li><p>contain a void read(){} function that fills up its sensBytes[] with your readings - you can use functions like longToBytes(value) or int8ToByte(value) to do this</p></li>
+<li><p>if you are reading more than 1 byte of information, overwrite the classe’s default numSensBytes, i.e. by running numBytes = 2 in its constructor;</p></li>
+<li><p>This array should follow the same order you choose in your python side <a class="reference external" href="http://config.py">config.py</a>’s serial_in. i.e. milliseconds, microseconds, rotary encoder, pulseclock</p></li>
+</ul>
+<p>add your classes that have to run a function at high frequency to this array. Your class should:</p>
+<ul class="simple">
+<li><p>subclass Process, so that the arduino void loop() can identify and run them i.e. class MyPulseSignalGenerator : public Process{}</p></li>
+<li><p>contain a void step(){} that contains the code you want to run</p></li>
+<li><p>The .act(){} or .read(){} of controls and sensors is only executed following communication while a Process’s .task() enables running code at much higher frequency.</p></li>
+</ul>
+<p>sensor -&gt; read()
+control -&gt; act()
+process -&gt; step()</p>
+<p>A task’s filled in Config.h can then look like this.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;TimedOn.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RotEnc.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;PulseClock.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Sensors.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;ServoMotor.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">config</span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// controls</span>
+<span class="w">  </span><span class="n">StartStop</span><span class="o">*</span><span class="w"> </span><span class="n">startStop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StartStop</span><span class="p">();</span>
+<span class="w">  </span><span class="n">DirectOn</span><span class="o">*</span><span class="w"> </span><span class="n">valve0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DirectOn</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+<span class="w">  </span><span class="n">DirectOn</span><span class="o">*</span><span class="w"> </span><span class="n">valve1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DirectOn</span><span class="p">(</span><span class="mi">41</span><span class="p">);</span>
+<span class="w">  </span><span class="n">ServoMotor</span><span class="o">*</span><span class="w"> </span><span class="n">servo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ServoMotor</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Control</span><span class="o">*</span><span class="w"> </span><span class="n">controls</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">startStop</span><span class="p">,</span><span class="w"> </span><span class="n">valve0</span><span class="p">,</span><span class="w"> </span><span class="n">valve1</span><span class="p">,</span><span class="w"> </span><span class="n">rotEnc</span><span class="p">,</span><span class="w"> </span><span class="n">pulseClock</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">// Sensors</span>
+<span class="w">  </span><span class="n">MillisReader</span><span class="o">*</span><span class="w"> </span><span class="n">msRead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MillisReader</span><span class="p">();</span>
+<span class="w">  </span><span class="n">RotEnc</span><span class="o">*</span><span class="w"> </span><span class="n">rotEnc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RotEnc</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">);</span>
+<span class="w">  </span><span class="n">PulseClock</span><span class="o">*</span><span class="w"> </span><span class="n">clock_100ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PulseClock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="mi">100</span><span class="p">);</span>
+<span class="w">  </span><span class="n">PulseClock</span><span class="o">*</span><span class="w"> </span><span class="n">clock_1s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PulseClock</span><span class="p">(</span><span class="w">   </span><span class="mi">2</span><span class="p">,</span><span class="w">   </span><span class="mi">1000</span><span class="p">);</span>
+<span class="w">  </span><span class="n">PulseClock</span><span class="o">*</span><span class="w"> </span><span class="n">clock_10s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PulseClock</span><span class="p">(</span><span class="w">  </span><span class="mi">3</span><span class="p">,</span><span class="w">  </span><span class="mi">10000</span><span class="p">);</span>
+<span class="w">  </span><span class="n">PulseClock</span><span class="o">*</span><span class="w"> </span><span class="n">clock_5min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PulseClock</span><span class="p">(</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">300000</span><span class="p">);</span>
+<span class="w">  </span><span class="n">AnalogSensor</span><span class="o">*</span><span class="w"> </span><span class="n">lightSens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AnalogSensor</span><span class="p">(</span><span class="mi">39</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Sensor</span><span class="o">*</span><span class="w"> </span><span class="n">sensors</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">msRead</span><span class="p">,</span><span class="w"> </span><span class="n">clock_100ms</span><span class="p">,</span><span class="w"> </span><span class="n">clock_1s</span><span class="p">,</span><span class="w"> </span><span class="n">clock_10s</span><span class="p">,</span><span class="w"> </span><span class="n">clock_5min</span><span class="p">,</span><span class="w"> </span><span class="n">rotEnc</span><span class="p">,</span><span class="w"> </span><span class="n">lightSens</span><span class="p">,</span><span class="w"> </span><span class="n">pulseClock</span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">// These classes also have a process .step() functionality</span>
+<span class="w">  </span><span class="n">Process</span><span class="o">*</span><span class="w"> </span><span class="n">processes</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">clock_100ms</span><span class="p">,</span><span class="w"> </span><span class="n">clock_1s</span><span class="p">,</span><span class="w"> </span><span class="n">clock_10s</span><span class="p">,</span><span class="w"> </span><span class="n">clock_5min</span><span class="p">,</span><span class="w"> </span><span class="n">pulseClock</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-a-new-heavy-compute-arduino-side-device">
+<span id="middleman-arduino"></span><h2>Adding a new heavy-compute arduino-side device<a class="headerlink" href="#adding-a-new-heavy-compute-arduino-side-device" title="Link to this heading">#</a></h2>
+<p>While the growing range of arduino-compatible components and libraries opens powerful new possibilities for neurokraken, not all devices or libraries are designed for the millisecond precision sampling that neurokraken targets.</p>
+<p>Some interesting devices may be implemented in a way that holds up the microcontroller for a considerable time, which would prevent others from running their millisecond or sub-millisecond duties as sensors and/or processes respectively. Devices currently included in <code class="docutils literal notranslate"><span class="pre">configurators.devices</span></code> guarantee high precision even when we use 30 devices together in our tests, however this may not hold true for new devices one may try out. One example of this is the SSD 1306 display.</p>
+<p>An easy way to test the impact of a new device is to add the milliseconds clock manually in your task’s serial_in with <code class="docutils literal notranslate"><span class="pre">logging=True</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">serial_in</span> <span class="pre">=</span> <span class="pre">{'t_ms':</span> <span class="pre">devices.time_millis(logging=True),</span> <span class="pre">...</span></code></p>
+<p>This will log every change on the current millisecond to your log.json allowing you to see if sampling periods have been missed due to a tested new device.</p>
+<p>If your experiments do not care about millisecond precision and are still are able to achieve sufficiently high resolution this of course is not a concern.</p>
+<p>If you need to retain millisecond precision and your new device however this is also not a problem, as you can easily add a second microcontroller like an arduino nano as a middleman between your teensy and the new device. The arduino can run the device and absorb delays, while still interacting with the teensy as fast as the added device allows as a prxoy sensor/control without affecting the teensy’s timing.</p>
+<p>Sometimes it can be useful to outsource computations to an arduino as a secondary microcontroller. For example in rare cases we might have found a great module with an arduino library for an experiment of ours, but the library implementation causes delays of multiple milliseconds in our teensy main loop that we want to avoid, or the library utilizes custom features of the arduino architecture and we couldn’t find a teensy-compatible alternative. In these cases the simplest approach is to run our module from an arduino nano, and forward its reading to the central teensy through I2C.</p>
+<section id="code-example">
+<h3>Code Example<a class="headerlink" href="#code-example" title="Link to this heading">#</a></h3>
+<p>In this example we are using the arduino to collect 2 numbers (they could be created by sensor readings and/or a library). While this example is minimal standalone, you can easily apply it to writing a neurokraken teensy device, by calling a readArduino function like shown here from within the read() function of a neurokraken device’s arduino code. Respectively Wire can also be used to provide instructions to the arduino</p>
+<div class="highlight-arduino notranslate"><div class="highlight"><pre><span></span><span class="c1">// arduino nano code</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Wire.h&gt;</span>
+
+<span class="c1">// Being specific with the datatype allows Wire to correctly reinterpret the </span>
+<span class="c1">// received number. int8_t for -127 to 127 and uint8_t for 0 to 255</span>
+<span class="kr">int8_t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kr">int8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nb">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">begin</span><span class="p">(</span><span class="mh">0x08</span><span class="p">);</span><span class="w">             </span><span class="c1">// Join the I2C bus as with address 0x08</span>
+<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">onRequest</span><span class="p">(</span><span class="n">requestEvent</span><span class="p">);</span><span class="w"> </span><span class="c1">// Run this function when the teensy calls</span>
+<span class="p">}</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nb">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// constantly update the data points</span>
+<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">random</span><span class="p">(</span><span class="mi">-127</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
+<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">random</span><span class="p">(</span><span class="mi">-127</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nf">requestEvent</span><span class="p">(){</span>
+<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-arduino notranslate"><div class="highlight"><pre><span></span><span class="c1">//teensy side code</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Wire.h&gt;</span>
+
+<span class="kr">int8_t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kr">int8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nb">setup</span><span class="p">(){</span>
+<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nb">loop</span><span class="p">(){</span>
+<span class="w">  </span><span class="n">readArduino</span><span class="p">();</span>
+
+<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">println</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nf">readArduino</span><span class="p">(){</span>
+<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">requestFrom</span><span class="p">(</span><span class="mh">0x008</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// request 2 bytes from the arduino at this address</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nf">Wire</span><span class="p">.</span><span class="nf">available</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">){</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">read</span><span class="p">();</span>
+<span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">read</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="wiring">
+<h3>Wiring<a class="headerlink" href="#wiring" title="Link to this heading">#</a></h3>
+<p>Most Arduinos run on 5V which would damage the teensy. However we can decide the Voltage to be used for I2C communication by connecting the teensy’s 3.3V to our I2C data and clock pins through 4.7kOhm pullup resistors.</p>
+<p><u>Use either a USB connection for the arduino nano or the connection to the teensy’s 5V.</u>
+For development it can be beneficial to first stay with a USB connection for the nano, add Serial.print() calls mirroring the teensy side to confirm that the data is interpreted the same on both sides.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+3.3V
+5V
+GND
+SDA_teensy[&quot;SDA(18)&quot;]
+SCL_teensy[&quot;SCL(19)&quot;]
+end
+
+subgraph Arduino Nano
+GND_arduino[&quot;GND&quot;]
+Vin
+SDA_nano[&quot;SDA(A4)&quot;]
+SCL_nano[&quot;SCL(A5)&quot;]
+end
+
+GND --- GND_arduino
+5V -- ! only if no USB is powering or connected to the arduino already ! --&gt; Vin
+
+3.3V --4.7kOhm--&gt; SDA_teensy
+3.3V --4.7kOhm--&gt; SCL_teensy
+SDA_teensy --- SDA_nano
+SCL_teensy --- SCL_nano
+    </pre><p>This will work analogous for other arduinos. Some might have other pins for their SDA and SCL though.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="microphones.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Microphones</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="outside_devices.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Integrating Outside Devices</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensors-controls-and-processes">Sensors, Controls and Processes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-h">Config.h</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-new-heavy-compute-arduino-side-device">Adding a new heavy-compute arduino-side device</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example">Code Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring">Wiring</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Neuroraken developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC0 (2025).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
