@@ -458,7 +458,7 @@ class Corridor(State):
         # show the world
         sketch.shape(self.world)
          
-    def on_sketch_setup(self, sketch):
+    def pre_task(self, sketch):
         # assets needs to be loaded before other functions that might need them
         filepath = str((Path(__file__).parent / 'assets' / 'corridor.obj').resolve())
         self.world = sketch.load_shape(filepath)
@@ -505,78 +505,76 @@ If your primary display is set to vertical/portrait ViZDoom may not be able to r
 from neurokraken import Neurokraken, State
 from neurokraken.configurators import Display, devices
 
-serial_in  = {'shoot': devices.binary_read(pin=30, keys=['space']),
-              'turn': devices.analog_read(pin=31, keys=['left', 'right']),
-              'forward': devices.analog_read(pin=32, keys=['up', 'down'])}
+serial_in  = {'shoot': devices.binary_read(pin=13, keys=['space']),
+              'turn': devices.analog_read(pin=14, keys=['left', 'right']),
+              'forward': devices.analog_read(pin=15, keys=['down', 'up'])}
 
-serial_out = {'reward': devices.timed_on(pin=33)}
+serial_out = {'reward': devices.timed_on(pin=40)}
 
 nk = Neurokraken(serial_in, serial_out, display=Display(size=(800, 600)), mode='keyboard')
 
 import vizdoom as vzd # pip install vizdoom --pre
 from neurokraken.controls import get
+from neurokraken.tools import Millis
+millis_timer = Millis()
 
 import numpy as np
 
 get.fps = 60
+game = vzd.DoomGame()
+# run a specific scenario
+# game.set_doom_scenario_path(str(Path(vzd.scenarios_path) / "basic.wad"))
+# game.set_doom_map("map01")
 
-class DOOM(State):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+# render options
+game.set_screen_resolution(vzd.ScreenResolution.RES_800X600)
+game.set_screen_format(vzd.ScreenFormat.RGB24)
+game.set_render_hud(True);              game.set_render_minimal_hud(False)  # whether hud is enabled
+game.set_render_crosshair(True);        game.set_render_weapon(True)
+game.set_render_decals(True);           game.set_render_particles(True)
+game.set_render_effects_sprites(True);  game.set_render_messages(True)      # In-game text messages
+game.set_render_corpses(True);          game.set_render_screen_flashes(True) 
 
-        self.game = vzd.DoomGame()
+# Buttons https://vizdoom.farama.org/api/python/enums/#vizdoom.Button
+game.set_available_buttons([vzd.Button.MOVE_FORWARD, vzd.Button.MOVE_BACKWARD, vzd.Button.TURN_LEFT, 
+                                  vzd.Button.TURN_RIGHT, vzd.Button.ATTACK, vzd.Button.USE])
 
-        # run a specific scenario
-        # self.game.set_doom_scenario_path(str(Path(vzd.scenarios_path) / "basic.wad"))
-        # self.game.set_doom_map("map01")
+# accessible data from the game
+game.set_available_game_variables([vzd.GameVariable.KILLCOUNT])
 
-        # render options
-        self.game.set_screen_resolution(vzd.ScreenResolution.RES_800X600)
-        self.game.set_screen_format(vzd.ScreenFormat.RGB24)
-        self.game.set_render_hud(True);  self.game.set_render_minimal_hud(False)  # whether hud is enabled
-        self.game.set_render_crosshair(True);   self.game.set_render_weapon(True)
-        self.game.set_render_decals(True);   self.game.set_render_particles(True)
-        self.game.set_render_effects_sprites(True);   self.game.set_render_messages(True)  # In-game text messages
-        self.game.set_render_corpses(True);   self.game.set_render_screen_flashes(True) 
+# We could use the built-in window with set_window_visible(True). 
+# For this example however we are going to provide the screen buffer pixels to loop_visual
+game.set_window_visible(False)
+# game.set_sound_enabled(True)  # sound only works if the built-in doom window were visible and in focus
 
-        # Buttons https://vizdoom.farama.org/api/python/enums/#vizdoom.Button
-        self.game.set_available_buttons([vzd.Button.MOVE_FORWARD, vzd.Button.MOVE_BACKWARD, vzd.Button.TURN_LEFT, 
-                                         vzd.Button.TURN_RIGHT, vzd.Button.ATTACK, vzd.Button.USE])
+game.set_mode(vzd.Mode.PLAYER)
+game.init()
 
-        # accessible data from the game
-        self.game.set_available_game_variables([vzd.GameVariable.KILLCOUNT])
+#store the game object in get. for global access
+get.game = game
+get.screen_buf = np.zeros(shape=(600,800,3), dtype=np.uint8)
 
-        # We could use the built-in window with set_window_visible(True). 
-        # For this example however we are going to provide the screen buffer pixels to loop_visual
-        self.game.set_window_visible(False)
-        # self.game.set_sound_enabled(True)  # sound only works if the built-in doom window were visible and in focus
-
-        self.game.set_mode(vzd.Mode.PLAYER)
-        self.game.init()
-
-        self.screen_buf = np.zeros(shape=(600,800,3), dtype=np.uint8)
-        self.total_rewards = 0
-  
+class DOOM(State):        
     def on_start(self):
-        self.game.new_episode()
-        self.last_frame = get.time_ms
+        get.game.new_episode()
+        self.total_rewards = 0
 
     def loop_main(self):
-        # slow down the game loop executions to the framerate
-        if get.time_ms - self.last_frame < 1000/get.fps:
+        # slow down the game loop executions to a 60 fps framerate
+        if millis_timer() < 16:
             return False, 0
-        self.last_frame = get.time_ms
+        millis_timer.zero()
         
-        if self.game.is_episode_finished():
+        if get.game.is_episode_finished():
             return True, 0
         else:
-            state = self.game.get_state()
-            self.screen_buf = state.screen_buffer 
+            state = get.game.get_state()
+            get.screen_buf = state.screen_buffer 
 
             action = [False, False, False, False, False, False]
 
             x_mag = get.read_in('turn')
-            y_mag = get.read_in('forward')
+            y_mag = 1024 - get.read_in('forward') # y is inverted 1024 to 0
                       
             if y_mag < 384:
               action[0] = True
@@ -590,9 +588,9 @@ class DOOM(State):
               action[4] = True
               action[5] = True
 
-            reward = self.game.make_action(action)
+            reward = get.game.make_action(action)
 
-            points = self.game.get_game_variable(vzd.GameVariable.KILLCOUNT)
+            points = get.game.get_game_variable(vzd.GameVariable.KILLCOUNT)
             if points > self.total_rewards:
                self.total_rewards = points
                get.send_out('reward', 70)
@@ -601,10 +599,10 @@ class DOOM(State):
         
     def loop_visual(self, sketch):
         # pass the current screen_buffer to a py5 image and display it
-        sketch.create_image_from_numpy(self.screen_buf, bands='RGB', dst=self.screen)
+        sketch.create_image_from_numpy(get.screen_buf, bands='RGB', dst=self.screen)
         sketch.image(self.screen, 0, 0)
 
-    def on_sketch_setup(self, sketch):
+    def pre_task(self, sketch):
        # we only need to create this once before the task, not at every state on_start()
        self.screen = sketch.create_image(800, 600, sketch.RGB)
 
@@ -615,22 +613,250 @@ task = {
 }
 
 # call the game environment's close function upon neurokraken quit
-nk.load_task(task, run_at_quit=lambda: get.current_state.game.close)
+nk.load_task(task, run_at_quit=lambda: get.game.close)
+
+nk.run()
+```
+
+## game
+
+An example using 2D assets to create a simple game arena that can be navigated for rewards.
+For control a PSP 2000 joystick is used which can be connected to the teensy as 2 analog_read devices.
+
+This task provides an example for
+- loading images during a State's `pre_task()` for later usage in `loop_visual()`
+- Creating helper functions `constrain()` and `distance()` for usage within the task
+- updating the game location of rewards dynamically after collections
+
+```python
+from neurokraken import Neurokraken, State
+from neurokraken.configurators import Display, devices
+
+serial_in  = {'LR': devices.analog_read(pin=14, keys=['left', 'right']),
+              'UD': devices.analog_read(pin=15, keys=['down', 'up'])}
+
+serial_out = {'reward': devices.timed_on(pin=40)}
+
+nk = Neurokraken(serial_in, serial_out, display=Display(size=(800, 600)), mode='keyboard')
+
+from pathlib import Path
+import random
+from neurokraken.controls import get
+from neurokraken.tools import Millis
+millis_timer = Millis()
+
+spawn_points = [[100, 100], [700, 100], [100, 500], [700, 500]]
+
+def constrain(value, minimum, maximum):
+    return min(max(value, minimum), maximum)
+
+def distance(x0, y0, x1, y1):
+    return ( (x0-x1)**2 + (y0-y1)**2 )**0.5
+
+class Game(State):
+    def pre_task(self, sketch):
+        # the texture should be loaded before other functions might need it
+        assets_path = Path(__file__).parent / 'assets'
+        self.text_droplet = sketch.load_image( str(assets_path / 'game_droplet.png') )
+        self.text_world =   sketch.load_image( str(assets_path / 'game_world.png') )
+        self.text_heroAr =  sketch.load_image( str(assets_path / 'game_heroAr.png') )
+        self.text_HeroBr =  sketch.load_image( str(assets_path / 'game_heroBr.png') )
+
+    def on_start(self):
+        self.x = 400
+        self.y = 300
+        self.speed = 10
+        self.delta_x = 0 # loop_visual relies on having a self.delta_x from the start on
+        self.reward_pos = spawn_points[0]
+
+    def loop_main(self):
+        # run game loop calculations at a 60 fps framerate
+        if millis_timer() < 16:
+            return False, 0
+        millis_timer.zero()
+
+        # go from range 0-1024 into -1 to +1
+        self.delta_x = (get.read_in('LR') / 512) - 1.0
+        self.delta_y = (get.read_in('UD') / 512) - 1.0
+        
+        # multiply with speed, flip the y axis, update the position
+        self.delta_x *= self.speed
+        self.delta_y *= self.speed * -1
+        self.x += self.delta_x
+        self.y += self.delta_y
+        self.x = constrain(self.x, 0, 800)
+        self.y = constrain(self.y, 0, 600)
+
+        if distance(self.x, self.y, self.reward_pos[0], self.reward_pos[1]) < 130:
+            get.send_out('reward', 100)
+            spawn_options = [s for s in spawn_points if distance(self.x, self.y, s[0], s[1]) > 250]
+            self.reward_pos = random.choice(spawn_options)
+
+        return False, 0
+
+    def loop_visual(self, sketch):
+        sketch.background(0)
+        sketch.image_mode(sketch.CORNERS)
+        sketch.image(self.text_world, 0, 0, 800, 600)
+
+        sketch.image_mode(sketch.CENTER)
+        sketch.image(self.text_droplet, self.reward_pos[0], self.reward_pos[1], 200, 200)
+
+        with sketch.push():
+            # translate to relative coordinates around the character position
+            sketch.translate(self.x, self.y)
+            if self.delta_x < 0:
+                sketch.scale(-1, 1)      # flip the image
+            if get.time_ms % 1000 > 500: # change the texture every 500ms to animate the avatar
+                sketch.image(self.text_heroAr, 0, 0, 105, 126)
+            else:
+                sketch.image(self.text_HeroBr, 0, 0, 105, 126)
+
+task = {
+    'game': Game(next_state='game')
+}
+
+nk.load_task(task)
 
 nk.run()
 ```
 
 ## pong
 
-An example pong game implementation showcasing developing a task antagonist will be added soon
+In this task the subject plays pong vs an AI opponent using a steering wheel
+
+This task provides an example for
+- running a open ended competitive game task
+- Drawing task environment elements using the py5 sketch in `loop_visual()`
+- a task involving continuous dynamic changes through the randomness of the opponent actions
+- We are using the tools.Millis timer to run the game loop at a consistent 60fps irrespective of the main loop's thousands of fps
+
+```python
+from neurokraken import Neurokraken, State
+from neurokraken.configurators import Display, devices
+
+serial_in = {
+    'movement': devices.rotary_encoder(pins=(31, 32), keys=['up', 'down'])
+}
+
+serial_out = {
+    'reward_valve':   devices.timed_on(pin=40),
+}
+
+display = Display(size=(800,600))
+
+nk = Neurokraken(serial_in=serial_in, serial_out=serial_out, 
+                 display=display, mode='keyboard')
+
+import random
+from neurokraken.controls import get
+from neurokraken.tools import Millis
+millis_timer = Millis()
+
+get.score = [0, 0]
+get.speed = 10
+
+class Pong(State):
+    def constrain(self, value, minimum, maximum):
+        return min(max(value, minimum), maximum)
+
+    def on_start(self):
+        self.paddlepos_player = 300
+        self.paddlepos_ai = 300
+        self.ball_pos_x, self.ball_pos_y = [400, 300]
+        self.ball_velocity_x = random.choice([-get.speed, get.speed])
+        self.ball_velocity_y = random.random() - 0.5 # -0.5 to +0.5
+        
+        self.steering_scale = 0.25
+        self.last_position = get.read_in('movement')
+
+    def loop_main(self):
+        if millis_timer() < 16:
+            # run at ~60 hz => only continue if 16ms have passed
+            return False, 0
+        millis_timer.zero()
+        # update the player paddle position
+        new_position = get.read_in('movement')
+        delta_player = new_position - self.last_position
+        # update the current position for the next loop iteration now that you have the delta
+        self.last_position = new_position
+        delta_player *= self.steering_scale
+        self.paddlepos_player += delta_player
+        self.paddlepos_player = self.constrain(self.paddlepos_player, 50, 550)
+
+        # The "AI" will simply follow the ball y position.
+        # Values/calculations here are chosen semiarbitrarily to make the AI competitive but beatable
+        delta_ai = self.ball_pos_y- self.paddlepos_ai
+        delta_ai = self.constrain(delta_ai, -8, 8)
+        # speed down the ai paddle a bit based on its current ball distance
+        delta_ai *=  1 - ((750 - self.ball_pos_x) / 700)
+        self.paddlepos_ai = self.constrain(self.paddlepos_ai + delta_ai, 50, 550)
+
+        # find the new ball position
+        ball_pos_x = self.ball_pos_x + self.ball_velocity_x
+        ball_pos_y = self.ball_pos_y + self.ball_velocity_y
+        if ball_pos_y < 0 or ball_pos_y > 600:
+            self.ball_velocity_y *= -1
+
+        # if the ball position overlaps with either paddle its x velocity is flipped to the center
+        # and a 0.3 fraction of the paddle's y velocity is added to the ball y velocity
+        if ball_pos_x > 45 and ball_pos_x < 55 and \
+           ball_pos_y > self.paddlepos_player-60 and ball_pos_y < self.paddlepos_player+60:
+            self.ball_velocity_x = abs(self.ball_velocity_x)
+            self.ball_velocity_y += delta_player * 1.0
+
+        if ball_pos_x > 745 and ball_pos_x < 755 and \
+           ball_pos_y > self.paddlepos_ai-60 and ball_pos_y < self.paddlepos_ai+60:
+            self.ball_velocity_x = -abs(self.ball_velocity_x)
+            self.ball_velocity_y += delta_ai * 1.0
+
+        self.ball_velocity_y = self.constrain(self.ball_velocity_y, -4, 4)
+
+        # now that all values have been calculated, updated the change to self.ball_pos
+        self.ball_pos_x, self.ball_pos_y = ball_pos_x, ball_pos_y
+
+        # if a left or right edge was reached, log the win/loss, provide a reward, and finish the trial
+        finished = False
+        if self.ball_pos_x > 800:
+            get.score[0] += 1
+            get.log['trials'][-1]['win'] = True # log the outcome
+            get.send_out('reward_valve', 70)
+            finished = True
+        if self.ball_pos_x < 0:
+            get.score[1] += 1
+            get.log['trials'][-1]['win'] = False
+            finished = True
+
+        return finished, 0
+        
+    def loop_visual(self, sketch):
+        sketch.background(0)
+        sketch.stroke(255);   sketch.fill(255)
+        sketch.stroke_weight(10);   sketch.stroke_cap(sketch.SQUARE)
+
+        sketch.line(400, 0, 400, 600) # center line. we could also use sketch variables like sketch.width/2
+        
+        sketch.line(50, self.paddlepos_player-50, 50, self.paddlepos_player+50)
+        sketch.line(750, self.paddlepos_ai-50, 750, self.paddlepos_ai+50)
+
+        sketch.circle(self.ball_pos_x, self.ball_pos_y, 20)
+
+        sketch.text_align(sketch.CENTER, sketch.CENTER)
+        sketch.text_size(60)
+        sketch.text(f'{get.score[0]}        {get.score[1]}', 400, 40)
+
+task = {
+    'pong': Pong(next_state='pong', trial_complete=True),
+}
+
+nk.load_task(task)
+
+nk.run()
+```
 
 ## eye_tracking
 
 An eye tracking example using [GazeTracking](https://github.com/antoinelame/GazeTracking) will be added soon
-
-## game
-
-An example using 2D assets to create a simple game arena that can be navigated for rewards will be added soon
 
 ## sequence_poke
 
@@ -1322,7 +1548,7 @@ class Steer(State):
         sketch.image_mode(sketch.CENTER)
         sketch.image(self.texture, self.position, 300, 100, 300)
 
-    def on_sketch_setup(self, sketch):
+    def pre_task(self, sketch):
         # the texture should be loaded before other functions might need it
         self.texture = str(Path(__file__).parent / 'assets' / 'steering_texture.png')
         self.texture = sketch.load_image(str(self.texture))
