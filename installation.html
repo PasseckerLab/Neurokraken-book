@@ -398,11 +398,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-repository">Get the repository</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-using-conda-recommended">Installation using conda (recommended)</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#venv-install">venv install</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#uv-install">uv install</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#single-step-conda-install">single-step conda install</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-using-conda-recommended">Installation using conda (recommended)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-installation-methods-venv-uv">Alternative Installation Methods (venv, uv, …)</a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#git-installation">git installation</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#editable-install">Editable install</a></li>
 </ul>
 </li>
 </ul>
@@ -510,10 +509,11 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 <p class="admonition-title">Note</p>
 <p>When using runner mode you and using a conda environment named <strong>“neurokraken”</strong> you can directly run <code class="docutils literal notranslate"><span class="pre">kraken.bat</span></code> instead of <code class="docutils literal notranslate"><span class="pre">kraken.py</span></code>. It will autoactivate this environment and run <a class="reference external" href="http://kraken.py">kraken.py</a> with all arguments forwarded to it. Otherwise the name you give the environment doesn’t matter.</p>
 </div>
-<details>
-<summary>Alternative Installation Methods (venv, uv, ...)</summary>
-<section id="venv-install">
-<h5>venv install<a class="headerlink" href="#venv-install" title="Link to this heading">#</a></h5>
+</section>
+<section id="alternative-installation-methods-venv-uv">
+<h4>Alternative Installation Methods (venv, uv, …)<a class="headerlink" href="#alternative-installation-methods-venv-uv" title="Link to this heading">#</a></h4>
+<div class="toggle docutils container">
+<h5 class="rubric" id="venv-install">venv install</h5>
 <p>Using a venv works like a conda environment, but it doesn’t require a conda install, only a python.exe.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv_neurokraken
 venv_neurokraken<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
@@ -526,19 +526,14 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 <p class="admonition-title">Note</p>
 <p>For automated setups you can download a python executable with <code class="docutils literal notranslate"><span class="pre">bitsadmin.exe</span> <span class="pre">/transfer</span> <span class="pre">&quot;JobName&quot;</span> <span class="pre">https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe</span> <span class="pre">C:\path\to\save\file.exe</span></code></p>
 </div>
-</section>
-<section id="uv-install">
-<h5>uv install<a class="headerlink" href="#uv-install" title="Link to this heading">#</a></h5>
+<h5 class="rubric" id="uv-install">uv install</h5>
 <p>Coming soon</p>
-</section>
-<section id="single-step-conda-install">
-<h5>single-step conda install<a class="headerlink" href="#single-step-conda-install" title="Link to this heading">#</a></h5>
+<h5 class="rubric" id="single-step-conda-install">single-step conda install</h5>
 <p>You can also conda create a neurokraken environment and pip install the packages in one step with the following command which also requires git as an additional dependency</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
 </pre></div>
 </div>
-</details>
-</section>
+</div>
 <section id="git-installation">
 <h5>git installation<a class="headerlink" href="#git-installation" title="Link to this heading">#</a></h5>
 <ul class="simple">
@@ -546,6 +541,13 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 <li><p>Git typically comes preinstalled with windows, but if it is missing you can download it from <a class="reference external" href="https://git-scm.com/">git-scm.com</a>. The installer will ask about many settings, but the default options should be perfectly fine.</p></li>
 <li><p>Once you have git installed (you can confirm this by typing <code class="docutils literal notranslate"><span class="pre">git</span></code> in the command line), you can use anaconda/conda to setup a python environment which includes the dependencies for the python code by either running:</p></li>
 </ul>
+</section>
+<section id="editable-install">
+<h5>Editable install<a class="headerlink" href="#editable-install" title="Link to this heading">#</a></h5>
+<p>If your project requires changes to the neurokraken codebase, you can create an editable install. This way the executed neurokraken codebase will directly be your cloned repository rather than a copy of it within your conda environment folder and changes you perform on on the cloned codebase will directly be reflected in your executed code without needing to reinstall neurokraken after every change to the codebase.</p>
+<p>For an editable install with your environment activated add the editable <code class="docutils literal notranslate"><span class="pre">-e</span></code> -flag to the pip install command.
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code></p>
+<p>To remove the current version of neurokraken run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">neurokraken</span></code>.</p>
 </section>
 </section>
 </section>
@@ -630,11 +632,10 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 </ul>
 </li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-repository">Get the repository</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-using-conda-recommended">Installation using conda (recommended)</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#venv-install">venv install</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#uv-install">uv install</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#single-step-conda-install">single-step conda install</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-using-conda-recommended">Installation using conda (recommended)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-installation-methods-venv-uv">Alternative Installation Methods (venv, uv, …)</a><ul class="nav section-nav flex-column">
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#git-installation">git installation</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#editable-install">Editable install</a></li>
 </ul>
 </li>
 </ul>

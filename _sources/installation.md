@@ -86,9 +86,9 @@ pip install additional packages into this environment as they become relevant in
 When using runner mode you and using a conda environment named __"neurokraken"__ you can directly run `kraken.bat` instead of `kraken.py`. It will autoactivate this environment and run kraken.py with all arguments forwarded to it. Otherwise the name you give the environment doesn't matter.
 ```
 
-<details>
-<summary>Alternative Installation Methods (venv, uv, ...)</summary>
+#### Alternative Installation Methods (venv, uv, ...)
 
+````{toggle} test
 ##### venv install
 
 Using a venv works like a conda environment, but it doesn't require a conda install, only a python.exe.
@@ -116,12 +116,21 @@ You can also conda create a neurokraken environment and pip install the packages
 conda env create -f environment.yml
 ```
 
-</details>
+````
 
 ##### git installation
 - Git may become a dependency for some packages aquired from github instead of the pip package index.
 - Git typically comes preinstalled with windows, but if it is missing you can download it from [git-scm.com](https://git-scm.com/). The installer will ask about many settings, but the default options should be perfectly fine.
 - Once you have git installed (you can confirm this by typing `git` in the command line), you can use anaconda/conda to setup a python environment which includes the dependencies for the python code by either running:
+
+##### Editable install
+
+If your project requires changes to the neurokraken codebase, you can create an editable install. This way the executed neurokraken codebase will directly be your cloned repository rather than a copy of it within your conda environment folder and changes you perform on on the cloned codebase will directly be reflected in your executed code without needing to reinstall neurokraken after every change to the codebase.
+
+For an editable install with your environment activated add the editable `-e` -flag to the pip install command.
+`pip install -e .`
+
+To remove the current version of neurokraken run `pip uninstall neurokraken`.
 
 ### Installation Linux
 

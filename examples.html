@@ -398,9 +398,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doom">DOOM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#game">game</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pong">pong</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eye-tracking">eye_tracking</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#game">game</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-poke">sequence_poke</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-examples">UI examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#olfactory-discrimination">olfactory_discrimination</a></li>
@@ -453,9 +453,9 @@ For keyboard mode inputs contain an additional keys=[] list allowing you to map 
 </ul>
 </li>
 <li><p><a class="reference internal" href="#doom" id="id9">DOOM</a></p></li>
-<li><p><a class="reference internal" href="#pong" id="id10">pong</a></p></li>
-<li><p><a class="reference internal" href="#eye-tracking" id="id11">eye_tracking</a></p></li>
-<li><p><a class="reference internal" href="#game" id="id12">game</a></p></li>
+<li><p><a class="reference internal" href="#game" id="id10">game</a></p></li>
+<li><p><a class="reference internal" href="#pong" id="id11">pong</a></p></li>
+<li><p><a class="reference internal" href="#eye-tracking" id="id12">eye_tracking</a></p></li>
 <li><p><a class="reference internal" href="#sequence-poke" id="id13">sequence_poke</a></p></li>
 <li><p><a class="reference internal" href="#ui-examples" id="id14">UI examples</a></p></li>
 <li><p><a class="reference internal" href="#olfactory-discrimination" id="id15">olfactory_discrimination</a></p></li>
@@ -908,7 +908,7 @@ Py5/Processing differs from from Blender by using a left hand coordinate system 
         <span class="c1"># show the world</span>
         <span class="n">sketch</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="p">)</span>
          
-    <span class="k">def</span><span class="w"> </span><span class="nf">on_sketch_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
         <span class="c1"># assets needs to be loaded before other functions that might need them</span>
         <span class="n">filepath</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;assets&#39;</span> <span class="o">/</span> <span class="s1">&#39;corridor.obj&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">world</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">load_shape</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
@@ -955,78 +955,76 @@ ViZDoom <a class="reference external" href="https://vizdoom.cs.put.edu.pl/">http
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Display</span><span class="p">,</span> <span class="n">devices</span>
 
-<span class="n">serial_in</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;shoot&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">binary_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;space&#39;</span><span class="p">]),</span>
-              <span class="s1">&#39;turn&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]),</span>
-              <span class="s1">&#39;forward&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">])}</span>
+<span class="n">serial_in</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;shoot&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">binary_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;space&#39;</span><span class="p">]),</span>
+              <span class="s1">&#39;turn&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]),</span>
+              <span class="s1">&#39;forward&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">])}</span>
 
-<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">33</span><span class="p">)}</span>
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">40</span><span class="p">)}</span>
 
 <span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="p">,</span> <span class="n">serial_out</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">vizdoom</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vzd</span> <span class="c1"># pip install vizdoom --pre</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Millis</span>
+<span class="n">millis_timer</span> <span class="o">=</span> <span class="n">Millis</span><span class="p">()</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">get</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">game</span> <span class="o">=</span> <span class="n">vzd</span><span class="o">.</span><span class="n">DoomGame</span><span class="p">()</span>
+<span class="c1"># run a specific scenario</span>
+<span class="c1"># game.set_doom_scenario_path(str(Path(vzd.scenarios_path) / &quot;basic.wad&quot;))</span>
+<span class="c1"># game.set_doom_map(&quot;map01&quot;)</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">DOOM</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="c1"># render options</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_screen_resolution</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">ScreenResolution</span><span class="o">.</span><span class="n">RES_800X600</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_screen_format</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">ScreenFormat</span><span class="o">.</span><span class="n">RGB24</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_render_hud</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>              <span class="n">game</span><span class="o">.</span><span class="n">set_render_minimal_hud</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># whether hud is enabled</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_render_crosshair</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>        <span class="n">game</span><span class="o">.</span><span class="n">set_render_weapon</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_render_decals</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>           <span class="n">game</span><span class="o">.</span><span class="n">set_render_particles</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_render_effects_sprites</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>  <span class="n">game</span><span class="o">.</span><span class="n">set_render_messages</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>      <span class="c1"># In-game text messages</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_render_corpses</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>          <span class="n">game</span><span class="o">.</span><span class="n">set_render_screen_flashes</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> 
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span> <span class="o">=</span> <span class="n">vzd</span><span class="o">.</span><span class="n">DoomGame</span><span class="p">()</span>
+<span class="c1"># Buttons https://vizdoom.farama.org/api/python/enums/#vizdoom.Button</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_available_buttons</span><span class="p">([</span><span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">MOVE_FORWARD</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">MOVE_BACKWARD</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">TURN_LEFT</span><span class="p">,</span> 
+                                  <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">TURN_RIGHT</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">ATTACK</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">USE</span><span class="p">])</span>
 
-        <span class="c1"># run a specific scenario</span>
-        <span class="c1"># self.game.set_doom_scenario_path(str(Path(vzd.scenarios_path) / &quot;basic.wad&quot;))</span>
-        <span class="c1"># self.game.set_doom_map(&quot;map01&quot;)</span>
+<span class="c1"># accessible data from the game</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_available_game_variables</span><span class="p">([</span><span class="n">vzd</span><span class="o">.</span><span class="n">GameVariable</span><span class="o">.</span><span class="n">KILLCOUNT</span><span class="p">])</span>
 
-        <span class="c1"># render options</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_screen_resolution</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">ScreenResolution</span><span class="o">.</span><span class="n">RES_800X600</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_screen_format</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">ScreenFormat</span><span class="o">.</span><span class="n">RGB24</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_hud</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>  <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_minimal_hud</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># whether hud is enabled</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_crosshair</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>   <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_weapon</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_decals</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>   <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_particles</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_effects_sprites</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>   <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_messages</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># In-game text messages</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_corpses</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>   <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_render_screen_flashes</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> 
+<span class="c1"># We could use the built-in window with set_window_visible(True). </span>
+<span class="c1"># For this example however we are going to provide the screen buffer pixels to loop_visual</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_window_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># game.set_sound_enabled(True)  # sound only works if the built-in doom window were visible and in focus</span>
 
-        <span class="c1"># Buttons https://vizdoom.farama.org/api/python/enums/#vizdoom.Button</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_available_buttons</span><span class="p">([</span><span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">MOVE_FORWARD</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">MOVE_BACKWARD</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">TURN_LEFT</span><span class="p">,</span> 
-                                         <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">TURN_RIGHT</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">ATTACK</span><span class="p">,</span> <span class="n">vzd</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">USE</span><span class="p">])</span>
+<span class="n">game</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">Mode</span><span class="o">.</span><span class="n">PLAYER</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 
-        <span class="c1"># accessible data from the game</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_available_game_variables</span><span class="p">([</span><span class="n">vzd</span><span class="o">.</span><span class="n">GameVariable</span><span class="o">.</span><span class="n">KILLCOUNT</span><span class="p">])</span>
+<span class="c1">#store the game object in get. for global access</span>
+<span class="n">get</span><span class="o">.</span><span class="n">game</span> <span class="o">=</span> <span class="n">game</span>
+<span class="n">get</span><span class="o">.</span><span class="n">screen_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 
-        <span class="c1"># We could use the built-in window with set_window_visible(True). </span>
-        <span class="c1"># For this example however we are going to provide the screen buffer pixels to loop_visual</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_window_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-        <span class="c1"># self.game.set_sound_enabled(True)  # sound only works if the built-in doom window were visible and in focus</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">Mode</span><span class="o">.</span><span class="n">PLAYER</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">screen_buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_rewards</span> <span class="o">=</span> <span class="mi">0</span>
-  
+<span class="k">class</span><span class="w"> </span><span class="nc">DOOM</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>        
     <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">new_episode</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_frame</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">new_episode</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_rewards</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># slow down the game loop executions to the framerate</span>
-        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_frame</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="o">/</span><span class="n">get</span><span class="o">.</span><span class="n">fps</span><span class="p">:</span>
+        <span class="c1"># slow down the game loop executions to a 60 fps framerate</span>
+        <span class="k">if</span> <span class="n">millis_timer</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_frame</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span>
+        <span class="n">millis_timer</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
         
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">is_episode_finished</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">is_episode_finished</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">screen_buf</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">screen_buffer</span> 
+            <span class="n">state</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">screen_buf</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">screen_buffer</span> 
 
             <span class="n">action</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
 
             <span class="n">x_mag</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;turn&#39;</span><span class="p">)</span>
-            <span class="n">y_mag</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;forward&#39;</span><span class="p">)</span>
+            <span class="n">y_mag</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">-</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;forward&#39;</span><span class="p">)</span> <span class="c1"># y is inverted 1024 to 0</span>
                       
             <span class="k">if</span> <span class="n">y_mag</span> <span class="o">&lt;</span> <span class="mi">384</span><span class="p">:</span>
               <span class="n">action</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1040,9 +1038,9 @@ ViZDoom <a class="reference external" href="https://vizdoom.cs.put.edu.pl/">http
               <span class="n">action</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
               <span class="n">action</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
-            <span class="n">reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">make_action</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">make_action</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
 
-            <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">get_game_variable</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">GameVariable</span><span class="o">.</span><span class="n">KILLCOUNT</span><span class="p">)</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">get_game_variable</span><span class="p">(</span><span class="n">vzd</span><span class="o">.</span><span class="n">GameVariable</span><span class="o">.</span><span class="n">KILLCOUNT</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">points</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_rewards</span><span class="p">:</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">total_rewards</span> <span class="o">=</span> <span class="n">points</span>
                <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
@@ -1051,10 +1049,10 @@ ViZDoom <a class="reference external" href="https://vizdoom.cs.put.edu.pl/">http
         
     <span class="k">def</span><span class="w"> </span><span class="nf">loop_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
         <span class="c1"># pass the current screen_buffer to a py5 image and display it</span>
-        <span class="n">sketch</span><span class="o">.</span><span class="n">create_image_from_numpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen_buf</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">create_image_from_numpy</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">screen_buf</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">)</span>
         <span class="n">sketch</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">on_sketch_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
        <span class="c1"># we only need to create this once before the task, not at every state on_start()</span>
        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">create_image</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="n">sketch</span><span class="o">.</span><span class="n">RGB</span><span class="p">)</span>
 
@@ -1065,23 +1063,251 @@ ViZDoom <a class="reference external" href="https://vizdoom.cs.put.edu.pl/">http
 <span class="p">}</span>
 
 <span class="c1"># call the game environment&#39;s close function upon neurokraken quit</span>
-<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">run_at_quit</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">get</span><span class="o">.</span><span class="n">current_state</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">run_at_quit</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">get</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="game">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">game</a><a class="headerlink" href="#game" title="Link to this heading">#</a></h2>
+<p>An example using 2D assets to create a simple game arena that can be navigated for rewards.
+For control a PSP 2000 joystick is used which can be connected to the teensy as 2 analog_read devices.</p>
+<p>This task provides an example for</p>
+<ul class="simple">
+<li><p>loading images during a State’s <code class="docutils literal notranslate"><span class="pre">pre_task()</span></code> for later usage in <code class="docutils literal notranslate"><span class="pre">loop_visual()</span></code></p></li>
+<li><p>Creating helper functions <code class="docutils literal notranslate"><span class="pre">constrain()</span></code> and <code class="docutils literal notranslate"><span class="pre">distance()</span></code> for usage within the task</p></li>
+<li><p>updating the game location of rewards dynamically after collections</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Display</span><span class="p">,</span> <span class="n">devices</span>
+
+<span class="n">serial_in</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LR&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]),</span>
+              <span class="s1">&#39;UD&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">analog_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">])}</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">40</span><span class="p">)}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="p">,</span> <span class="n">serial_out</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Millis</span>
+<span class="n">millis_timer</span> <span class="o">=</span> <span class="n">Millis</span><span class="p">()</span>
+
+<span class="n">spawn_points</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">700</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span> <span class="p">[</span><span class="mi">700</span><span class="p">,</span> <span class="mi">500</span><span class="p">]]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">constrain</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">maximum</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">minimum</span><span class="p">),</span> <span class="n">maximum</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">distance</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="p">(</span><span class="n">x0</span><span class="o">-</span><span class="n">x1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y0</span><span class="o">-</span><span class="n">y1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Game</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="c1"># the texture should be loaded before other functions might need it</span>
+        <span class="n">assets_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;assets&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_droplet</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="n">assets_path</span> <span class="o">/</span> <span class="s1">&#39;game_droplet.png&#39;</span><span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_world</span> <span class="o">=</span>   <span class="n">sketch</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="n">assets_path</span> <span class="o">/</span> <span class="s1">&#39;game_world.png&#39;</span><span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_heroAr</span> <span class="o">=</span>  <span class="n">sketch</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="n">assets_path</span> <span class="o">/</span> <span class="s1">&#39;game_heroAr.png&#39;</span><span class="p">)</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_HeroBr</span> <span class="o">=</span>  <span class="n">sketch</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span> <span class="nb">str</span><span class="p">(</span><span class="n">assets_path</span> <span class="o">/</span> <span class="s1">&#39;game_heroBr.png&#39;</span><span class="p">)</span> <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">400</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_x</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># loop_visual relies on having a self.delta_x from the start on</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_pos</span> <span class="o">=</span> <span class="n">spawn_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># run game loop calculations at a 60 fps framerate</span>
+        <span class="k">if</span> <span class="n">millis_timer</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">millis_timer</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+
+        <span class="c1"># go from range 0-1024 into -1 to +1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;LR&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">512</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;UD&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">512</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
+        
+        <span class="c1"># multiply with speed, flip the y axis, update the position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_x</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_y</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">constrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">constrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">distance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">130</span><span class="p">:</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="n">spawn_options</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">spawn_points</span> <span class="k">if</span> <span class="n">distance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">250</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reward_pos</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spawn_options</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">image_mode</span><span class="p">(</span><span class="n">sketch</span><span class="o">.</span><span class="n">CORNERS</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_world</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+        <span class="n">sketch</span><span class="o">.</span><span class="n">image_mode</span><span class="p">(</span><span class="n">sketch</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_droplet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">sketch</span><span class="o">.</span><span class="n">push</span><span class="p">():</span>
+            <span class="c1"># translate to relative coordinates around the character position</span>
+            <span class="n">sketch</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sketch</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>      <span class="c1"># flip the image</span>
+            <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span> <span class="c1"># change the texture every 500ms to animate the avatar</span>
+                <span class="n">sketch</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_heroAr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">126</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sketch</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_HeroBr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">126</span><span class="p">)</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;game&#39;</span><span class="p">:</span> <span class="n">Game</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;game&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
 
 <span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="pong">
-<h2><a class="toc-backref" href="#id10" role="doc-backlink">pong</a><a class="headerlink" href="#pong" title="Link to this heading">#</a></h2>
-<p>An example pong game implementation showcasing developing a task antagonist will be added soon</p>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">pong</a><a class="headerlink" href="#pong" title="Link to this heading">#</a></h2>
+<p>In this task the subject plays pong vs an AI opponent using a steering wheel</p>
+<p>This task provides an example for</p>
+<ul class="simple">
+<li><p>running a open ended competitive game task</p></li>
+<li><p>Drawing task environment elements using the py5 sketch in <code class="docutils literal notranslate"><span class="pre">loop_visual()</span></code></p></li>
+<li><p>a task involving continuous dynamic changes through the randomness of the opponent actions</p></li>
+<li><p>We are using the tools.Millis timer to run the game loop at a consistent 60fps irrespective of the main loop’s thousands of fps</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Display</span><span class="p">,</span> <span class="n">devices</span>
+
+<span class="n">serial_in</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;movement&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">rotary_encoder</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;reward_valve&#39;</span><span class="p">:</span>   <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">display</span> <span class="o">=</span> <span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">))</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="n">serial_in</span><span class="p">,</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> 
+                 <span class="n">display</span><span class="o">=</span><span class="n">display</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Millis</span>
+<span class="n">millis_timer</span> <span class="o">=</span> <span class="n">Millis</span><span class="p">()</span>
+
+<span class="n">get</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">get</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Pong</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">constrain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">maximum</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">minimum</span><span class="p">),</span> <span class="n">maximum</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span> <span class="o">=</span> <span class="mi">300</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span> <span class="o">=</span> <span class="mi">300</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="o">-</span><span class="n">get</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="n">get</span><span class="o">.</span><span class="n">speed</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="c1"># -0.5 to +0.5</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">steering_scale</span> <span class="o">=</span> <span class="mf">0.25</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_position</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;movement&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">millis_timer</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="c1"># run at ~60 hz =&gt; only continue if 16ms have passed</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">millis_timer</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="c1"># update the player paddle position</span>
+        <span class="n">new_position</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;movement&#39;</span><span class="p">)</span>
+        <span class="n">delta_player</span> <span class="o">=</span> <span class="n">new_position</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_position</span>
+        <span class="c1"># update the current position for the next loop iteration now that you have the delta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_position</span> <span class="o">=</span> <span class="n">new_position</span>
+        <span class="n">delta_player</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">steering_scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span> <span class="o">+=</span> <span class="n">delta_player</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">550</span><span class="p">)</span>
+
+        <span class="c1"># The &quot;AI&quot; will simply follow the ball y position.</span>
+        <span class="c1"># Values/calculations here are chosen semiarbitrarily to make the AI competitive but beatable</span>
+        <span class="n">delta_ai</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_y</span><span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span>
+        <span class="n">delta_ai</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constrain</span><span class="p">(</span><span class="n">delta_ai</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="c1"># speed down the ai paddle a bit based on its current ball distance</span>
+        <span class="n">delta_ai</span> <span class="o">*=</span>  <span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="mi">750</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">700</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span> <span class="o">+</span> <span class="n">delta_ai</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">550</span><span class="p">)</span>
+
+        <span class="c1"># find the new ball position</span>
+        <span class="n">ball_pos_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_x</span>
+        <span class="n">ball_pos_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_y</span>
+        <span class="k">if</span> <span class="n">ball_pos_y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">ball_pos_y</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="c1"># if the ball position overlaps with either paddle its x velocity is flipped to the center</span>
+        <span class="c1"># and a 0.3 fraction of the paddle&#39;s y velocity is added to the ball y velocity</span>
+        <span class="k">if</span> <span class="n">ball_pos_x</span> <span class="o">&gt;</span> <span class="mi">45</span> <span class="ow">and</span> <span class="n">ball_pos_x</span> <span class="o">&lt;</span> <span class="mi">55</span> <span class="ow">and</span> \
+           <span class="n">ball_pos_y</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span><span class="o">-</span><span class="mi">60</span> <span class="ow">and</span> <span class="n">ball_pos_y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span><span class="o">+</span><span class="mi">60</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_x</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_y</span> <span class="o">+=</span> <span class="n">delta_player</span> <span class="o">*</span> <span class="mf">1.0</span>
+
+        <span class="k">if</span> <span class="n">ball_pos_x</span> <span class="o">&gt;</span> <span class="mi">745</span> <span class="ow">and</span> <span class="n">ball_pos_x</span> <span class="o">&lt;</span> <span class="mi">755</span> <span class="ow">and</span> \
+           <span class="n">ball_pos_y</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span><span class="o">-</span><span class="mi">60</span> <span class="ow">and</span> <span class="n">ball_pos_y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span><span class="o">+</span><span class="mi">60</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_x</span> <span class="o">=</span> <span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_y</span> <span class="o">+=</span> <span class="n">delta_ai</span> <span class="o">*</span> <span class="mf">1.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ball_velocity_y</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># now that all values have been calculated, updated the change to self.ball_pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_y</span> <span class="o">=</span> <span class="n">ball_pos_x</span><span class="p">,</span> <span class="n">ball_pos_y</span>
+
+        <span class="c1"># if a left or right edge was reached, log the win/loss, provide a reward, and finish the trial</span>
+        <span class="n">finished</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_x</span> <span class="o">&gt;</span> <span class="mi">800</span><span class="p">:</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;win&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># log the outcome</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+            <span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">score</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;win&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">finished</span><span class="p">,</span> <span class="mi">0</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">stroke</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>   <span class="n">sketch</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">stroke_weight</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>   <span class="n">sketch</span><span class="o">.</span><span class="n">stroke_cap</span><span class="p">(</span><span class="n">sketch</span><span class="o">.</span><span class="n">SQUARE</span><span class="p">)</span>
+
+        <span class="n">sketch</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span> <span class="c1"># center line. we could also use sketch variables like sketch.width/2</span>
+        
+        <span class="n">sketch</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_player</span><span class="o">+</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">750</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">paddlepos_ai</span><span class="o">+</span><span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">sketch</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ball_pos_y</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+        <span class="n">sketch</span><span class="o">.</span><span class="n">text_align</span><span class="p">(</span><span class="n">sketch</span><span class="o">.</span><span class="n">CENTER</span><span class="p">,</span> <span class="n">sketch</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">text_size</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get</span><span class="o">.</span><span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">        </span><span class="si">{</span><span class="n">get</span><span class="o">.</span><span class="n">score</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;pong&#39;</span><span class="p">:</span> <span class="n">Pong</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;pong&#39;</span><span class="p">,</span> <span class="n">trial_complete</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 </section>
 <section id="eye-tracking">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink">eye_tracking</a><a class="headerlink" href="#eye-tracking" title="Link to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">eye_tracking</a><a class="headerlink" href="#eye-tracking" title="Link to this heading">#</a></h2>
 <p>An eye tracking example using <a class="reference external" href="https://github.com/antoinelame/GazeTracking">GazeTracking</a> will be added soon</p>
-</section>
-<section id="game">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">game</a><a class="headerlink" href="#game" title="Link to this heading">#</a></h2>
-<p>An example using 2D assets to create a simple game arena that can be navigated for rewards will be added soon</p>
 </section>
 <section id="sequence-poke">
 <h2><a class="toc-backref" href="#id13" role="doc-backlink">sequence_poke</a><a class="headerlink" href="#sequence-poke" title="Link to this heading">#</a></h2>
@@ -1785,7 +2011,7 @@ An UI allows live update to a range of variables to update the difficulty includ
         <span class="n">sketch</span><span class="o">.</span><span class="n">image_mode</span><span class="p">(</span><span class="n">sketch</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span>
         <span class="n">sketch</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">texture</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">on_sketch_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
         <span class="c1"># the texture should be loaded before other functions might need it</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;assets&#39;</span> <span class="o">/</span> <span class="s1">&#39;steering_texture.png&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">texture</span><span class="p">))</span>
@@ -1961,9 +2187,9 @@ An UI allows live update to a range of variables to update the difficulty includ
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doom">DOOM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#game">game</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pong">pong</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eye-tracking">eye_tracking</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#game">game</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-poke">sequence_poke</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-examples">UI examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#olfactory-discrimination">olfactory_discrimination</a></li>
