@@ -365,7 +365,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -381,6 +383,38 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-in-dict">serial_in :dict</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-out-dict">serial_out :dict</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-configurators-display">display :configurators.Display</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#size-int-int">size :(int,int)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#position-int-int">position :(int,int)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#borderless-bool">borderless :bool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#renderer-str">renderer :str</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-dir-str-none">log_dir :str|None</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cameras-configurators-camera-list">cameras :configurators.Camera|list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microphones-configurators-microphone-list">microphones :configurators.Microphone|list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-str">mode :str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-class-none">agent :class|None</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-key-str">serial_key :str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subject-dict-str">subject :dict|str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#max-framerate-int">max_framerate :int</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autostart-bool">autostart :bool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-performance-bool">log_performance :bool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runner-mode-arguments">runner mode arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config">config</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-path">task_path</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-pre-run">import_pre_run</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -392,7 +426,217 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="configuration-the-neurokraken-object">
 <h1>Configuration - The Neurokraken Object<a class="headerlink" href="#configuration-the-neurokraken-object" title="Link to this heading">#</a></h1>
-<p>This chapter is currently in development and will be added soon</p>
+<p>A minimal empty task that also contains imports for optional components and forever runs an empty state named “state_name” looks like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Display</span><span class="p">,</span> <span class="n">Microphone</span><span class="p">,</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">devices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="p">{},</span> <span class="n">serial_out</span><span class="o">=</span><span class="p">{},</span> <span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="s1">&#39;state_name&#39;</span><span class="p">:</span> <span class="n">State</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;state_name&#39;</span><span class="p">))</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In the first step we create a Neurokraken object here named <code class="docutils literal notranslate"><span class="pre">nk</span></code>. In the following part we can add our experiment logic using states and run the task.
+The Neurokraken object manages communication with hardware components including serial interfaces, camera systems, and data logging. It handles task execution, real-time data streaming and setup configuration management.</p>
+<p>The setup configuration is defined during the creation of the Neurokraken object through respective arguments, including involved components (displays=, cameras=, microphones=, arduino-side electronics serial_in=/serial_out=) and options for how the task should be run (run_mode=, autostart=, log_dir=, …)</p>
+<p>The topics of arduino side devices <code class="docutils literal notranslate"><span class="pre">serial_in</span></code> and <code class="docutils literal notranslate"><span class="pre">serial_out</span></code> can be found in the <a class="reference internal" href="device_library.html"><span class="doc std std-doc">device library chapter</span></a>, while <a class="reference internal" href="cameras.html"><span class="std std-doc">cameras</span></a> and <a class="reference internal" href="microphones.html"><span class="doc std std-doc">microphones</span></a> also are documented in their own chapters.</p>
+<p><strong>Audio Stimuli</strong></p>
+<p>Neurokraken does not have a built-in approach to audio stimuli, however python features a range of packages capable of playing sound files, frequencies and series from chosen computer speakers. Tasks can be extended with audio components by utilzing/calling functions of these packages at relevant times from your main loop. As some implementations of live audio may be blocking the flow of your code, it is reccommended to wrap their usage in a python Threading.thread if you encounter delays in your main loop with a given audio package of interest.</p>
+<!-- ```{contents}
+:local:
+:depth: 1
+``` -->
+<section id="serial-in-dict">
+<h2>serial_in :dict<a class="headerlink" href="#serial-in-dict" title="Link to this heading">#</a></h2>
+<p>A dictionary of named arduino-side sensors used in the task. Common sensor options are available in <code class="docutils literal notranslate"><span class="pre">configurators.devices</span></code>.
+If no arduino side sensors are used you can provide an empty dictionary <code class="docutils literal notranslate"><span class="pre">serial_in={}</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+
+<span class="n">serial_in</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;steering&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">rotary_encoder</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="n">serial_in</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="serial-out-dict">
+<h2>serial_out :dict<a class="headerlink" href="#serial-out-dict" title="Link to this heading">#</a></h2>
+<p>A dictionary of named arduino-side controlled devices used in the task. Common options are available in <code class="docutils literal notranslate"><span class="pre">configurators.devices</span></code>
+If no arduino side controls are used you can provide an empty dictionary <code class="docutils literal notranslate"><span class="pre">serial_out={}</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="display-configurators-display">
+<span id="display"></span><h2>display :configurators.Display<a class="headerlink" href="#display-configurators-display" title="Link to this heading">#</a></h2>
+<p>Settings for the Subjects view using a confugrators.Display class</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">=</span><span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">))</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span> <span class="n">display</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="size-int-int">
+<h3>size :(int,int)<a class="headerlink" href="#size-int-int" title="Link to this heading">#</a></h3>
+<p>the width and height of the window in pixels. Defaults to <code class="docutils literal notranslate"><span class="pre">(800,</span> <span class="pre">600)</span></code>.</p>
+<p>Depending on your system drawing many changing pixel can be a surprisingly large sink for your system’s performance. If you want to optimize compute requirements of your task and your subjects don’t require HD you can switch to a lower resolution.</p>
+<p>For this in your windows settings -&gt; display settings you can set your subject monitor’s resolution from something high like 1k or 2k to something lower like (800, 600) and match the resolution in the display configuration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">))</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>This resolution will be used for the loop_visual py5 sketch, meaning that in this case <code class="docutils literal notranslate"><span class="pre">sketch.ellipse(0,</span> <span class="pre">0,</span> <span class="pre">10,</span> <span class="pre">10)</span></code> would draw a 10 pixel ellipse on the top left end of the window and <code class="docutils literal notranslate"><span class="pre">sketch.ellipse(790,</span> <span class="pre">0,</span> <span class="pre">10,</span> <span class="pre">10)</span></code> would draw an ellipse on the top right end of the window.</p>
+<p>To span multiple displays you can also choose a size larger than a single display like <code class="docutils literal notranslate"><span class="pre">size=(1600,</span> <span class="pre">600)</span></code></p>
+</section>
+<section id="position-int-int">
+<h3>position :(int,int)<a class="headerlink" href="#position-int-int" title="Link to this heading">#</a></h3>
+<p>The position relative to the top left corner of your primary display. Defaults to (0, 0).</p>
+<p>On windows can find the organizations your displays in the Windows Display Settings.
+For example when you have a 2ndary 800x600 monitor for your subject set directly to the left of your main display, you can move the position this 800 pixels width to the left to fit your task visuals perfectly onto that display.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">800</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="borderless-bool">
+<h3>borderless :bool<a class="headerlink" href="#borderless-bool" title="Link to this heading">#</a></h3>
+<p>Whether the visual window should be displayed without a taskbar, i.e. as a fullscreen visual. Defaults to False.</p>
+<p><code class="docutils literal notranslate"><span class="pre">borderless=False</span></code> can be useful to have a window that can be dragged around when testing.</p>
+<p><code class="docutils literal notranslate"><span class="pre">borderless=True</span></code> is useful in the applied task to provide a focused task visual.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">800</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">borderless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="renderer-str">
+<h3>renderer :str<a class="headerlink" href="#renderer-str" title="Link to this heading">#</a></h3>
+<p>The rendering backend to use by py5. One of <code class="docutils literal notranslate"><span class="pre">'JAVA2D'</span></code>, <code class="docutils literal notranslate"><span class="pre">'P2D'</span></code> and <code class="docutils literal notranslate"><span class="pre">'P3D'</span></code>. Defaults to ‘JAVA2D’.</p>
+<p>To enable drawing 3D environments <code class="docutils literal notranslate"><span class="pre">renderer='P3D'</span></code> is required.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">Display</span><span class="p">(</span><span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;P3D&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</section>
+</section>
+<section id="log-dir-str-none">
+<h2>log_dir :str|None<a class="headerlink" href="#log-dir-str-none" title="Link to this heading">#</a></h2>
+<p>The director where the log will be saved.</p>
+<p>A log folder will be created at this location and contain the session’s log.json as well as video and audio files from camera and microphone captures.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">log_dir=None</span></code> to not save a log.</p>
+<p>Defaults to the current folder <code class="docutils literal notranslate"><span class="pre">'./'</span></code>.</p>
+<p>During the task you can find the used log dir with <code class="docutils literal notranslate"><span class="pre">get.log_dir</span></code> to manually add additional files of interest.</p>
+<p>In <a class="reference internal" href="runner_mode.html"><span class="doc std std-doc">runner mode</span></a> the save folder will always be the /logs directory of your cloned codebase. Runner mode will also copy a backup of your executed task code to the log_folder.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example directories</span>
+<span class="n">log_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span>                          <span class="c1"># current folder</span>
+<span class="n">log_dir</span> <span class="o">=</span> <span class="s1">&#39;C:/path/to/my/save/folder&#39;</span>   <span class="c1"># specified absolute folder</span>
+<span class="n">log_dir</span> <span class="o">=</span> <span class="kc">None</span>                          <span class="c1"># don&#39;t save a log</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="n">log_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cameras-configurators-camera-list">
+<h2>cameras :configurators.Camera|list<a class="headerlink" href="#cameras-configurators-camera-list" title="Link to this heading">#</a></h2>
+<p>The camera or list [ ] of cameras used to capture the task using configurators.Camera.
+You can either provide a single Camera instance or a list of instances when using multiple cameras.
+Cameras are documented in the <a class="reference internal" href="cameras.html"><span class="std std-doc">cameras chapter</span></a>. Defaults to [ ]</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">utils.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
+
+<span class="n">cameras</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_camera&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1280</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span> <span class="n">max_capture_fps</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">cameras</span><span class="o">=</span><span class="n">cameras</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="microphones-configurators-microphone-list">
+<h2>microphones :configurators.Microphone|list<a class="headerlink" href="#microphones-configurators-microphone-list" title="Link to this heading">#</a></h2>
+<p>The microphpne or list [ ] of microphones used to capture the task using configurators.Microphone.
+You can either provide a single Microphone instance or a list of instances when using multiple microphones.
+Cameras are documented in the <a class="reference internal" href="microphones.html"><span class="doc std std-doc">microphones chapter</span></a>. Defaults to [ ]</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">utils.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Microphone</span>
+
+<span class="n">microphone</span> <span class="o">=</span> <span class="n">Microphone</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_microphone&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">microphones</span><span class="o">=</span><span class="n">microphone</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="mode-str">
+<h2>mode :str<a class="headerlink" href="#mode-str" title="Link to this heading">#</a></h2>
+<p>Operating mode (<code class="docutils literal notranslate"><span class="pre">'teensy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'keyboard'</span></code> or <code class="docutils literal notranslate"><span class="pre">'agent'</span></code>). Defaults to <code class="docutils literal notranslate"><span class="pre">'teensy'</span></code></p>
+<p>In teensy mode neurokraken will search for a USB connected device identifying itself as <code class="docutils literal notranslate"><span class="pre">KRAKEN</span></code> (or a custom set other <a class="reference internal" href="#serial-key"><span class="std std-ref">serial_key</span></a> to run multiple neurokraken and their electronics in parallel on the same computer)
+This is the dominant way to execute experiments in the real world. However trying to run this mode without a teensy connected will result in an error message.</p>
+<p>Keyboard mode can be used to run tasks without any connected teensy and with keyboard inputs replacing the sensors respective serial_in entries. This mode is useful for flexible task development and testing.
+Similarly agent mode allows you to automate providing task inputs like a subject or keyboard would. This can be useful for automated testing or research using AI agents as subjects.
+keyboard and agent mode are covered in detail in the <a class="reference internal" href="modes.html"><span class="doc std std-doc">modes</span></a> chapter</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="agent-class-none">
+<h2>agent :class|None<a class="headerlink" href="#agent-class-none" title="Link to this heading">#</a></h2>
+<p>A class with a def act() method to run when <code class="docutils literal notranslate"><span class="pre">mode='agent'</span></code></p>
+</section>
+<section id="serial-key-str">
+<span id="serial-key"></span><h2>serial_key :str<a class="headerlink" href="#serial-key-str" title="Link to this heading">#</a></h2>
+<p>Serial communication key identifier. Defaults to <code class="docutils literal notranslate"><span class="pre">'KRAKEN'</span></code></p>
+<p>In teensy mode you can run multiple neurokraken instances with respective teensy and electronics in parallel on the same computer. For this each Neurokraken needs to be able to identify its respective teensy. By default this identifier is <code class="docutils literal notranslate"><span class="pre">'KRAKEN'</span></code> and is provided with the teensy upload of the code.</p>
+<p>To update this identifier you have to update it both here in the string provided to the Neurokraken object and in the teensy code before uploading. Within the teensy folder content to be uploaded you can find a file <code class="docutils literal notranslate"><span class="pre">_Utils.h</span></code> containing line 24 <code class="docutils literal notranslate"><span class="pre">{'K',</span> <span class="pre">'R',</span> <span class="pre">'A',</span> <span class="pre">'K',</span> <span class="pre">'E',</span> <span class="pre">'N',</span> <span class="pre">'0',</span> <span class="pre">'0',</span> <span class="pre">'0',</span> <span class="pre">0},</span></code> which defines this identifier on the teensy side.</p>
+<p>To change a task to the identifier <code class="docutils literal notranslate"><span class="pre">SETUP2</span></code> we can edit the python and arduino side as follows. This new Neurokraken identifying its connection as <code class="docutils literal notranslate"><span class="pre">SETUP2</span></code> can then run on the same device and time as one using the original identifier <code class="docutils literal notranslate"><span class="pre">KRAKEN</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">serial_key</span><span class="o">=</span><span class="s1">&#39;SETUP2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="sc">&#39;S&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;E&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;T&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;U&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;P&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;2&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span>
+</pre></div>
+</div>
+</section>
+<section id="subject-dict-str">
+<h2>subject :dict|str<a class="headerlink" href="#subject-dict-str" title="Link to this heading">#</a></h2>
+<p>Subject identification information to be added to <code class="docutils literal notranslate"><span class="pre">get.log.experiment_data</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">{&quot;ID&quot;:</span> <span class="pre">&quot;_&quot;}</span></code></p>
+<p>The saved log_folder will also be named after the provided ID entry, or <code class="docutils literal notranslate"><span class="pre">Neurokraken_</span></code> if ID is <code class="docutils literal notranslate"><span class="pre">_</span></code>.</p>
+<p>If only a string is provided the result is equivalent to providing <code class="docutils literal notranslate"><span class="pre">{&quot;ID&quot;:</span> <span class="pre">&quot;&lt;provided</span> <span class="pre">string&gt;&quot;}</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ID&#39;</span><span class="p">:</span> <span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">:</span> <span class="s1">&#39;7&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</section>
+<section id="max-framerate-int">
+<h2>max_framerate :int<a class="headerlink" href="#max-framerate-int" title="Link to this heading">#</a></h2>
+<p>Maximum frame rate for the main loop. Defaults to 8000</p>
+</section>
+<section id="autostart-bool">
+<h2>autostart :bool<a class="headerlink" href="#autostart-bool" title="Link to this heading">#</a></h2>
+<p>Whether to automatically start the experiment or wait for <code class="docutils literal notranslate"><span class="pre">get.start()</span></code>. Defaults to True.</p>
+<p>Delaying running your task time and states with <code class="docutils literal notranslate"><span class="pre">autostart=False</span></code> until a custom time can be useful for tasks requiring extended setup work, as cameras and controls.get interfaces are already available before triggering <code class="docutils literal notranslate"><span class="pre">get.start()</span></code></p>
+<p>Alternatively to <code class="docutils literal notranslate"><span class="pre">get.start()</span></code> you can start a <code class="docutils literal notranslate"><span class="pre">autostart=False</span></code> task with the keyboard combination <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Alt</span> <span class="pre">+</span> <span class="pre">S</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">autostart</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="log-performance-bool">
+<h2>log_performance :bool<a class="headerlink" href="#log-performance-bool" title="Link to this heading">#</a></h2>
+<p>Set to True to have the main loop log iteration and networking times. Defautls to False.</p>
+<p>Can be used to measure the impact of UIs, and live-analysis on the the speed and regularity of main loop iterations.</p>
+<p>For the most accurate time information it is reccommended to run tasks with <code class="docutils literal notranslate"><span class="pre">mode='teensy'</span></code></p>
+<p>The main loop performance is separate from the teensy millisecond precision sampling which can be confirmed by adding a devices.time_millis with logging=True to your serial_in.</p>
+</section>
+<section id="runner-mode-arguments">
+<h2>runner mode arguments<a class="headerlink" href="#runner-mode-arguments" title="Link to this heading">#</a></h2>
+<p>Internal arguments used by the runner mode to enable its features.</p>
+<section id="config">
+<h3>config<a class="headerlink" href="#config" title="Link to this heading">#</a></h3>
+<p>Useful in runner mode to develop config-dependent experiments. The provided container (i.e. <a class="reference external" href="http://config.py">config.py</a> file) will be accessible as get.config</p>
+</section>
+<section id="task-path">
+<h3>task_path<a class="headerlink" href="#task-path" title="Link to this heading">#</a></h3>
+<p>This folder (i.e. tasks/my_task) will be copied to the log folder as a backup of the experiment run. This path will also be searched for a file <a class="reference external" href="http://launch.py">launch.py</a> to import and run before the experiment start.</p>
+</section>
+<section id="import-pre-run">
+<h3>import_pre_run<a class="headerlink" href="#import-pre-run" title="Link to this heading">#</a></h3>
+<p>Path to a .py file to import just before starting the run, i.e. to start a GUI</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -449,6 +693,45 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-in-dict">serial_in :dict</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-out-dict">serial_out :dict</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#display-configurators-display">display :configurators.Display</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#size-int-int">size :(int,int)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#position-int-int">position :(int,int)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#borderless-bool">borderless :bool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#renderer-str">renderer :str</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-dir-str-none">log_dir :str|None</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cameras-configurators-camera-list">cameras :configurators.Camera|list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microphones-configurators-microphone-list">microphones :configurators.Microphone|list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-str">mode :str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-class-none">agent :class|None</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-key-str">serial_key :str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subject-dict-str">subject :dict|str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#max-framerate-int">max_framerate :int</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autostart-bool">autostart :bool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-performance-bool">log_performance :bool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runner-mode-arguments">runner mode arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config">config</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-path">task_path</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-pre-run">import_pre_run</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -365,7 +365,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -381,6 +383,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#name-str">name :str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#idx-int">idx :int</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-rate-int-none">sample_rate :int|None</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#num-channels-int">num_channels :int:</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -392,7 +405,39 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="microphones">
 <h1>Microphones<a class="headerlink" href="#microphones" title="Link to this heading">#</a></h1>
-<p>Microphone configuration options will be added soon.</p>
+<p>You can add recording microphones to your task using <code class="docutils literal notranslate"><span class="pre">configurators.Microphone</span></code> when creating the Neurokraken object.</p>
+<p>You can list all microphones currently connected to your computer and their indices with the <code class="docutils literal notranslate"><span class="pre">list_connected_recording_devices()</span></code> tool.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">list_connected_recording_devices</span>
+<span class="n">list_connected_recording_devices</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>A microphone can be added to the neurokraken object to create a recording of the task interval. You can also provide a list of microphones to record from multiple sources. After the end of your task you will find the audio file(s) in the log directory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Microphone</span>
+
+<span class="n">mic</span> <span class="o">=</span> <span class="n">Microphone</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mic&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sample_rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span> <span class="n">num_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">microphones</span><span class="o">=</span><span class="n">mic</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To use a higher end 200khz microphone:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mic</span> <span class="o">=</span> <span class="n">Microphone</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mic&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sample_rate</span><span class="o">=</span><span class="mi">200_000</span><span class="p">,</span> <span class="n">num_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="name-str">
+<h2>name :str<a class="headerlink" href="#name-str" title="Link to this heading">#</a></h2>
+<p>Microphone name or identifier. The .wav file and log entries will be saved under this name. Defaults to ‘_’.</p>
+</section>
+<section id="idx-int">
+<h2>idx :int<a class="headerlink" href="#idx-int" title="Link to this heading">#</a></h2>
+<p>Microphone device index. Your first microphone is 0, the 2nd, 1, etc. Defaults to 0.</p>
+</section>
+<section id="sample-rate-int-none">
+<h2>sample_rate :int|None<a class="headerlink" href="#sample-rate-int-none" title="Link to this heading">#</a></h2>
+<p>the sample rate to be used, i.e. 44100. At <code class="docutils literal notranslate"><span class="pre">sample_rate=None</span></code> the microphone’s default sample rate will be used. Defaults to None.</p>
+</section>
+<section id="num-channels-int">
+<h2>num_channels :int:<a class="headerlink" href="#num-channels-int" title="Link to this heading">#</a></h2>
+<p>The number of channels to be recorded (Mono/Stereo). Defaults to 1.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -449,6 +494,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#name-str">name :str</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#idx-int">idx :int</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-rate-int-none">sample_rate :int|None</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#num-channels-int">num_channels :int:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
