@@ -172,6 +172,10 @@ if ...:
 
 ## Controls (.get)
 
+<!-- ```{contents}
+:local:
+``` -->
+
 ### time_ms:int
 The current experiment time in milliseconds
 
