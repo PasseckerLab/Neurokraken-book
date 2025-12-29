@@ -8,6 +8,7 @@ Seee below for more detailed informations and alternative installation approache
 
 install the JDK from [Adoptium JDK download](https://adoptium.net/)
 - make sure to checkmark "set JAVA_HOME" variable during the install
+- If successful, entering `java --version` in a new console will confirm the java installation
 
 ```bash
 git clone https://github.com/PasseckerLab/neurokraken
@@ -39,19 +40,7 @@ When installing miniconda, make sure to checkmark __"Add Miniconda to the system
 ##### Java JDK
 
 - Download and install the jdk (latest LTS Release jdk-21) from [Adoptium JDK download](https://adoptium.net/). Within the installer keep "Add to PATH" and "Set JAVA_HOME variable" checked. Be sure to have administrator rights for your PC or the path might not be set properly.
-
-* If the install was successful running `java -version` in a new command line should provide you with the found version.
-
-<details>
-<summary>alternative automatic java jdk install (works only sometimes)</summary>
-
-There is  chance you can autoinstall the jdk using the following to lines in the command prompt, this however has not yet been shown to relaiably work compared to the manual way above:
-
-```bash
-pip install install-jdk
-python -c "import jdk; print('Java installed to', jdk.install('17'))"
-```
-</details>
+- If the install was successful entering `java -version` in a new command line will confirm the java installation with version information.
 
 (install-arduino)=
 ##### Arduino
