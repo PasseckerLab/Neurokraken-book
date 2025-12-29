@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Common task patterns" href="patterns.html" />
-    <link rel="prev" title="States and Task Progression" href="states.html" />
+    <link rel="prev" title="States - Structuring task steps" href="states.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -191,7 +191,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="controls.html">Controls and Task development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
-<li class="toctree-l1"><a class="reference internal" href="states.html">States and Task Progression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">States - Structuring task steps</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="current nav bd-sidenav">
@@ -430,6 +430,7 @@ document.write(`
 <p>install the JDK from <a class="reference external" href="https://adoptium.net/">Adoptium JDK download</a></p>
 <ul class="simple">
 <li><p>make sure to checkmark “set JAVA_HOME” variable during the install</p></li>
+<li><p>If successful, entering <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">--version</span></code> in a new console will confirm the java installation</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PasseckerLab/neurokraken
 <span class="nb">cd</span><span class="w"> </span>neurokraken
@@ -464,18 +465,8 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 <h5>Java JDK<a class="headerlink" href="#java-jdk" title="Link to this heading">#</a></h5>
 <ul class="simple">
 <li><p>Download and install the jdk (latest LTS Release jdk-21) from <a class="reference external" href="https://adoptium.net/">Adoptium JDK download</a>. Within the installer keep “Add to PATH” and “Set JAVA_HOME variable” checked. Be sure to have administrator rights for your PC or the path might not be set properly.</p></li>
+<li><p>If the install was successful entering <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-version</span></code> in a new command line will confirm the java installation with version information.</p></li>
 </ul>
-<ul class="simple">
-<li><p>If the install was successful running <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-version</span></code> in a new command line should provide you with the found version.</p></li>
-</ul>
-<details>
-<summary>alternative automatic java jdk install (works only sometimes)</summary>
-<p>There is  chance you can autoinstall the jdk using the following to lines in the command prompt, this however has not yet been shown to relaiably work compared to the manual way above:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>install-jdk
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import jdk; print(&#39;Java installed to&#39;, jdk.install(&#39;17&#39;))&quot;</span>
-</pre></div>
-</div>
-</details>
 </section>
 <section id="arduino">
 <span id="install-arduino"></span><h5>Arduino<a class="headerlink" href="#arduino" title="Link to this heading">#</a></h5>
@@ -594,7 +585,7 @@ pip<span class="w"> </span>install<span class="w"> </span>.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">States and Task Progression</p>
+        <p class="prev-next-title">States - Structuring task steps</p>
       </div>
     </a>
     <a class="right-next"
