@@ -365,7 +365,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -381,6 +383,43 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-task-self">pre_task(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-start-self">on_start(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-main-self">loop_main(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-visual-self-sketch">loop_visual(self, sketch)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-end-self">on_end(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-methods">Further methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizing-state-flow-the-task-dictionary">Organizing state flow - The task dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-arguments">State arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-state">next_state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-time-s">max_time_s</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-start-and-run-at-end">run_at_start and run_at_end</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trials">Trials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-blocks-of-states">Alternative blocks of states</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autologging">Autologging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-task-arguments">load_task arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-block-str">start_block :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-start-callable">run_at_start :Callable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-quit-callable">run_at_quit :Callable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-post-trial-callable">run_post_trial :Callable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specialized-arguments">specialized arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#main-as-sketch-bool">main_as_sketch :bool</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#permanent-states-list">permanent_states :list</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-visual-start-callable">run_at_visual_start :Callable</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-container">experiment :Container</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -392,7 +431,389 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="states-structuring-task-steps">
 <h1>States - Structuring task steps<a class="headerlink" href="#states-structuring-task-steps" title="Link to this heading">#</a></h1>
-<p>This chapter is currently in development and will be added soon</p>
+<p>States are how you can structure which happens when in a task.</p>
+<p>States are typically written after the configuration of your setup.
+The following example shows <strong>5 optional methods</strong> that can be added to a state to run at a specific context.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span><span class="p">,</span> <span class="n">Display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;led&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">direct_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start_value</span><span class="o">=</span><span class="kc">False</span><span class="p">)}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="p">{},</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="n">Display</span><span class="p">())</span>
+
+<span class="n">get</span><span class="o">.</span><span class="n">white_background</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># we will make use of this created variable later</span>
+
+<span class="c1"># States and task code starts here</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">My_state</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;state_0&#39;</span><span class="p">:</span> <span class="n">My_state</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;state_0&#39;</span><span class="p">)}</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The line <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">My_state(State):</span></code> does 2 things:</p>
+<ul class="simple">
+<li><p>We decide on the class name “<code class="docutils literal notranslate"><span class="pre">My_state</span></code>”. This allows use to later use it as part of the task with <code class="docutils literal notranslate"><span class="pre">My_state(next_state=&lt;str&gt;)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(State)</span></code> ensures that neurokraken can the class as a state, by automatically adding internal properties.</p></li>
+</ul>
+<p>Afterwards we can add one or more of the shown methods to add context-specific code to our task. The (self) argument enables access to a shared <code class="docutils literal notranslate"><span class="pre">self.</span></code> variable space across the class.</p>
+<p>At the end we create a task dictionary where we map names (like here <code class="docutils literal notranslate"><span class="pre">'state_0'</span></code>) to the states we want to use (<code class="docutils literal notranslate"><span class="pre">My_state()</span></code>)
+Even in single state tasks, States require an argument <code class="docutils literal notranslate"><span class="pre">next_state=&lt;str&gt;</span></code> that names the successor state or list of possible successor states, with the progression typically decided within loop_main() or by a maximum time provided to the state <code class="docutils literal notranslate"><span class="pre">My_state(...,</span> <span class="pre">max_time_s=3)</span></code>.</p>
+<p>Each method has access to <code class="docutils literal notranslate"><span class="pre">self</span></code>, allowing you to share variables and their usage across methods of the same state, and access to <code class="docutils literal notranslate"><span class="pre">get.</span></code> allowing you to access and interact with global variables like the <code class="docutils literal notranslate"><span class="pre">get.white_background</span> <span class="pre">=</span> <span class="pre">False</span></code> defined in the example above. Additionally, if you are familiar with python’s <code class="docutils literal notranslate"><span class="pre">global</span></code> keyword or specified file imports and namespacing, these approaches can provide further ways of accessing individual variables across different functions.</p>
+<section id="pre-task-self">
+<h2>pre_task(self)<a class="headerlink" href="#pre-task-self" title="Link to this heading">#</a></h2>
+<p>Code in here is executed once before the task begins.</p>
+<p>This is useful for setting up variables used later later in the state as self.&lt;variable_name&gt;, as well as loading files like state-related images to be used in the task.
+A good pattern is to move compute-intensive code that only needs to be run once (like loading files) outside of repeatedly run methods like loop_main() or on_start().</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pre_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>pre_task can be run with a second argument <code class="docutils literal notranslate"><span class="pre">sketch</span></code>, which will provide your code access to py5 sketch functions. This is useful for loading images, or 3D models to later be used in the loop_visual().</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pre_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="s1">&#39;C:/Path/To/My/Image.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="on-start-self">
+<h2>on_start(self)<a class="headerlink" href="#on-start-self" title="Link to this heading">#</a></h2>
+<p>This method is run every time the state is entered - typically following the previous state’s end.</p>
+<p>This is a good spot to set or reset a variable for the subsequent loop_main() or loop_visual() and to change a controlled device like a servo motor or valve to a different value for this state or a followup state.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">My_state</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;led&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">choice</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span> <span class="c1"># if a choice is made we will update it to &#39;left&#39; or &#39;right&#39; in loop_main()</span>
+</pre></div>
+</div>
+</section>
+<section id="loop-main-self">
+<h2>loop_main(self)<a class="headerlink" href="#loop-main-self" title="Link to this heading">#</a></h2>
+<p>This method is where your main state logic takes place - reading sensors, deciding outcomes, logging custom data, and then either continueing to the next iteration of loop_main() or to to on_end() and the next state.</p>
+<p>loop_main runs as fast as your system allows, expectably thousands of times per second, allowing for tight control of task progression.</p>
+<p>Notably loop_main() has to return a bool and a number, i.e. <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">False,</span> <span class="pre">0</span></code></p>
+<p>The bool True/False signals whether the state is completed and you want to move on to the next state i.e. when you get.read_in() a touch choice from the subject, or find its position entered a target radius.</p>
+<p>The number decides which follow-up state option to continue to when a list of options is provided. Thus if there is only a single follow-up option we are always returning index 0.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Choice</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+            <span class="c1"># bad choice made, continue to the timeout penalty state 0</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+            <span class="c1"># good choice made, continue to the reward state 1</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># no choice made, rerun loop_main()</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Reward</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Timeout</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;choosing&#39;</span><span class="p">:</span> <span class="n">Choice</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="s1">&#39;reward&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="n">Timeout</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;choosing&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;reward&#39;</span><span class="p">:</span>   <span class="n">Reward</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;choosing&#39;</span><span class="p">)}</span>
+</pre></div>
+</div>
+<p>loop_main() can be filled with your own python code to make complex decisions and changes based on a subject’s current <code class="docutils literal notranslate"><span class="pre">get.read_in</span></code> actions, the history <code class="docutils literal notranslate"><span class="pre">get.log</span></code>, get.time_ms, or state or global variables.</p>
+<p>A common pattern is for the main loop to change state <code class="docutils literal notranslate"><span class="pre">self.</span></code> or global <code class="docutils literal notranslate"><span class="pre">get.</span></code> variables like the starting example’s <code class="docutils literal notranslate"><span class="pre">get.white_background=False</span></code> that are then utilized by other code like loop_visual() with their updating values.</p>
+<p>Returning <code class="docutils literal notranslate"><span class="pre">False</span></code> means the state was not yet completed and loop_main() will loop run again. If you return <code class="docutils literal notranslate"><span class="pre">True</span></code> the task will move on to the next state, decided by the returned number.</p>
+<p>Notably a state can also be provided with a maximum duration, and if this many seconds have passed the state will progress regardles of whether loop_main() returned True or False.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;choosing&#39;</span><span class="p">:</span> <span class="n">Choice</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="s1">&#39;reward&#39;</span><span class="p">],</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can manually read the state’s <code class="docutils literal notranslate"><span class="pre">self.start_time</span></code> variable for the task millisecond when the state started. The duration the state has already been running thus is <code class="docutils literal notranslate"><span class="pre">get.time_ms</span> <span class="pre">-</span> <span class="pre">self.start_time</span></code></p>
+</section>
+<section id="loop-visual-self-sketch">
+<h2>loop_visual(self, sketch)<a class="headerlink" href="#loop-visual-self-sketch" title="Link to this heading">#</a></h2>
+<p>When using a <a class="reference internal" href="configuration.html#display"><span class="std std-ref">display</span></a> in your task, this function allows you to draw custom visual stimuli using py5’s drawing function through the sketch argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">loop_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">white_background</span><span class="p">:</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span> <span class="c1"># R, G, B</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can find the py5 reference <a class="reference external" href="https://py5coding.org/reference/summary.html">here</a>. Py5 makes it easy to draw interactive custom 2D or 3D stimuli, animations, and environments using simple shapes, text, or loaded images and 3d models.</p>
+</section>
+<section id="on-end-self">
+<h2>on_end(self)<a class="headerlink" href="#on-end-self" title="Link to this heading">#</a></h2>
+<p>This function runs after conclusion of a state, due to <code class="docutils literal notranslate"><span class="pre">loop_main()</span></code> returning True to signal the state being finished, or due to a state’s duration exceeding the provided seconds <code class="docutils literal notranslate"><span class="pre">max_time_s=</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">on_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the state has concluded&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="further-methods">
+<h2>Further methods<a class="headerlink" href="#further-methods" title="Link to this heading">#</a></h2>
+<p>As the code of the state class is under your control you can add further methods to call from scheduled methods like loop_main() or on_start() to organize your code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">My_state</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="c1"># 8</span>
+</pre></div>
+</div>
+<p>If you are familiar with python classes and the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method, you can also add one to your class to create different variations of the same State with specific differences. I.e. a task might contain 2 versions of a state, one with a rewarding <code class="docutils literal notranslate"><span class="pre">self.probability=0.9</span></code> and one with a less positive <code class="docutils literal notranslate"><span class="pre">self.probability=0.1</span></code>. An example of this can be found in the <a class="reference internal" href="patterns.html"><span class="doc std std-doc">frequently used patterns</span></a>.</p>
+</section>
+<section id="organizing-state-flow-the-task-dictionary">
+<h2>Organizing state flow - The task dictionary<a class="headerlink" href="#organizing-state-flow-the-task-dictionary" title="Link to this heading">#</a></h2>
+<p>The task dictionary contains named states of our task, with each state also naming its successor or list of possible succesors.
+We can use this to create an example task that blinks an LED every 5 seconds the following way.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Light_on</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;led&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    
+<span class="k">class</span><span class="w"> </span><span class="nc">Light_off</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;led&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;on&#39;</span> <span class="p">:</span>  <span class="n">Light_on</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+        <span class="s1">&#39;off&#39;</span><span class="p">:</span> <span class="n">Light_off</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">,</span>  <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">)}</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Often a subject will make a choice and based on the choice we want to progress to splitting outcome states. For this we can provide a list of next_state options.</p>
+<p>For example we can reorganize our slow blinking LED example into a trial starting with a 2 second “Start” state that decides whether the next state will be Light_on or Light_off, with either of these states returning to another decidiging Start state after their 5 seconds.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Light_on</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;led&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    
+<span class="k">class</span><span class="w"> </span><span class="nc">Light_off</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;led&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Start</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_on</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="kc">False</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">next_state_idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_on</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">next_state_idx</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">Start</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">],</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="s1">&#39;off&#39;</span><span class="p">:</span> <span class="n">Light_off</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+        <span class="s1">&#39;on&#39;</span> <span class="p">:</span>  <span class="n">Light_on</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">)}</span>
+        
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The state flow can be as extensive, branching and complex as you want it to be, i.e. a task may progress through a sequence of 7 states before returning to the first one with the outcome of a middle state determining a normal progression, a reset to the first state or skipping ahead of the next states.</p>
+<p>You can also add a single forever state or a group of states which are unreachable from the next_state= options of the core task. These state’s can still manually be switched to or from with <code class="docutils literal notranslate"><span class="pre">get.progress_state('&lt;state_name&gt;')</span></code> from a UI button to create a manual standby state or special use states within the same task, to enable use cases similar to <a class="reference internal" href="#blocks"><span class="std std-ref">blocks</span></a>.</p>
+</section>
+<section id="state-arguments">
+<h2>State arguments<a class="headerlink" href="#state-arguments" title="Link to this heading">#</a></h2>
+<p>States always have to receive their next_state argument. Further they can receive 4 optional arguments to extend their functionality.</p>
+<section id="next-state">
+<h3>next_state<a class="headerlink" href="#next-state" title="Link to this heading">#</a></h3>
+<p><em>str or list</em></p>
+<p>The next_state or list of next state options to progress to upon the main loop returning True or a state’s provided max_time_s running out.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">Start</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">],</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="s1">&#39;off&#39;</span><span class="p">:</span> <span class="n">Light_off</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+        <span class="s1">&#39;on&#39;</span> <span class="p">:</span>  <span class="n">Light_on</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">)}</span>
+</pre></div>
+</div>
+</section>
+<section id="max-time-s">
+<h3>max_time_s<a class="headerlink" href="#max-time-s" title="Link to this heading">#</a></h3>
+<p><em>float or tuple[float,float] or Callable-&gt;float</em></p>
+<p>The maximum duration in seconds for which a state will run before progressing regardless of wether the main loop returns the trial to be finished True. Defaults to 1_000_000.</p>
+<p>You can provide either a number (float/int), a 2 entry interval (tuple/list) for a random time within the interval every time the state runs, or a function returning a float for a customized dynamic timing.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Light_on</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">Light_on</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">five_seconds</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">5</span>
+<span class="n">Light_on</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="n">five_seconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="run-at-start-and-run-at-end">
+<h3>run_at_start and run_at_end<a class="headerlink" href="#run-at-start-and-run-at-end" title="Link to this heading">#</a></h3>
+<p><em>Callable or list</em></p>
+<p>These 2 arguments allow you to provide a function or list of functions to run after on_start() or after on_end() respectively.</p>
+<p>This can be useful to organize complex task code, i.e. variables and logic might be defined in on_start() and on_end() but all logging and complex analysis is defined in run_at_start= and run_at_end= allowing you to separate the task itself from calculations for live plots or post-experiment analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Start</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">light_on</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">light_on</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">light_on</span> <span class="c1"># extra copy to the state self for later in this example</span>
+
+<span class="c1"># add an empty list to log light decisions of this example task</span>
+<span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;light_decisions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">log_light</span><span class="p">():</span>
+    <span class="c1"># append an entry with the time and decision to this list</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;light_decisions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">,</span> <span class="n">get</span><span class="o">.</span><span class="n">light_on</span><span class="p">])</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;pause&#39;</span><span class="p">:</span> <span class="n">Start</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">],</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">run_at_start</span><span class="o">=</span><span class="n">log_light</span><span class="p">),</span>
+        <span class="o">...</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>A function provided to run_at_start= or run_at_end= can optionally contain an argument to access the respective state/variables added to its self.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">log_light</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="c1"># add the time and decision to this list</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;light_decisions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">light_on</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>run_at_end functions can also be provided with a 2nd argument, a boolean to read True/False whether a state was ended by the main loop or timed out.</p>
+</section>
+</section>
+<section id="trials">
+<span id="id1"></span><h2>Trials<a class="headerlink" href="#trials" title="Link to this heading">#</a></h2>
+<p>States can provide basic trial management.</p>
+<p>Frequently tasks are organized in a repeating pattern of states and it makes sense to organize and log data accordingly. <code class="docutils literal notranslate"><span class="pre">get.log</span></code> contains a list of dictionaries under <code class="docutils literal notranslate"><span class="pre">get.log['trials']</span></code> that can be used for this purpose.</p>
+<p>You can provide one or more states at the end of your task pattern with the argument <code class="docutils literal notranslate"><span class="pre">trial_complete=True</span></code> and every time one of these states culminates another entry will be added to the log trials list.</p>
+<p>You can access the current trial number as <code class="docutils literal notranslate"><span class="pre">len(get.log['trials'])</span></code>, the current (thus most recent and last) trial with <code class="docutils literal notranslate"><span class="pre">get.log['trials'][-1]</span></code>, and the most recent 5 trials with <code class="docutils literal notranslate"><span class="pre">get.log['trials'][-5:]</span></code>.</p>
+<p>Each trial by default contains a <code class="docutils literal notranslate"><span class="pre">['start']</span></code> time entry, i.e. <code class="docutils literal notranslate"><span class="pre">get.log['trials'][-1]['start']</span></code> for the start of the most recent trial. As a flexible python dictionary the trial entry can manually be extended with every information relevant to the task or successive analysis.</p>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">neurokraken.load_task()</span></code> can be provided with a function as <code class="docutils literal notranslate"><span class="pre">run_post_trial=</span></code>, that will run at the end of a trial. This time point is well suited for updating trial specific values and lists relevant for the future of the task or live plots and visualizations. For example one might maintain a list of time-value-pairs of a subject’s reaction times, or actions during the last 30 trials to then regularly plot this list in a live-UI.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Light_on</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Light_off</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Start</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;entering trial number </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">light_on</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="c1"># save the information to the current trial dictionary</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;light&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">light_on</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">Start</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">],</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="s1">&#39;on&#39;</span> <span class="p">:</span>  <span class="n">Light_on</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">trial_complete</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;off&#39;</span><span class="p">:</span> <span class="n">Light_off</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">max_time_s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">trial_complete</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+
+<span class="n">get</span><span class="o">.</span><span class="n">average_light</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">recalculate_average_light</span><span class="p">():</span>
+    <span class="n">was_light_on</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]:</span>
+        <span class="n">was_light_on</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trial</span><span class="p">[</span><span class="s1">&#39;light&#39;</span><span class="p">])</span>
+    <span class="n">true_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">was_light_on</span><span class="p">)</span> <span class="c1"># True counts as 1, False as 0</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">average_light</span> <span class="o">=</span> <span class="n">true_count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">])</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">run_post_trial</span><span class="o">=</span><span class="n">recalculate_average_light</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="alternative-blocks-of-states">
+<span id="blocks"></span><h2>Alternative blocks of states<a class="headerlink" href="#alternative-blocks-of-states" title="Link to this heading">#</a></h2>
+<p>typically a task is loaded as a dictionary of states. However you can also provide a nested dictionary allowing you to organize groups of states and their progressions into individual state blocks.</p>
+<p>As a <code class="docutils literal notranslate"><span class="pre">next_state=</span></code> can only be within the same block the only way to switch between blocks is manually through <code class="docutils literal notranslate"><span class="pre">get.switch_block('&lt;block_name&gt;')</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">State</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State_A</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State_B</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">State_C</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;consistent_block&#39;</span> <span class="p">:</span>  <span class="p">{</span><span class="s1">&#39;single_state&#39;</span><span class="p">:</span> <span class="n">State_A</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;single_state&#39;</span><span class="p">)}</span>
+<span class="s1">&#39;alternating_block&#39;</span><span class="p">:</span>  <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="n">State_B</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">),</span>
+                       <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">State_C</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)}</span>
+<span class="p">}</span>
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="o">...</span>
+
+<span class="c1"># within a UI-triggered element switch the active block</span>
+<span class="n">get</span><span class="o">.</span><span class="n">switch_block</span><span class="p">(</span><span class="s1">&#39;alternating_block&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first block will be the one executed when you run your task, unless a different one was provided to <code class="docutils literal notranslate"><span class="pre">neurokraken.load_task(...,</span> <span class="pre">start_block='&lt;block_name&gt;'</span></code>.</p>
+<p>An interesting use case of blocks is to use python’s deepcopy to create an independent copy of a block and to manually change variables within selected states of the copy in order to create distinct and switchable versions of a given task.</p>
+</section>
+<section id="autologging">
+<h2>Autologging<a class="headerlink" href="#autologging" title="Link to this heading">#</a></h2>
+<p>Progressions in the current state, trial, and block are automatically saved in get.log[‘states’], get.log[‘trials’] and get.log[‘blocks’].</p>
+<p>State and block changes are maintained as a list of (time, state/block-name) tuples.</p>
+<p>Trials are maintained as a list of extendable dictionaries with a preexisting <code class="docutils literal notranslate"><span class="pre">start</span></code> entry.</p>
+</section>
+<section id="load-task-arguments">
+<h2>load_task arguments<a class="headerlink" href="#load-task-arguments" title="Link to this heading">#</a></h2>
+<p>Neurokraken.load_task() can receive optional arguments besides the task dictionary for extended control of task elements, as shown in the usage of <a class="reference internal" href="#trials"><span class="std std-ref">trials</span></a> above.</p>
+<section id="start-block-str">
+<h3>start_block :str<a class="headerlink" href="#start-block-str" title="Link to this heading">#</a></h3>
+<p>The name of the block to start the run with. If not provided the task will begin with the first block</p>
+</section>
+<section id="run-at-start-callable">
+<h3>run_at_start :Callable<a class="headerlink" href="#run-at-start-callable" title="Link to this heading">#</a></h3>
+<p>The provided function will be called at the very beginning of the task before the states.</p>
+<p>The run_at_start function will be followed by an additional communication loop before the task begins, allowing you to start the task with controlled devices in a desired state.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">move_back_servo</span><span class="p">():</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;my_servo&#39;</span><span class="p">,</span> <span class="mi">160</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">run_at_start</span><span class="o">=</span><span class="n">move_back_servo</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="run-at-quit-callable">
+<h3>run_at_quit :Callable<a class="headerlink" href="#run-at-quit-callable" title="Link to this heading">#</a></h3>
+<p>THe provided function will be run once the task is ended, i.e. through <code class="docutils literal notranslate"><span class="pre">get.quit()</span></code> or <code class="docutils literal notranslate"><span class="pre">Ctrl+Alt+Q</span></code>.</p>
+<p>After the function an additional communication loop will be performed, allowing to set the final position of teensy-side controlled devices at shutdown regardless of the state during which the task was quit.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">close_valve</span><span class="p">():</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;my_valve&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">run_at_quit</span><span class="o">=</span><span class="n">close_valve</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="run-post-trial-callable">
+<h3>run_post_trial :Callable<a class="headerlink" href="#run-post-trial-callable" title="Link to this heading">#</a></h3>
+<p>This function will be called upon trial completion as shown in the <a class="reference internal" href="#trials"><span class="std std-ref">trials</span></a> subchapter.</p>
+</section>
+<section id="specialized-arguments">
+<h3>specialized arguments<a class="headerlink" href="#specialized-arguments" title="Link to this heading">#</a></h3>
+<section id="main-as-sketch-bool">
+<h4>main_as_sketch :bool<a class="headerlink" href="#main-as-sketch-bool" title="Link to this heading">#</a></h4>
+<p>Whether to run the main loop as a py5 sketch or a python while-True: - loop. Defaults to True for a py5 sketch.</p>
+<p>It was found that using a py5 sketch allows for more stable main loop timing during high workload tasks (cameras, visual, live-AI). The ability to run as a while-True: loop is still available with <code class="docutils literal notranslate"><span class="pre">main_as_sketch=False</span></code>.</p>
+</section>
+<section id="permanent-states-list">
+<h4>permanent_states :list<a class="headerlink" href="#permanent-states-list" title="Link to this heading">#</a></h4>
+<p>A list of classes containing a .run() function. The respective .run() function will be executed at the end of each main loop iteration.</p>
+</section>
+<section id="run-at-visual-start-callable">
+<h4>run_at_visual_start :Callable<a class="headerlink" href="#run-at-visual-start-callable" title="Link to this heading">#</a></h4>
+<p>When using py5’s shader functions it was found that load_shader() needs to be run by the same sketch that will display it. A method provided to run_at_visual_start allows its code access to the task’s loop_visual() sketch during setup for this niche situation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">method_on_visual_setup</span><span class="p">(</span><span class="n">sketch</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">run_at_visual_start</span><span class="o">=</span><span class="n">method_on_visual_setup</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="experiment-container">
+<h4>experiment :Container<a class="headerlink" href="#experiment-container" title="Link to this heading">#</a></h4>
+<p>Used by the runner mode to provide get.experiment access to the chosen experiment .py file and variables therein.</p>
+</section>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -449,6 +870,50 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-task-self">pre_task(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-start-self">on_start(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-main-self">loop_main(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-visual-self-sketch">loop_visual(self, sketch)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-end-self">on_end(self)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-methods">Further methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizing-state-flow-the-task-dictionary">Organizing state flow - The task dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-arguments">State arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-state">next_state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-time-s">max_time_s</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-start-and-run-at-end">run_at_start and run_at_end</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trials">Trials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-blocks-of-states">Alternative blocks of states</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autologging">Autologging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-task-arguments">load_task arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-block-str">start_block :str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-start-callable">run_at_start :Callable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-quit-callable">run_at_quit :Callable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-post-trial-callable">run_post_trial :Callable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specialized-arguments">specialized arguments</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#main-as-sketch-bool">main_as_sketch :bool</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#permanent-states-list">permanent_states :list</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#run-at-visual-start-callable">run_at_visual_start :Callable</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-container">experiment :Container</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

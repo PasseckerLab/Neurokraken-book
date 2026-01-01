@@ -125,9 +125,9 @@ get.log
 ├── experiment_data
 │   ├── datetime: str(datetime.now())
 │   └── subject data
-├── states {time/name}: []
-├── blocks {time/name}: []
-├── trials {time}: []
+├── states (time/name): []
+├── blocks (time/name): []
+├── trials {'start',...}: []
 ├── events: []
 ├── read_in_device_0_name (t ms/value): []
 ├── read_in_device_1_name (t ms/value): []

@@ -31,7 +31,7 @@ To run tasks with connected actual electronics rather than just in keyboard/agen
 
 ---
 
-For more detailed information and alternatives (how to install python, using venv or uv instead of conda, how to install git or download the codebase without git, ...) look up the [Installation instructions chapter](installation)
+More detailed information and alternatives (how to install python, using venv or uv instead of conda, how to install git or download the codebase without git, ...) can be found in the [Installation instructions chapter](installation)
 ````
 
 To progress you should have a cloned or downloaded copy of the Neurokraken codebase from github.com/PasseckerLab/Neurokraken and set up a python environment with the package dependencies installed.
