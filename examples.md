@@ -223,7 +223,7 @@ task = {
 # This typically covers UIs and parallel analysis/processing loops like cutie
 
 from py5 import Sketch
-import py5gui as gui
+import krakengui as gui
 from neurokraken.controls import get
 import random
 
@@ -854,6 +854,188 @@ nk.load_task(task)
 nk.run()
 ```
 
+## UI examples
+
+UI examples are shown in 3 stages. 
+
+1. A simple standalone task where a rectangle alternatingly has to be steered over a line displayed on the left or right side of the screen. This task will be run in agent mode with random steerings to auto-create visualizable data.
+2. The UI code is insertable just before `nk.run()`. UIs are exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.
+3. Live plotting as additional insertable code in supportive UIs displaying the continuous recent steering and discrete left/right events.
+
+### UI interactions
+
+The button toggles the color of the moved rectangle rendered between cyan and red. The slider controls the reward size, which can be confirmed in the log under the reward device's name `get.['controls']['reward']`. The text field will append its content and a timestamp to a log list `get.log['notes']` that was self-added beforehand. This can be useful to manually log observations directly as part of the running experiment log. When using text fields a common pitfall is that, their data type commonly is a string and when using it for a numerical entry like the reward size one will have to convert number to an int() or float() beforehand to avoid errors.
+
+As variables need to be shared between the task and UI a common pattern shown here is to use `get.` as a global namespace accessible to all components.
+
+### On life plotting
+
+The plotting shows continous data in the form of the recent steering positions as well as discrete data in the form of the rewarded left/right events.
+
+For live plots we generally don't want to reprocess and plot the millions of datapoints of an advanced task every 60th of a second with the UI loop.
+A common pattern shown is to use a repeating thread or creating and acting upon a variable for the time since the last update at a lower frequency.
+Similarly as neurokraken can collect 1000 datapoints per second per sensor a good practice is to reduce the amount of processed data to what is essential for the visualization, i.e. by limiting the time window and/or only using every xth datapoint.
+
+(ui_task)=
+### Base task
+
+```python
+from neurokraken import Neurokraken, State
+from neurokraken.configurators import Display, devices
+from neurokraken.controls import get
+import py5 # for py5's noise function to drive our agent's actions
+
+serial_in = {'steering_wheel': devices.rotary_encoder(pins=(31, 32), keys=['left', 'right'])}
+serial_out = {'reward': devices.timed_on(pin=40)}
+
+class Agent:
+    def __init__(self):
+        self.act_freq = 100 # 100hz
+      
+    def act(self):
+        # noise provides a series of random steering positions we can scale to the wheel range
+        get.serial_in['steering_wheel']['value'] = (py5.noise(get.time_ms / 1000) - 0.5) * 400 
+
+nk = Neurokraken(serial_in=serial_in, serial_out=serial_out, 
+                 display=Display(size=(800, 600)), agent=Agent(), mode='agent')
+
+# Task
+
+get.colored_red = False # button controlled 
+get.log['notes'] = []   # text field controlled
+get.reward_size = 50    # slider controlled
+get.log['history'] = [] # log of rewarded reached sides
+
+class Steer_alternating(State):
+    def on_start(self):
+        self.target_right = True
+        self.position = 0
+    
+    def loop_main(self):
+        self.position = get.read_in('steering_wheel') # for this task the range is physically limited [-150, 150]
+        reached = None
+        if self.target_right and self.position > 90:
+            reached = 'right'
+        elif not self.target_right and self.position < -90:
+            reached = 'left'
+        if reached is not None:
+            self.target_right = not self.target_right
+            get.log['history'].append([get.time_ms, reached])
+            get.send_out('reward', get.reward_size)
+        return False, 0
+    
+    def loop_visual(self, sketch):
+        sketch.background(0)
+        pos_in_visual = sketch.remap(self.position, -150, 150, 0, 800)
+        sketch.rect_mode(sketch.CENTER)
+        if get.colored_red:
+            sketch.fill(255, 0, 0)
+        else:
+            sketch.fill(0, 255, 255)
+        sketch.rect(pos_in_visual, 300, 50, 50)
+        sketch.stroke(255)
+        if self.target_right:
+            sketch.line(640, 0, 640, 600)
+        else:
+            sketch.line(160, 0, 160, 600)
+
+task = {'steer': Steer_alternating(next_state='steer')}
+
+nk.load_task(task)
+
+# UI code will be inserted here
+
+nk.run()
+```
+
+### Krakengui
+
+Kraken-gui is a set of simple gui elements and plotting functionalities for py5. Utilizing a py5 sketch enables custom visualizations beyond existing gui elements. Py5's high performance is also is well suited to avoid lags in your python code.
+
+You can find krakengui at https://github.com/alexanderwallerus/kraken-gui.
+
+```python
+... # The entire task above until just before nk.run()
+
+# UI-called functions
+def change_color():
+    get.colored_red = not get.colored_red
+
+def change_reward_size(value):
+    get.reward_size = int(min(max(value, 0), 100))
+    print(f'updated reward to {get.reward_size}')
+
+def add_note(text):
+    print(f'adding timestamped note: {text} to the log')
+    get.log['notes'].append([get.time_ms, text])
+
+# UI
+from py5 import Sketch
+import krakengui as gui
+
+class UI(Sketch):
+    def settings(self):
+        self.size(400, 400)
+
+    def setup(self):
+        with gui.Col(pos=(20, 20)) as col:
+            col.add(gui.Button(label='switch color', on_click=change_color))
+            col.add(gui.Slider(label='reward size', min=0, max=100, value=50, on_change=change_reward_size))
+            col.add(gui.Text_Input(label='add note to log', on_enter=add_note))
+
+    def draw(self):
+        self.background(0)
+        if get.quitting:
+            self.exit_sketch()
+    
+    def key_pressed(self, e): pass # a minimal key_pressed function is required for krakengui's text input to work properly
+
+    def exiting(self):
+        get.quit()
+
+ui = UI()
+ui.run_sketch(block=False)
+
+nk.run()
+```
+
+For the live-plot we add 2 lines to the end of `def setup()` that will help us keep track of of time since we last updated the plot, and store the plot image, which starts out empty but will be regularly updated based on the former line.
+
+At the end of `def draw()` we display the plot image, and then if sufficient time has passed, update the plot image.
+
+Our log entries are lists of lists containing [time, value] pairs, thus at 5000 entries we find ourselves with a [5000,2] sized 2D array of lists. A nice trick to flip the axis of 2D lists like these so that we end up with one list of times and one with values to easily plot out is to use `list(zip(*<list_name>))`.
+
+```python
+def setup(self):
+    ...
+    self.last_plot_time = -4000
+    self.plot_image = self.create_image(350, 200, self.RGB)
+
+def draw(self):
+    ...
+    self.image(self.plot_image, 20, 180)  
+
+    # update the plot every 5 seconds
+    if get.time_ms - self.last_plot_time > 5_000:
+        self.last_plot_time = get.time_ms
+        # plot steering
+        # only plot the recent time and save some compute by only checking every 3rd entry
+        recent_steerings = [entry for entry in get.log['steering_wheel'][::3] if entry[0] > get.time_ms - 40_000]
+        times, values = list(zip(*recent_steerings))
+        times = [t / 1000 for t in times]
+        plt = gui.Plot(w=350, h=200, sketch=self, x=0, y=0)
+        plt.plot(times, values)
+
+        # plot reached sides if sides have been reached
+        recent_reached = [entry for entry in get.log['history'] if entry[0] > get.time_ms - 40_000]
+        if len(recent_reached) != 0:
+            times, sides = list(zip(*recent_reached))
+            times = [t / 1000 for t in times]
+            colors = [(0,255,255) if side=='left' else (255,0,255) for side in sides]
+            plt.scatter(xs=times, ys=sides, color=colors, diameter=12, y_axis=1, order=['right', 'left'])
+        self.plot_image = plt.show(to_py5image=True, xlabel='t_seconds', ylabel='position')      
+```
+
 ## eye_tracking
 
 An eye tracking example using [GazeTracking](https://github.com/antoinelame/GazeTracking) will be added soon
@@ -861,10 +1043,6 @@ An eye tracking example using [GazeTracking](https://github.com/antoinelame/Gaze
 ## sequence_poke
 
 An example where a correct sequence has to be poked for rewards will be added soon
-
-## UI examples
-
-Examples showcasing the integration of different python UIs will be added soon
 
 ## olfactory_discrimination
 
@@ -874,7 +1052,7 @@ An example showcasing odor delivery and corresponding lick choices will be added
 
 A minimal version of the advanced dot motion example will be added soon
 
-## tracked_shuttle
+## Shuttle_tracked
 
 In this task for an open environment 2 touch-sensitive reward spouts are placed in the environment. Licking one triggers a reward and trigger receptivity at the other, encouraging subjects to rapidly and efficiently shuttle between the 2 spouts for a large number of rewards.
 
@@ -1021,7 +1199,7 @@ The following tasks provide examples of how to use `mode='agent'` to provide the
 
 ### agent_simple
 
-agent_simple is a minimal example of using an agent in a task. A servo moves to a position left/center/right while the agent has access to 2 touch sensors and will be rewarded if he pressed the left sensor if the servo moved left and if he pressed the right sensor if the  and the agent has 2 touch sensors and will press the left one if the servo points left and the right one if the servo points right.
+agent_simple is a minimal example of using an agent in a task. A servo moves to a position left/center/right while the agent has access to 2 touch sensors and will be rewarded if he pressed the left sensor if the servo moved left and if he pressed the right sensor if the  and the agent has 2 touch sensors and will press the left one if the servo points left and the right one if the servo points right. A minimal additional agent example can be found in the [UI example task](ui_task) above.
 
 ```python
 from neurokraken import Neurokraken, State
@@ -1403,7 +1581,7 @@ nk.load_task(task)
 #------------------------- UI -------------------------
 
 from py5 import Sketch
-import py5gui as gui
+import krakengui as gui
 
 class UI(Sketch):
     def settings(self):
@@ -1600,7 +1778,7 @@ nk.load_task(task, run_post_trial=switch_side_probability_if_performant)
 
 #------------------------- ADD A SMALL UI -------------------------
 from py5 import Sketch
-import py5gui as gui
+import krakengui as gui
 
 def override_reward():
     global valve_open_t_ms
