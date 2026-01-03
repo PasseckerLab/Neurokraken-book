@@ -391,7 +391,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal">minimal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickstart">quickstart</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imported-mode">imported mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runner-mode">Runner mode</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steering-simple">steering_simple</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corridor-3d">corridor_3d</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilizing-a-3d-obj-with-blender-and-py5">Utilizing a 3D .obj with blender and py5</a></li>
@@ -451,7 +451,7 @@ For keyboard mode inputs contain an additional keys=[] list allowing you to map 
 <li><p><a class="reference internal" href="#minimal" id="id2">minimal</a></p></li>
 <li><p><a class="reference internal" href="#quickstart" id="id3">quickstart</a></p></li>
 <li><p><a class="reference internal" href="#introduction" id="id4">introduction</a></p></li>
-<li><p><a class="reference internal" href="#imported-mode" id="id5">imported mode</a></p></li>
+<li><p><a class="reference internal" href="#runner-mode" id="id5">Runner mode</a></p></li>
 <li><p><a class="reference internal" href="#steering-simple" id="id6">steering_simple</a></p></li>
 <li><p><a class="reference internal" href="#corridor-3d" id="id7">corridor_3d</a></p>
 <ul>
@@ -620,10 +620,10 @@ For keyboard mode inputs contain an additional keys=[] list allowing you to map 
 </pre></div>
 </div>
 </section>
-<section id="imported-mode">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">imported mode</a><a class="headerlink" href="#imported-mode" title="Link to this heading">#</a></h2>
-<p>In imported mode tasks are organized in a folder containing separate files for the device configuration <code class="docutils literal notranslate"><span class="pre">config.py</span></code>, task <code class="docutils literal notranslate"><span class="pre">task.py</span></code>, and parallel code (like an UI) <code class="docutils literal notranslate"><span class="pre">launch.py</span></code>.</p>
-<p>Imported mode can be run with <code class="docutils literal notranslate"><span class="pre">kraken.bat</span></code> (if you have an activateable conda environment named neurokraken) or <code class="docutils literal notranslate"><span class="pre">kraken.py</span></code>, which will provide you with a list of all tasks found within the <code class="docutils literal notranslate"><span class="pre">tasks</span></code> folder to choose from.
+<section id="runner-mode">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Runner mode</a><a class="headerlink" href="#runner-mode" title="Link to this heading">#</a></h2>
+<p>In Runner mode tasks are organized in a folder containing separate files for the device configuration <code class="docutils literal notranslate"><span class="pre">config.py</span></code>, task <code class="docutils literal notranslate"><span class="pre">task.py</span></code>, and parallel code (like an UI) <code class="docutils literal notranslate"><span class="pre">launch.py</span></code>.</p>
+<p>Runner mode can be run with <code class="docutils literal notranslate"><span class="pre">kraken.bat</span></code> (if you have an activateable conda environment named neurokraken) or <code class="docutils literal notranslate"><span class="pre">kraken.py</span></code>, which will provide you with a list of all tasks found within the <code class="docutils literal notranslate"><span class="pre">tasks</span></code> folder to choose from.
 To run this example add a new folder with a name of your choice like <code class="docutils literal notranslate"><span class="pre">runner_mode_example</span></code> containing the respective files to <code class="docutils literal notranslate"><span class="pre">tasks</span></code>.
 Runner mode can be provided with arguments for dynamic execution, like <code class="docutils literal notranslate"><span class="pre">kraken.bat</span> <span class="pre">--task</span> <span class="pre">runner_mode_example</span> <span class="pre">--keyboard</span></code> to directly execute the runner_mode_example task in keyboard mode.</p>
 <p>The following example is the same as <a class="reference external" href="http://minimal.py">minimal.py</a> above, with the addition of</p>
@@ -631,7 +631,7 @@ Runner mode can be provided with arguments for dynamic execution, like <code cla
 <li><p>a list of datapoints to be prompted upon execution, including subject options</p></li>
 <li><p>a UI (<code class="docutils literal notranslate"><span class="pre">launch.py</span></code>) with a control for the task’s shown color</p></li>
 </ul>
-<p>You can learn more about imported mode in the <a class="reference internal" href="modes.html"><span class="doc std std-doc">modes</span></a> chapter.</p>
+<p>You can learn more about runner mode in the <a class="reference internal" href="modes.html"><span class="doc std std-doc">modes</span></a> chapter.</p>
 <blockquote>
 <div><p><span>config.py</span> <!-- span to avoid auto-formatting into a hyperlink --></p>
 </div></blockquote>
@@ -2363,7 +2363,7 @@ An UI allows live update to a range of variables to update the difficulty includ
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal">minimal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickstart">quickstart</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imported-mode">imported mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runner-mode">Runner mode</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steering-simple">steering_simple</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corridor-3d">corridor_3d</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilizing-a-3d-obj-with-blender-and-py5">Utilizing a 3D .obj with blender and py5</a></li>

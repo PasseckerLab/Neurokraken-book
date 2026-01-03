@@ -151,11 +151,11 @@ nk.load_task(task)
 nk.run()
 ```
 
-## imported mode
+## Runner mode
 
-In imported mode tasks are organized in a folder containing separate files for the device configuration `config.py`, task `task.py`, and parallel code (like an UI) `launch.py`.
+In Runner mode tasks are organized in a folder containing separate files for the device configuration `config.py`, task `task.py`, and parallel code (like an UI) `launch.py`.
 
-Imported mode can be run with `kraken.bat` (if you have an activateable conda environment named neurokraken) or `kraken.py`, which will provide you with a list of all tasks found within the `tasks` folder to choose from.
+Runner mode can be run with `kraken.bat` (if you have an activateable conda environment named neurokraken) or `kraken.py`, which will provide you with a list of all tasks found within the `tasks` folder to choose from.
 To run this example add a new folder with a name of your choice like `runner_mode_example` containing the respective files to `tasks`.
 Runner mode can be provided with arguments for dynamic execution, like `kraken.bat --task runner_mode_example --keyboard` to directly execute the runner_mode_example task in keyboard mode.
 
@@ -163,7 +163,7 @@ The following example is the same as minimal.py above, with the addition of
 - a list of datapoints to be prompted upon execution, including subject options
 - a UI (`launch.py`) with a control for the task's shown color
 
-You can learn more about imported mode in the [modes](modes) chapter.
+You can learn more about runner mode in the [modes](modes) chapter.
 
 > <span>config.py</span> <!-- span to avoid auto-formatting into a hyperlink -->
 
