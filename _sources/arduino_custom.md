@@ -89,35 +89,25 @@ namespace config{
 }
 ```
 
-(middleman-arduino)=
-## Adding a new heavy-compute arduino-side device
+(extra-arduino)=
+## Adding an extra microcontroller
 
-While the growing range of arduino-compatible components and libraries opens powerful new possibilities for neurokraken, not all devices or libraries are designed for the millisecond precision sampling that neurokraken targets.
+A neurokraken device can also be another microcontroller, a 2nd teensy, an arduino, or ESP32. while one generally can liberally add new sensors and controlled devices to the main teensy, there are situations where adding another microcontroller as a middleman to further devices can be useful.
 
-Some interesting devices may be implemented in a way that holds up the microcontroller for a considerable time, which would prevent others from running their millisecond or sub-millisecond duties as sensors and/or processes respectively. Devices currently included in `configurators.devices` guarantee high precision even when we use 30 devices together in our tests, however this may not hold true for new devices one may try out. One example of this is the SSD 1306 display.
+First, while the growing range of arduino-compatible components and libraries opens powerful new possibilities for neurokraken, not all devices or libraries are designed for the millisecond precision sampling that neurokraken targets. Rare cases might hold up the microcontroller preventing other connected devices from running with their millisecond or sub-millisecond duties as sensors and/or processes respectively. If you connect them to an extra intermediary arduino or teensy, your main teensy can still rush through its duties while also utilizing the troublesome device to its full capabilities.
 
-An easy way to test the impact of a new device is to add the milliseconds clock manually in your task's serial_in with `logging=True`
+Devices currently included in `configurators.devices` guarantee high precision even when we use 30 of them together in our tests, however when your task requires adding a new arduino module/library as a device, and millisecond precision is important for your experiment, it can be useful to run a quick performance test to verify that your teensy remains fast or whether you should add an extra microcontroller. To performance test, you can run the task with the Neurokraken object argument `log_performance=True`. After the task you can run `toolkit/performance_test/performance_test.py` and provide it with the created log folder - if the "sensor sampling" graph shows you a flat 1 millisecond difference between datapoints you are good.
 
-`serial_in = {'t_ms': devices.time_millis(logging=True), ...`
-
-This will log every change on the current millisecond to your log.json allowing you to see if sampling periods have been missed due to a tested new device.
-
-If your experiments do not care about millisecond precision and are still are able to achieve sufficiently high resolution this of course is not a concern.
-
-If you need to retain millisecond precision and your new device however this is also not a problem, as you can easily add a second microcontroller like an arduino nano as a middleman between your teensy and the new device. The arduino can run the device and absorb delays, while still interacting with the teensy as fast as the added device allows as a prxoy sensor/control without affecting the teensy's timing.
-
-
-
-Sometimes it can be useful to outsource computations to an arduino as a secondary microcontroller. For example in rare cases we might have found a great module with an arduino library for an experiment of ours, but the library implementation causes delays of multiple milliseconds in our teensy main loop that we want to avoid, or the library utilizes custom features of the arduino architecture and we couldn't find a teensy-compatible alternative. In these cases the simplest approach is to run our module from an arduino nano, and forward its reading to the central teensy through I2C.
-
-
+Second, an arduino library may utilize custom features of the arduino architecture and a teensy-compatible alternative is not easily found. Third you may yourself want to write arduino-side device code that requires delays or large compute.
 
 ### Code Example
 
-In this example we are using the arduino to collect 2 numbers (they could be created by sensor readings and/or a library). While this example is minimal standalone, you can easily apply it to writing a neurokraken teensy device, by calling a readArduino function like shown here from within the read() function of a neurokraken device's arduino code. Respectively Wire can also be used to provide instructions to the arduino
+In this example we are connecting another microcontroller that collects 2 numbers (they could be created by sensor readings and/or a library) and through a wire connections provides the current readings to to the main teensy upon request. On the main teensy side the approach is the same as adding any other Sensor/Control/Process, only that we use the arduino Wire library within the respective read() or act() function to update values shared with the extra microcontroller. Here we create the device as a sensor and provide the average to our task.
 
-```arduino
-// arduino nano code
+We first upload the standalone code of the extra microcontroller.
+
+```cpp
+// extra teensy/arduino code
 #include <Wire.h>
 
 // Being specific with the datatype allows Wire to correctly reinterpret the 
@@ -132,8 +122,8 @@ void setup() {
 
 void loop() {
   // constantly update the data points
-  a = random(-127,128)
-  b = random(-127,128)
+  a = random(-127,128);
+  b = random(-127,128);
 }
 
 void requestEvent(){
@@ -142,41 +132,95 @@ void requestEvent(){
 }
 ```
 
-```arduino
-//teensy side code
+The following device file is to be added to neurokraken's teensy folder - we are treating the connected extra microcontroller as a sensor.
+
+```cpp
+// ExtraArduino.h
 #include <Wire.h>
 
-int8_t a = 0;
-int8_t b = 0;
+class Extra : public Sensor{
+  public:
+    int pin;
 
-void setup(){
-  Wire.begin();
-}
+    Extra(){
+      Wire.begin();
+    }
 
-void loop(){
-  readArduino();
-
-  Serial.print(a);
-  Serial.print(", ");
-  Serial.print(b);
-  Serial.println();
-}
-
-void readArduino(){
-  Wire.requestFrom(0x008, 2); // request 2 bytes from the arduino at this address
-  if(Wire.available() >= 2){
-    a = Wire.read();
-    b = Wire.read();
-  }
-}
+    void read(){
+      Wire.requestFrom(0x08, 2); // request 2 bytes from the arduino at this address
+      if(Wire.available() >= 2){
+        int a = Wire.read();
+        int b = Wire.read();
+        int c = (a + b)  / 2;
+        valueToBytes(c);         // provide the value to the python side
+      }
+    }
+};
 ```
+
+On the python side, we add a serial_in entry with the name chosen for our arduino class (Extra) and parameters for our sensor value range.
+
+```python
+serial_in = {
+  'extra': {'value': 0, 'encoding': 'int', 'byte_length': 1, 'logging': True, 'arduino_class': 'Extra'}
+}
+# Our task code may later access this sensor with get.read_in('extra')
+```
+
+Lastly we can run `config2teensy.py` to update the code within the teensy folder, upload it and start our task. The 2ndary microcontroller here acts as any other sensor, and if it can provide you with 1000 different values per second you will see this data density reflected in your log.
 
 ### Wiring
 
-Most Arduinos run on 5V which would damage the teensy. However we can decide the Voltage to be used for I2C communication by connecting the teensy's 3.3V to our I2C data and clock pins through 4.7kOhm pullup resistors.
+Microcontrollers have 2 competing standards with one set running at 3.3V like the teensy and the the other set including many arduino models running at 5V.
+The two wiring diagrams show the connection with another 3.3V device and a 5V device.
 
-<u>Use either a USB connection for the arduino nano or the connection to the teensy's 5V.</u>
-For development it can be beneficial to first stay with a USB connection for the nano, add Serial.print() calls mirroring the teensy side to confirm that the data is interpreted the same on both sides.
+````{mermaid}
+flowchart TB;
+subgraph main teensy4.1
+GND
+SDA_teensy["SDA(18)"]
+SCL_teensy["SCL(19)"]
+end
+
+subgraph extra teensy4.1
+GND_extra["GND"]
+SDA_extra["SDA(A4)"]
+SCL_extra["SCL(A5)"]
+end
+
+GND --- GND_extra
+SDA_teensy --- SDA_extra
+SCL_teensy --- SCL_extra
+````
+
+To interact with a 5V microcontroller like the arduino nano we can decide the Voltage to be used for I2C communication by connecting the teensy's 3.3V to our I2C data and clock pins through 4.7kOhm pullup resistors.
+
+````{mermaid}
+flowchart TB;
+subgraph teensy4.1
+3.3V
+GND
+SDA_teensy["SDA(18)"]
+SCL_teensy["SCL(19)"]
+end
+
+subgraph Arduino Nano
+GND_arduino["GND"]
+SDA_nano["SDA(A4)"]
+SCL_nano["SCL(A5)"]
+end
+
+GND --- GND_arduino
+
+3.3V --4.7kOhm--> SDA_teensy
+3.3V --4.7kOhm--> SCL_teensy
+SDA_teensy --- SDA_nano
+SCL_teensy --- SCL_nano
+```` 
+
+In the examples above both microcontrollers are powered by USB. If we want to reduce cables and be more effective we can also power the extra microcontroller from the teensy's 3.3V or 5V pins depending on the Voltage used by the targeted device.
+
+<u>Use either a USB connection for the extra microcontroller or the 5V/3V from the main teensy - don't have both approaches connected at the same time.</u>
 
 ````{mermaid}
 flowchart TB;
@@ -203,5 +247,3 @@ GND --- GND_arduino
 SDA_teensy --- SDA_nano
 SCL_teensy --- SCL_nano
 ```` 
-
-This will work analogous for other arduinos. Some might have other pins for their SDA and SCL though.

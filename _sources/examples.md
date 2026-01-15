@@ -856,11 +856,12 @@ nk.run()
 
 ## UI examples
 
-UI examples are shown in 3 stages. 
+UI examples are shown as 4 stages. 
 
 1. A simple standalone task where a rectangle alternatingly has to be steered over a line displayed on the left or right side of the screen. This task will be run in agent mode with random steerings to auto-create visualizable data.
-2. The UI code is insertable just before `nk.run()`. UIs are exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.
-3. Live plotting as additional insertable code in supportive UIs displaying the continuous recent steering and discrete left/right events.
+2. An empty UI window is insertable just before `nk.run()`
+3. The UI is filled in, exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.
+4. Live plotting as additional insertable code in supportive UIs displaying the continuous recent steering and discrete left/right events.
 
 ### UI interactions
 
@@ -953,6 +954,32 @@ nk.run()
 Kraken-gui is a set of simple gui elements and plotting functionalities for py5. Utilizing a py5 sketch enables custom visualizations beyond existing gui elements. Py5's high performance is also is well suited to avoid lags in your python code.
 
 You can find krakengui at https://github.com/alexanderwallerus/kraken-gui.
+
+Empty UI:
+
+``` python
+... # The entire task above until just before nk.run()
+
+from py5 import Sketch
+import krakengui as gui
+
+class UI(Sketch):
+    def settings(self):
+        self.size(400, 400)
+
+    def setup(self):
+        gui.use_sketch(self) # not necessary if elements are created here
+
+    def draw(self):
+        self.background(0)
+
+ui = UI()
+ui.run_sketch(block=False)
+
+nk.run()
+```
+
+After adding UI elements:
 
 ```python
 ... # The entire task above until just before nk.run()

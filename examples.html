@@ -1320,10 +1320,11 @@ For control a PSP 2000 joystick is used which can be connected to the teensy as 
 </section>
 <section id="ui-examples">
 <h2><a class="toc-backref" href="#id12" role="doc-backlink">UI examples</a><a class="headerlink" href="#ui-examples" title="Link to this heading">#</a></h2>
-<p>UI examples are shown in 3 stages.</p>
+<p>UI examples are shown as 4 stages.</p>
 <ol class="arabic simple">
 <li><p>A simple standalone task where a rectangle alternatingly has to be steered over a line displayed on the left or right side of the screen. This task will be run in agent mode with random steerings to auto-create visualizable data.</p></li>
-<li><p>The UI code is insertable just before <code class="docutils literal notranslate"><span class="pre">nk.run()</span></code>. UIs are exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.</p></li>
+<li><p>An empty UI window is insertable just before <code class="docutils literal notranslate"><span class="pre">nk.run()</span></code></p></li>
+<li><p>The UI is filled in, exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.</p></li>
 <li><p>Live plotting as additional insertable code in supportive UIs displaying the continuous recent steering and discrete left/right events.</p></li>
 </ol>
 <section id="ui-interactions">
@@ -1413,6 +1414,29 @@ Similarly as neurokraken can collect 1000 datapoints per second per sensor a goo
 <h3><a class="toc-backref" href="#id16" role="doc-backlink">Krakengui</a><a class="headerlink" href="#krakengui" title="Link to this heading">#</a></h3>
 <p>Kraken-gui is a set of simple gui elements and plotting functionalities for py5. Utilizing a py5 sketch enables custom visualizations beyond existing gui elements. Py5’s high performance is also is well suited to avoid lags in your python code.</p>
 <p>You can find krakengui at <a class="github reference external" href="https://github.com/alexanderwallerus/kraken-gui">alexanderwallerus/kraken-gui</a>.</p>
+<p>Empty UI:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span> <span class="c1"># The entire task above until just before nk.run()</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">py5</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sketch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">krakengui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gui</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">UI</span><span class="p">(</span><span class="n">Sketch</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">gui</span><span class="o">.</span><span class="n">use_sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># not necessary if elements are created here</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ui</span> <span class="o">=</span> <span class="n">UI</span><span class="p">()</span>
+<span class="n">ui</span><span class="o">.</span><span class="n">run_sketch</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After adding UI elements:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span> <span class="c1"># The entire task above until just before nk.run()</span>
 
 <span class="c1"># UI-called functions</span>

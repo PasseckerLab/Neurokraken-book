@@ -57,370 +57,13 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
-
-const defaultStyle = document.createElement('style');
-defaultStyle.textContent = `pre.mermaid {
-    /* Same as .mermaid-container > pre */
-    display: block;
-    width: 100%;
-}
-
-pre.mermaid > svg {
-    /* Same as .mermaid-container > pre > svg */
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-`;
-document.head.appendChild(defaultStyle);
-
-const fullscreenStyle = document.createElement('style');
-fullscreenStyle.textContent = `.mermaid-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.mermaid-container > pre {
-    display: block;
-    width: 100%;
-}
-
-.mermaid-container > pre > svg {
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-
-.mermaid-fullscreen-btn {
-    width: 28px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    line-height: 1;
-    padding: 0;
-    color: #333;
-}
-
-.mermaid-fullscreen-btn:hover {
-    opacity: 100% !important;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-btn.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-btn.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal {
-    display: none;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 95vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 9999;
-    padding: 20px;
-    overflow: auto;
-}
-
-.mermaid-fullscreen-modal.dark-theme {
-    background: rgba(0, 0, 0, 0.98);
-}
-
-.mermaid-fullscreen-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen {
-    position: relative;
-    width: 95vw;
-    height: 90vh;
-    max-width: 95vw;
-    max-height: 90vh;
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen.dark-theme {
-    background: #1a1a1a;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-}
-
-.mermaid-container-fullscreen pre.mermaid {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen .mermaid svg {
-    height: 100% !important;
-    width: 100% !important;
-    cursor: grab;
-}
-
-.mermaid-fullscreen-close {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: all 0.2s;
-    font-size: 24px;
-    line-height: 1;
-    color: #333;
-}
-
-.mermaid-fullscreen-close:hover {
-    background: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-close.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-close.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
-    display: none !important;
-}`;
-document.head.appendChild(fullscreenStyle);
-
-// Detect if page has dark background
-const isDarkTheme = () => {
-    const bgColor = window.getComputedStyle(document.body).backgroundColor;
-    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
-    if (match) {
-        const r = parseInt(match[1]);
-        const g = parseInt(match[2]);
-        const b = parseInt(match[3]);
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        return brightness < 128;
-    }
-    return false;
-};
-
-const load = async () => {
-    await mermaid.run();
-
-    const all_mermaids = document.querySelectorAll(".mermaid");
-    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
-
-    if ("False" === "True") {
-        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
-        if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll("");
-            if(all_mermaids.length !== mermaids_processed.length) {
-                setTimeout(load, 200);
-                return;
-            } else if(svgs.size() !== mermaids_to_add_zoom) {
-                setTimeout(load, 200);
-                return;
-            } else {
-                svgs.each(function() {
-                    var svg = d3.select(this);
-                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
-                    var inner = svg.select("g");
-                    var zoom = d3.zoom().on("zoom", function(event) {
-                        inner.attr("transform", event.transform);
-                    });
-                    svg.call(zoom);
-                });
-            }
-        }
-    } else if(all_mermaids.length !== mermaids_processed.length) {
-        // Wait for mermaid to process all diagrams
-        setTimeout(load, 200);
-        return;
-    }
-
-    const darkTheme = isDarkTheme();
-
-    // Stop here if not adding fullscreen capability
-    if ("True" !== "True") return;
-
-    const modal = document.createElement('div');
-    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
-    modal.innerHTML = `
-        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
-        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
-    `;
-    document.body.appendChild(modal);
-
-    const modalContent = modal.querySelector('.mermaid-container-fullscreen');
-    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
-
-    let previousScrollOffset = [window.scrollX, window.scrollY];
-
-    const closeModal = () => {
-        modal.classList.remove('active');
-        modalContent.innerHTML = '';
-        document.body.style.overflow = ''
-        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-
-    const allButtons = [];
-
-    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
-        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
-            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
-            return;
-        }
-
-        const container = document.createElement('div');
-        container.className = 'mermaid-container';
-        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
-        container.appendChild(mermaidDiv);
-
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
-        fullscreenBtn.textContent = '⛶';
-        fullscreenBtn.style.opacity = '50%';
-
-        // Calculate dynamic position based on diagram's margin and padding
-        const diagramStyle = window.getComputedStyle(mermaidDiv);
-        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
-        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
-        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
-        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
-        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
-        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
-
-        fullscreenBtn.addEventListener('click', () => {
-            previousScrollOffset = [window.scroll, window.scrollY];
-            const clone = mermaidDiv.cloneNode(true);
-            modalContent.innerHTML = '';
-            modalContent.appendChild(clone);
-
-            const svg = clone.querySelector('svg');
-            if (svg) {
-                svg.removeAttribute('width');
-                svg.removeAttribute('height');
-                svg.style.width = '100%';
-                svg.style.height = 'auto';
-                svg.style.maxWidth = '100%';
-                svg.style.sdisplay = 'block';
-
-                if ("False" === "True") {
-                    setTimeout(() => {
-                        const g = svg.querySelector('g');
-                        if (g) {
-                            var svgD3 = d3.select(svg);
-                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
-                            var inner = svgD3.select("g");
-                            var zoom = d3.zoom().on("zoom", function(event) {
-                                inner.attr("transform", event.transform);
-                            });
-                            svgD3.call(zoom);
-                        }
-                    }, 100);
-                }
-            }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        container.appendChild(fullscreenBtn);
-        allButtons.push(fullscreenBtn);
-    });
-
-    // Update theme classes when theme changes
-    const updateTheme = () => {
-        const dark = isDarkTheme();
-        allButtons.forEach(btn => {
-            if (dark) {
-                btn.classList.add('dark-theme');
-            } else {
-                btn.classList.remove('dark-theme');
-            }
-        });
-        if (dark) {
-            modal.classList.add('dark-theme');
-            modalContent.classList.add('dark-theme');
-            closeBtn.classList.add('dark-theme');
-        } else {
-            modal.classList.remove('dark-theme');
-            modalContent.classList.remove('dark-theme');
-            closeBtn.classList.remove('dark-theme');
-        }
-    };
-
-    // Watch for theme changes
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-    observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['class', 'style']
-    });
-};
-
-window.addEventListener("load", load);
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
 </script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'arduino_custom';</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -755,7 +398,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensors-controls-and-processes">Sensors, Controls and Processes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-h">Config.h</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-new-heavy-compute-arduino-side-device">Adding a new heavy-compute arduino-side device</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-an-extra-microcontroller">Adding an extra microcontroller</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example">Code Example</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring">Wiring</a></li>
 </ul>
@@ -855,78 +498,119 @@ process -&gt; step()</p>
 </pre></div>
 </div>
 </section>
-<section id="adding-a-new-heavy-compute-arduino-side-device">
-<span id="middleman-arduino"></span><h2>Adding a new heavy-compute arduino-side device<a class="headerlink" href="#adding-a-new-heavy-compute-arduino-side-device" title="Link to this heading">#</a></h2>
-<p>While the growing range of arduino-compatible components and libraries opens powerful new possibilities for neurokraken, not all devices or libraries are designed for the millisecond precision sampling that neurokraken targets.</p>
-<p>Some interesting devices may be implemented in a way that holds up the microcontroller for a considerable time, which would prevent others from running their millisecond or sub-millisecond duties as sensors and/or processes respectively. Devices currently included in <code class="docutils literal notranslate"><span class="pre">configurators.devices</span></code> guarantee high precision even when we use 30 devices together in our tests, however this may not hold true for new devices one may try out. One example of this is the SSD 1306 display.</p>
-<p>An easy way to test the impact of a new device is to add the milliseconds clock manually in your task’s serial_in with <code class="docutils literal notranslate"><span class="pre">logging=True</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">serial_in</span> <span class="pre">=</span> <span class="pre">{'t_ms':</span> <span class="pre">devices.time_millis(logging=True),</span> <span class="pre">...</span></code></p>
-<p>This will log every change on the current millisecond to your log.json allowing you to see if sampling periods have been missed due to a tested new device.</p>
-<p>If your experiments do not care about millisecond precision and are still are able to achieve sufficiently high resolution this of course is not a concern.</p>
-<p>If you need to retain millisecond precision and your new device however this is also not a problem, as you can easily add a second microcontroller like an arduino nano as a middleman between your teensy and the new device. The arduino can run the device and absorb delays, while still interacting with the teensy as fast as the added device allows as a prxoy sensor/control without affecting the teensy’s timing.</p>
-<p>Sometimes it can be useful to outsource computations to an arduino as a secondary microcontroller. For example in rare cases we might have found a great module with an arduino library for an experiment of ours, but the library implementation causes delays of multiple milliseconds in our teensy main loop that we want to avoid, or the library utilizes custom features of the arduino architecture and we couldn’t find a teensy-compatible alternative. In these cases the simplest approach is to run our module from an arduino nano, and forward its reading to the central teensy through I2C.</p>
+<section id="adding-an-extra-microcontroller">
+<span id="extra-arduino"></span><h2>Adding an extra microcontroller<a class="headerlink" href="#adding-an-extra-microcontroller" title="Link to this heading">#</a></h2>
+<p>A neurokraken device can also be another microcontroller, a 2nd teensy, an arduino, or ESP32. while one generally can liberally add new sensors and controlled devices to the main teensy, there are situations where adding another microcontroller as a middleman to further devices can be useful.</p>
+<p>First, while the growing range of arduino-compatible components and libraries opens powerful new possibilities for neurokraken, not all devices or libraries are designed for the millisecond precision sampling that neurokraken targets. Rare cases might hold up the microcontroller preventing other connected devices from running with their millisecond or sub-millisecond duties as sensors and/or processes respectively. If you connect them to an extra intermediary arduino or teensy, your main teensy can still rush through its duties while also utilizing the troublesome device to its full capabilities.</p>
+<p>Devices currently included in <code class="docutils literal notranslate"><span class="pre">configurators.devices</span></code> guarantee high precision even when we use 30 of them together in our tests, however when your task requires adding a new arduino module/library as a device, and millisecond precision is important for your experiment, it can be useful to run a quick performance test to verify that your teensy remains fast or whether you should add an extra microcontroller. To performance test, you can run the task with the Neurokraken object argument <code class="docutils literal notranslate"><span class="pre">log_performance=True</span></code>. After the task you can run <code class="docutils literal notranslate"><span class="pre">toolkit/performance_test/performance_test.py</span></code> and provide it with the created log folder - if the “sensor sampling” graph shows you a flat 1 millisecond difference between datapoints you are good.</p>
+<p>Second, an arduino library may utilize custom features of the arduino architecture and a teensy-compatible alternative is not easily found. Third you may yourself want to write arduino-side device code that requires delays or large compute.</p>
 <section id="code-example">
 <h3>Code Example<a class="headerlink" href="#code-example" title="Link to this heading">#</a></h3>
-<p>In this example we are using the arduino to collect 2 numbers (they could be created by sensor readings and/or a library). While this example is minimal standalone, you can easily apply it to writing a neurokraken teensy device, by calling a readArduino function like shown here from within the read() function of a neurokraken device’s arduino code. Respectively Wire can also be used to provide instructions to the arduino</p>
-<div class="highlight-arduino notranslate"><div class="highlight"><pre><span></span><span class="c1">// arduino nano code</span>
+<p>In this example we are connecting another microcontroller that collects 2 numbers (they could be created by sensor readings and/or a library) and through a wire connections provides the current readings to to the main teensy upon request. On the main teensy side the approach is the same as adding any other Sensor/Control/Process, only that we use the arduino Wire library within the respective read() or act() function to update values shared with the extra microcontroller. Here we create the device as a sensor and provide the average to our task.</p>
+<p>We first upload the standalone code of the extra microcontroller.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// extra teensy/arduino code</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Wire.h&gt;</span>
 
 <span class="c1">// Being specific with the datatype allows Wire to correctly reinterpret the </span>
 <span class="c1">// received number. int8_t for -127 to 127 and uint8_t for 0 to 255</span>
-<span class="kr">int8_t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="kr">int8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int8_t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="kr">void</span><span class="w"> </span><span class="nb">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">begin</span><span class="p">(</span><span class="mh">0x08</span><span class="p">);</span><span class="w">             </span><span class="c1">// Join the I2C bus as with address 0x08</span>
-<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">onRequest</span><span class="p">(</span><span class="n">requestEvent</span><span class="p">);</span><span class="w"> </span><span class="c1">// Run this function when the teensy calls</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mh">0x08</span><span class="p">);</span><span class="w">             </span><span class="c1">// Join the I2C bus as with address 0x08</span>
+<span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">onRequest</span><span class="p">(</span><span class="n">requestEvent</span><span class="p">);</span><span class="w"> </span><span class="c1">// Run this function when the teensy calls</span>
 <span class="p">}</span>
 
-<span class="kr">void</span><span class="w"> </span><span class="nb">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// constantly update the data points</span>
-<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">random</span><span class="p">(</span><span class="mi">-127</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
-<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">random</span><span class="p">(</span><span class="mi">-127</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
+<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">random</span><span class="p">(</span><span class="mi">-127</span><span class="p">,</span><span class="mi">128</span><span class="p">);</span>
+<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">random</span><span class="p">(</span><span class="mi">-127</span><span class="p">,</span><span class="mi">128</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kr">void</span><span class="w"> </span><span class="nf">requestEvent</span><span class="p">(){</span>
-<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">requestEvent</span><span class="p">(){</span>
+<span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Wire</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-arduino notranslate"><div class="highlight"><pre><span></span><span class="c1">//teensy side code</span>
+<p>The following device file is to be added to neurokraken’s teensy folder - we are treating the connected extra microcontroller as a sensor.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// ExtraArduino.h</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Wire.h&gt;</span>
 
-<span class="kr">int8_t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="kr">int8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Extra</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Sensor</span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pin</span><span class="p">;</span>
 
-<span class="kr">void</span><span class="w"> </span><span class="nb">setup</span><span class="p">(){</span>
-<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">Extra</span><span class="p">(){</span>
+<span class="w">      </span><span class="n">Wire</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="kr">void</span><span class="w"> </span><span class="nb">loop</span><span class="p">(){</span>
-<span class="w">  </span><span class="n">readArduino</span><span class="p">();</span>
-
-<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">);</span>
-<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">print</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
-<span class="w">  </span><span class="nf">Serial</span><span class="p">.</span><span class="nf">println</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="kr">void</span><span class="w"> </span><span class="nf">readArduino</span><span class="p">(){</span>
-<span class="w">  </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">requestFrom</span><span class="p">(</span><span class="mh">0x008</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// request 2 bytes from the arduino at this address</span>
-<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nf">Wire</span><span class="p">.</span><span class="nf">available</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">){</span>
-<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">read</span><span class="p">();</span>
-<span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Wire</span><span class="p">.</span><span class="nf">read</span><span class="p">();</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">read</span><span class="p">(){</span>
+<span class="w">      </span><span class="n">Wire</span><span class="p">.</span><span class="n">requestFrom</span><span class="p">(</span><span class="mh">0x08</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// request 2 bytes from the arduino at this address</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Wire</span><span class="p">.</span><span class="n">available</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">){</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Wire</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Wire</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="n">valueToBytes</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">         </span><span class="c1">// provide the value to the python side</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
+<p>On the python side, we add a serial_in entry with the name chosen for our arduino class (Extra) and parameters for our sensor value range.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">serial_in</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;byte_length&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;logging&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;arduino_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Extra&#39;</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1"># Our task code may later access this sensor with get.read_in(&#39;extra&#39;)</span>
+</pre></div>
+</div>
+<p>Lastly we can run <code class="docutils literal notranslate"><span class="pre">config2teensy.py</span></code> to update the code within the teensy folder, upload it and start our task. The 2ndary microcontroller here acts as any other sensor, and if it can provide you with 1000 different values per second you will see this data density reflected in your log.</p>
 </section>
 <section id="wiring">
 <h3>Wiring<a class="headerlink" href="#wiring" title="Link to this heading">#</a></h3>
-<p>Most Arduinos run on 5V which would damage the teensy. However we can decide the Voltage to be used for I2C communication by connecting the teensy’s 3.3V to our I2C data and clock pins through 4.7kOhm pullup resistors.</p>
-<p><u>Use either a USB connection for the arduino nano or the connection to the teensy’s 5V.</u>
-For development it can be beneficial to first stay with a USB connection for the nano, add Serial.print() calls mirroring the teensy side to confirm that the data is interpreted the same on both sides.</p>
+<p>Microcontrollers have 2 competing standards with one set running at 3.3V like the teensy and the the other set including many arduino models running at 5V.
+The two wiring diagrams show the connection with another 3.3V device and a 5V device.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph main teensy4.1
+GND
+SDA_teensy[&quot;SDA(18)&quot;]
+SCL_teensy[&quot;SCL(19)&quot;]
+end
+
+subgraph extra teensy4.1
+GND_extra[&quot;GND&quot;]
+SDA_extra[&quot;SDA(A4)&quot;]
+SCL_extra[&quot;SCL(A5)&quot;]
+end
+
+GND --- GND_extra
+SDA_teensy --- SDA_extra
+SCL_teensy --- SCL_extra
+    </pre><p>To interact with a 5V microcontroller like the arduino nano we can decide the Voltage to be used for I2C communication by connecting the teensy’s 3.3V to our I2C data and clock pins through 4.7kOhm pullup resistors.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+3.3V
+GND
+SDA_teensy[&quot;SDA(18)&quot;]
+SCL_teensy[&quot;SCL(19)&quot;]
+end
+
+subgraph Arduino Nano
+GND_arduino[&quot;GND&quot;]
+SDA_nano[&quot;SDA(A4)&quot;]
+SCL_nano[&quot;SCL(A5)&quot;]
+end
+
+GND --- GND_arduino
+
+3.3V --4.7kOhm--&gt; SDA_teensy
+3.3V --4.7kOhm--&gt; SCL_teensy
+SDA_teensy --- SDA_nano
+SCL_teensy --- SCL_nano
+    </pre><p>In the examples above both microcontrollers are powered by USB. If we want to reduce cables and be more effective we can also power the extra microcontroller from the teensy’s 3.3V or 5V pins depending on the Voltage used by the targeted device.</p>
+<p><u>Use either a USB connection for the extra microcontroller or the 5V/3V from the main teensy - don’t have both approaches connected at the same time.</u></p>
 <pre  class="mermaid">
         flowchart TB;
 subgraph teensy4.1
@@ -951,8 +635,7 @@ GND --- GND_arduino
 3.3V --4.7kOhm--&gt; SCL_teensy
 SDA_teensy --- SDA_nano
 SCL_teensy --- SCL_nano
-    </pre><p>This will work analogous for other arduinos. Some might have other pins for their SDA and SCL though.</p>
-</section>
+    </pre></section>
 </section>
 </section>
 
@@ -1022,7 +705,7 @@ SCL_teensy --- SCL_nano
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sensors-controls-and-processes">Sensors, Controls and Processes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-h">Config.h</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-new-heavy-compute-arduino-side-device">Adding a new heavy-compute arduino-side device</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-an-extra-microcontroller">Adding an extra microcontroller</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example">Code Example</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring">Wiring</a></li>
 </ul>

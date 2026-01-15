@@ -27,7 +27,7 @@ A common example of microcontroller information exchange is through serial commu
 
 A common approach for this in neurokraken is to start a communication loop before neurokraken.run() which can be seen within our cyclops example. Cyclops is a teensy-based optogenetics control device that can be programmed with arduino and thus be serial communicated with to control the device from the experiment task code.
 
-Alternatively to a direct PC USB connection, 2ndary microcontroller can be connected to the teensy as described in [Add your own device](middleman-arduino).
+Alternatively to a direct PC USB connection, 2ndary microcontroller can be connected to the teensy as described in [Add your own device](extra-arduino).
 
 ### Integrating commercial devices
 
