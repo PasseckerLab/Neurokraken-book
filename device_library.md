@@ -65,7 +65,7 @@ Outside of neurokraken's ability to add your own device we strive to continously
 
 ## Adding an arduino as a device
 
-[The add your own device page](middleman-arduino) has an example of adding an arduino as a teensy connected device
+[The add your own device page](extra-arduino) has an example of adding an arduino as a teensy connected device
 (modalities)=
 ## Modalities
 
