@@ -856,16 +856,72 @@ nk.run()
 
 ## UI examples
 
-UI examples are shown as 4 stages. 
+UI framework examples are shown at different stages.
 
-1. A simple standalone task where a rectangle alternatingly has to be steered over a line displayed on the left or right side of the screen. This task will be run in agent mode with random steerings to auto-create visualizable data.
-2. An empty UI window is insertable just before `nk.run()`
-3. The UI is filled in, exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.
-4. Live plotting as additional insertable code in supportive UIs displaying the continuous recent steering and discrete left/right events.
+First for the respective framework as a minimal example using an empty task with a UI containing a text input to set a tone device's frequency and a text field showing the current task milliseconds. The UI window can be inserted into a task just before `nk.run()`.
+
+Then we introduce a base task with some ui-interactable live data for extended examples. In the task a rectangle alternatingly has to be steered over a line displayed on the left or right side of the screen. This task will be run in agent mode with random steerings to auto-create visualizable data.
+
+In the base task functionalities are exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.
+
+Finally live plotting is added in supportive UIs displaying the continuous recent steering and discrete left/right events.
+
+### Krakengui
+
+Kraken-gui is a set of simple gui elements and plotting functionalities for py5. Utilizing a py5 sketch enables custom visualizations beyond existing gui elements while also providing great flexibility in how to place elements. Py5's high performance is also is well suited to avoid lags in your python code.
+
+You can find krakengui at https://github.com/alexanderwallerus/kraken-gui.
+
+Minimal UI:
+
+```python
+from neurokraken import Neurokraken, State
+from neurokraken.configurators import Display, devices
+from neurokraken.controls import get
+
+serial_out = {'frequency': devices.tone(pin=32)}
+serial_out = {}
+
+nk = Neurokraken(serial_in={}, serial_out=serial_out, mode='keyboard', log_dir=None)
+
+class Nothing(State):
+    pass
+
+nk.load_task({'my_state': Nothing(next_state='my_state')})
+
+# UI
+from py5 import Sketch
+import krakengui as gui
+
+def change_freq(freq:str):
+    get.send_out('freq', int(freq))
+
+class UI(Sketch):
+    def settings(self):
+        self.size(400, 400)
+
+    def setup(self):
+        gui.Text_Input(pos=(20, 30), label='frequency', on_enter=change_freq)
+
+    def draw(self):
+        self.background(0)
+        self.fill(255)
+        self.text(f'time (ms): {get.time_ms}', 20, 20)
+        if get.quitting:
+            self.exit_sketch()
+
+    def key_pressed(self, e):
+        pass
+
+ui = UI()
+ui.run_sketch(block=False)
+
+nk.run()
+```
 
 ### UI interactions
 
-The button toggles the color of the moved rectangle rendered between cyan and red. The slider controls the reward size, which can be confirmed in the log under the reward device's name `get.['controls']['reward']`. The text field will append its content and a timestamp to a log list `get.log['notes']` that was self-added beforehand. This can be useful to manually log observations directly as part of the running experiment log. When using text fields a common pitfall is that, their data type commonly is a string and when using it for a numerical entry like the reward size one will have to convert number to an int() or float() beforehand to avoid errors.
+in the base task the button toggles the color of the moved rectangle rendered between cyan and red. The slider controls the reward size, which can be confirmed in the log under the reward device's name `get.['controls']['reward']`. The text field will append its content and a timestamp to a log list `get.log['notes']` that was self-added beforehand. This can be useful to manually log observations directly as part of the running experiment log. When using text fields a common pitfall is that, their data type commonly is a string and when using it for a numerical entry like the reward size one will have to convert number to an int() or float() beforehand to avoid errors.
 
 As variables need to be shared between the task and UI a common pattern shown here is to use `get.` as a global namespace accessible to all components.
 
@@ -949,37 +1005,7 @@ nk.load_task(task)
 nk.run()
 ```
 
-### Krakengui
-
-Kraken-gui is a set of simple gui elements and plotting functionalities for py5. Utilizing a py5 sketch enables custom visualizations beyond existing gui elements. Py5's high performance is also is well suited to avoid lags in your python code.
-
-You can find krakengui at https://github.com/alexanderwallerus/kraken-gui.
-
-Empty UI:
-
-``` python
-... # The entire task above until just before nk.run()
-
-from py5 import Sketch
-import krakengui as gui
-
-class UI(Sketch):
-    def settings(self):
-        self.size(400, 400)
-
-    def setup(self):
-        gui.use_sketch(self) # not necessary if elements are created here
-
-    def draw(self):
-        self.background(0)
-
-ui = UI()
-ui.run_sketch(block=False)
-
-nk.run()
-```
-
-After adding UI elements:
+#### Kraken GUI
 
 ```python
 ... # The entire task above until just before nk.run()
@@ -1328,7 +1354,7 @@ serial_in = {
 
 serial_out = {
     'reward_valve': devices.timed_on(pin=40),
-    'beep':         devices.buzzer(pin=26)
+    'beep':         devices.tone(pin=26)
 }
 
 #---------------------------------- AGENT ----------------------------------

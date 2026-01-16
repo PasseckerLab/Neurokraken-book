@@ -13,3 +13,7 @@ You can find the actual documentation at https://passeckerlab.github.io/Neurokra
 ## Create github pages
 
 The workflow to create github pages for the documentation can be found at https://jupyterbook.org/v1/start/publish.html
+
+The curent published pages can be updated with the following command after having built the current version:
+
+`ghp-import -n -p -f _build/html`
