@@ -1,4 +1,4 @@
-# Controls and Task development
+# Controls, Task development and the .get-Interface
 
 ## task development
 
@@ -351,7 +351,44 @@ Alternatively values to be shared across files can be maintained in .get itself 
 from neurokraken import tools
 ```
 
-tools are additional helper utilities
+tools are additional helper utilities. Some like `list_connected_recording_devices()` are useful outside of tasks, others like `Millis` can be of great use within task code.
+
+### Millis
+
+A timer class that measures elapsed time in milliseconds
+
+This class provides a simple way to track elapsed time by storing a starting
+timestamp and calculating the difference from the current time when called.
+
+A timer can be called to get the current time, `.zero()` to reset it to 0 from whereon it will keep counting time relatively, and `.set(i)` to set it to a specified time i and from where it will keep counting time.
+
+Millis can be very useful in your main loop to trigger events at specific intervals.
+
+```python
+timer = Millis()
+while True:
+    if timer() >= 50:
+        # do thing every 50ms, then reset the time
+        timer.zero()
+```
+
+```python
+timer = Millis()
+timer.set(-50)
+while True:
+    if timer() > 0:
+        print('50 milliseconds have passed')
+```
+
+To assure that a specific number of triggers will happen in a given time window you can set back the timer.
+
+```python
+timer = Millis()
+while True:
+    if timer() >= 50:
+        # do thing
+        timer.set(timer() - 50)
+```
 
 ### list_connected_recording_devices()
 

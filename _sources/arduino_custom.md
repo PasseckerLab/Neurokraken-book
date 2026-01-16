@@ -184,8 +184,8 @@ end
 
 subgraph extra teensy4.1
 GND_extra["GND"]
-SDA_extra["SDA(A4)"]
-SCL_extra["SCL(A5)"]
+SDA_extra["SDA(18)"]
+SCL_extra["SCL(19)"]
 end
 
 GND --- GND_extra

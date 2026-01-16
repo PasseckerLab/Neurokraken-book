@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Controls and Task development &#8212; Book Of The Neurokraken</title>
+    <title>Controls, Task development and the .get-Interface &#8212; Book Of The Neurokraken</title>
   
   
   
@@ -189,7 +189,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Controls and Task development</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Controls, Task development and the .get-Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
 <li class="toctree-l1"><a class="reference internal" href="states.html">States - Structuring task steps</a></li>
 </ul>
@@ -378,7 +378,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Controls and Task development</h1>
+    <h1>Controls, Task development and the .get-Interface</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -425,6 +425,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#millis">Millis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-connected-recording-devices">list_connected_recording_devices()</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-file-file-path-str-add-to-syspath-false">import_file(&lt;file_path&gt;:str, add_to_syspath=False)</a></li>
 </ul>
@@ -440,8 +441,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="controls-and-task-development">
-<h1>Controls and Task development<a class="headerlink" href="#controls-and-task-development" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="controls-task-development-and-the-get-interface">
+<h1>Controls, Task development and the .get-Interface<a class="headerlink" href="#controls-task-development-and-the-get-interface" title="Link to this heading">#</a></h1>
 <section id="task-development">
 <h2>task development<a class="headerlink" href="#task-development" title="Link to this heading">#</a></h2>
 <p>A task consists of 3 main steps. You can see practical examples within the <a class="reference internal" href="quickstart.html"><span class="doc std std-doc">Quickstart</span></a> and <a class="reference internal" href="examples.html"><span class="doc std std-doc">Examples</span></a>.</p>
@@ -778,7 +779,37 @@ Access and/or update your <a class="reference external" href="http://experiment.
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">tools</span>
 </pre></div>
 </div>
-<p>tools are additional helper utilities</p>
+<p>tools are additional helper utilities. Some like <code class="docutils literal notranslate"><span class="pre">list_connected_recording_devices()</span></code> are useful outside of tasks, others like <code class="docutils literal notranslate"><span class="pre">Millis</span></code> can be of great use within task code.</p>
+<section id="millis">
+<h3>Millis<a class="headerlink" href="#millis" title="Link to this heading">#</a></h3>
+<p>A timer class that measures elapsed time in milliseconds</p>
+<p>This class provides a simple way to track elapsed time by storing a starting
+timestamp and calculating the difference from the current time when called.</p>
+<p>A timer can be called to get the current time, <code class="docutils literal notranslate"><span class="pre">.zero()</span></code> to reset it to 0 from whereon it will keep counting time relatively, and <code class="docutils literal notranslate"><span class="pre">.set(i)</span></code> to set it to a specified time i and from where it will keep counting time.</p>
+<p>Millis can be very useful in your main loop to trigger events at specific intervals.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">Millis</span><span class="p">()</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">timer</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="c1"># do thing every 50ms, then reset the time</span>
+        <span class="n">timer</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">Millis</span><span class="p">()</span>
+<span class="n">timer</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">timer</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;50 milliseconds have passed&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To assure that a specific number of triggers will happen in a given time window you can set back the timer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">Millis</span><span class="p">()</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">timer</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="c1"># do thing</span>
+        <span class="n">timer</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">timer</span><span class="p">()</span> <span class="o">-</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="list-connected-recording-devices">
 <h3>list_connected_recording_devices()<a class="headerlink" href="#list-connected-recording-devices" title="Link to this heading">#</a></h3>
 <p>prints out which microphones and cameras are detected at which idx and what respective camera resolutions are supported.</p>
@@ -902,6 +933,7 @@ Access and/or update your <a class="reference external" href="http://experiment.
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#millis">Millis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-connected-recording-devices">list_connected_recording_devices()</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-file-file-path-str-add-to-syspath-false">import_file(&lt;file_path&gt;:str, add_to_syspath=False)</a></li>
 </ul>
