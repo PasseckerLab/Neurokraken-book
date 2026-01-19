@@ -57,6 +57,14 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'device_library';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -434,7 +442,28 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-guides">Wiring guides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-guides">Wiring guides</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#v-power">12V Power</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#led">LED</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#photoresistor">Photoresistor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beam-break-photo-interrupter">Beam break/photo interrupter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#potentiometer">Potentiometer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#valve">Valve</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#channel-valve-driver-board">4 Channel Valve Driver Board</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-valve-circuit">Manual Valve Circuit</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotary-encoder">Rotary Encoder</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-up-rotary-encoder">Pull-up Rotary Encoder</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-rotary-encoder">Direct Rotary Encoder</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#servo">Servo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tone-passive-buzzer">Tone Passive Buzzer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capacitive-touch-sensor">Capacitive Touch Sensor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pulse-clock">Pulse clock</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -508,6 +537,7 @@ document.write(`
 <section id="rotation">
 <h4>Rotation<a class="headerlink" href="#rotation" title="Link to this heading">#</a></h4>
 <p>Rotation can be read with a rotary encoder (<a class="reference internal" href="#devices-rotary-encoder"><span class="std std-ref">devices.rotary_encoder</span></a>) or a potentiometer (<a class="reference internal" href="#devices-analog-read"><span class="std std-ref">devices.analog_read</span></a>). Rotary encoders are useful for high precision low friction rotation readings like on a steering wheel or treading wheel/disc, while potentiometers are small and cheap.</p>
+<p>Rotation can be useful for measuring a steering wheel, or progress on a walking disc.</p>
 </section>
 <section id="linear-position">
 <h4>Linear position<a class="headerlink" href="#linear-position" title="Link to this heading">#</a></h4>
@@ -706,21 +736,337 @@ The maximum providable frequency is 65_535.</p>
 </section>
 <section id="wiring-guides">
 <span id="id3"></span><h2>Wiring guides<a class="headerlink" href="#wiring-guides" title="Link to this heading">#</a></h2>
-<!-- 
-12V Power source
+<p>The following diagrams show the wiring for common components in neuroscience experiment setups. As we are using common arduino parts and circuits, you can generally find the wiring for new components beyond what we have listed by web image searching for <code class="docutils literal notranslate"><span class="pre">arduino</span> <span class="pre">circuit</span> <span class="pre">&lt;device_name&gt;</span></code>.</p>
+<section id="v-power">
+<h3>12V Power<a class="headerlink" href="#v-power" title="Link to this heading">#</a></h3>
+<p>Many devices (valves, servos) will require more Volts and/or Amps than the teensy’s 3.3V logic provides to operate. For this you can simply buy a “12V power supply” from common stores like amazon and cut through its cable. Inside the cable you will find 2 wires, red (12V+) and black (GND) that you can directly use in your circuit as the required power source and its respective ground.</p>
+</section>
+<section id="led">
+<h3>LED<a class="headerlink" href="#led" title="Link to this heading">#</a></h3>
+<pre  class="mermaid">
+        flowchart LR;
+subgraph teensy4.1
+outputPin[&quot;output pin&quot;]
+GND
+end
 
-### LED
+subgraph LED
+LED+
+LED-
+end
 
-### Valve
+outputPin --220Ohm--&gt; LED+
+LED- --&gt; GND
+    </pre></section>
+<section id="photoresistor">
+<h3>Photoresistor<a class="headerlink" href="#photoresistor" title="Link to this heading">#</a></h3>
+<p>For the analog pin use one of the beige Axx pins shown in the teensy 4.1 pinout at <a class="reference external" href="https://www.pjrc.com/store/teensy41.html">https://www.pjrc.com/store/teensy41.html</a></p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+analogPin[&quot;analog pin&quot;]
+v3_3[&quot;3.3V&quot;]
+GND
+end
 
-### Potentiometer
+subgraph Photoresistor
+photoresistor+
+photoresistor-
+end
 
-### Rotary Encoder
+v3_3 --&gt; photoresistor+
+photoresistor- --10kOhm--&gt; GND
+photoresistor- --&gt; analogPin
+    </pre></section>
+<section id="beam-break-photo-interrupter">
+<h3>Beam break/photo interrupter<a class="headerlink" href="#beam-break-photo-interrupter" title="Link to this heading">#</a></h3>
+<p>You can find beam breaks or photo interrupter components that combine an LED and a photoresistor in one device</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+analogPin[&quot;analog pin&quot;]
+v3_3[&quot;3.3V&quot;]
+GND
+end
 
-### Servo
+subgraph LED
+LED+
+LED-
+end
 
-### Pulse clock
- -->
+v3_3 --220Ohm--&gt; LED+
+LED- --&gt; GND
+
+subgraph Photoresistor
+photoresistor+
+photoresistor-
+end
+
+v3_3 --&gt; photoresistor+
+photoresistor- --10kOhm--&gt; GND
+photoresistor- --&gt; analogPin
+    </pre></section>
+<section id="potentiometer">
+<h3>Potentiometer<a class="headerlink" href="#potentiometer" title="Link to this heading">#</a></h3>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+analogPin[&quot;analog pin&quot;]
+v3_3[&quot;3.3V&quot;]
+GND
+end
+
+subgraph Potentiometer
+signal[&quot;signal (center)&quot;]
+end1[&quot;end 1&quot;]
+end2[&quot;end 2&quot;]
+end
+
+v3_3 --&gt; end1
+end2 --&gt; GND
+signal --&gt; analogPin
+    </pre></section>
+<section id="valve">
+<h3>Valve<a class="headerlink" href="#valve" title="Link to this heading">#</a></h3>
+<p>A Valve will require a control pin and an additional power supply, i.e. 12V. The easiest approach is to buy a 4 channel valve driver board that can directly be connected to your output pin, the power V+ and GND, and the valve+/- itself. The shown board can be found on sites like amazon. Notably, to ensure proper operation with a 3.3V device like the Teensy, you have to desolder/solder over the small LED as shown in the image.</p>
+<section id="channel-valve-driver-board">
+<h4>4 Channel Valve Driver Board<a class="headerlink" href="#channel-valve-driver-board" title="Link to this heading">#</a></h4>
+<p>This board has 4 lanes A, B, C, D where the signal at A drives the opposite valve A. You can go beyond this circuit to connect 4 output pins with 4 lanes to 4 valves.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+output[&quot;output pin&quot;]
+v3_3[&quot;3.3V&quot;]
+GND
+end
+
+subgraph power supply 12V
+power_12V+
+power_Gnd[&quot;GND&quot;]
+end
+
+subgraph Valve
+valve+[&quot;Valve +&quot;]
+valve-[&quot;Valve -&quot;]
+end
+
+subgraph valve driver board
+
+subgraph power
+board_12v[&quot;12V+&quot;]
+boardpow_GND[&quot;GND&quot;]
+end
+
+subgraph lane A
+subgraph Signal[&quot;Signal Side&quot;]
+board_a_signal[&quot;Signal +&quot;]
+board_a_gnd[&quot;Signal GND&quot;]
+end
+subgraph Valve_side[&quot;Valve Side&quot;]
+board_a_valve+[&quot;Valve +&quot;]
+board_a_valve-[&quot;Valve -&quot;]
+end
+end
+
+end
+
+power_12V+ --&gt; board_12v
+boardpow_GND --&gt; power_Gnd
+
+output --&gt; board_a_signal
+board_a_gnd --&gt; GND
+board_a_valve+ --&gt; valve+
+valve- --&gt; board_a_valve-
+    </pre></section>
+<section id="manual-valve-circuit">
+<h4>Manual Valve Circuit<a class="headerlink" href="#manual-valve-circuit" title="Link to this heading">#</a></h4>
+<p>The following circuit manually builds a lane of the valve driver board above allowing you to drive a single valve with common electronics parts.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+outputPin[&quot;output pin&quot;]
+GND
+end
+
+subgraph IRLZ44
+IRLZ44Left
+IRLZ44Center
+IRLZ44Right 
+end
+outputPin --1kOhm--&gt; IRLZ44Left
+Valve- --&gt; IRLZ44Center
+IRLZ44Right --&gt; 12VGND 
+IRLZ44Center -.- IRLZ44Right
+
+subgraph Valve
+12V+ --- Capacitor
+Capacitor --- 12VGND[&quot;12V GND&quot;]
+12V+ --&gt; Valve+
+Valve+ --&gt; Valve-
+Valve- --&gt; Diode[&quot;Diode\n(1n4007)&quot;]
+Diode --&gt; Valve+
+end
+12VGND --- GND
+    </pre><p>The capacitor stores charge to support the high current draw required when the valve is activated.</p>
+<p>When the valve solenoid gets powered this will induce movement of its piston. Conversely, when the piston springs back upon loss of power this induces a voltage. The diode will feed back this voltage to prevent it from ending up in the microcontroller.</p>
+</section>
+</section>
+<section id="rotary-encoder">
+<h3>Rotary Encoder<a class="headerlink" href="#rotary-encoder" title="Link to this heading">#</a></h3>
+<p>There are 2 common types of rotary encoder - both will have 4 wires for black GND, red 3.3V, and 2 signals A and B (i.e. in green and white): The more common pull-up Rotary encoder, and a more uncommon typically expensive direct rotary encoder.</p>
+<section id="pull-up-rotary-encoder">
+<h4>Pull-up Rotary Encoder<a class="headerlink" href="#pull-up-rotary-encoder" title="Link to this heading">#</a></h4>
+<p>The most common rotary encoders often don’t provide voltage on their signal pins, but depending on their state short the respective signal pins to GND or not and can wired like this.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+GND
+3.3V
+inputPinA[&quot;pin A&quot;]
+inputPinB[&quot;pin B&quot;]
+end
+
+subgraph Rotary Encoder
+encV[&quot;V+&quot;]
+encGND[&quot;GND&quot;]
+encA[&quot;A&quot;]
+encB[&quot;B&quot;]
+end
+
+3.3V --&gt; encV
+encGND --&gt; GND
+3.3V --4.7kOhm--&gt; inputPinA
+inputPinA --&gt; encA
+3.3V --4.7kOhm--&gt; inputPinB
+inputPinB --&gt; encB
+    </pre><p>These signals can be read by connecting them to Teensy input pins with pull-up resistors to 3.3V. If the encoder shorts the signal to GND, the pin reads LOW; otherwise, the 3.3V will make its way to the teensy pin, which will be pulled-up to HIGH (3.3V).</p>
+</section>
+<section id="direct-rotary-encoder">
+<h4>Direct Rotary Encoder<a class="headerlink" href="#direct-rotary-encoder" title="Link to this heading">#</a></h4>
+<p>This type of encoder is generally more expensive, sold by specialized electronics stores, maybe more compact and can have additional optional wires.</p>
+<p>This is the circuit for a 5V rotary encoder whose signal pins switch between 5V and 0V during rotation. If your rotary encoder functions at 3.3V you can use 3.3V and leave out the voltage divider resistors.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+5V
+GND
+3.3V
+inputPinA[&quot;pin A&quot;]
+inputPinB[&quot;pin B&quot;]
+end
+
+subgraph Rotary Encoder
+enc5V[&quot;5V&quot;]
+encGND[&quot;GND&quot;]
+encA[&quot;A&quot;]
+encB[&quot;B&quot;]
+end
+
+A(( ))
+B(( ))
+5V --&gt; enc5V
+encGND --&gt; GND
+encA -- 10kOhm --&gt; A
+encB -- 10kOhm --&gt; B
+A -- 20kOhm --&gt; GND
+B -- 20kOhm --&gt; GND
+A --&gt; inputPinA
+B --&gt; inputPinB
+    </pre><p>The manual should indicate which wires correspond to V+, GND, A, and B. As the teensy should only receive 3.3V not the 5V the rotary encoder delivers, we use 2 stages of resistors to lower the A and B voltage from 5V to 3.3V and then 0V/GND. We can then connect the 3.3V stages to our reading pins. (Voltage Dividier)</p>
+</section>
+</section>
+<section id="servo">
+<h3>Servo<a class="headerlink" href="#servo" title="Link to this heading">#</a></h3>
+<p>For the servo signal wire, use a pin designated for PWM on the Teensy pinout in <a class="reference external" href="https://www.pjrc.com/store/teensy41.html">https://www.pjrc.com/store/teensy41.html</a></p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+outputPin[&quot;PWM output pin&quot;]
+GND
+end
+
+subgraph power supply 12V
+power_12V+
+power_Gnd[&quot;GND&quot;]
+end
+
+Capacitor
+Diode[&quot;1N4007 diode&quot;]
+
+subgraph Servo_Motor
+servo_power[&quot;Power +&quot;]
+servo_signal[&quot;Signal&quot;]
+servo_gnd[&quot;Ground&quot;]
+end
+
+power_12V+ --- Capacitor
+Capacitor --- power_Gnd
+
+power_12V+ --&gt; servo_power
+servo_power --&gt; Diode
+Diode --- power_Gnd
+
+outputPin --&gt; servo_signal
+servo_gnd --&gt; power_Gnd
+servo_gnd --&gt; GND
+    </pre></section>
+<section id="tone-passive-buzzer">
+<h3>Tone Passive Buzzer<a class="headerlink" href="#tone-passive-buzzer" title="Link to this heading">#</a></h3>
+<pre  class="mermaid">
+        flowchart LR;
+subgraph teensy4.1
+outputPin[&quot;output pin&quot;]
+GND
+end
+
+subgraph Buzzer
+Buzzer+
+Buzzer-
+end
+
+outputPin --&gt; Buzzer+
+Buzzer- --&gt; GND
+    </pre></section>
+<section id="capacitive-touch-sensor">
+<h3>Capacitive Touch Sensor<a class="headerlink" href="#capacitive-touch-sensor" title="Link to this heading">#</a></h3>
+<p>This circuit uses a capacitive touch sensor module available on common stores like amazon.</p>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph teensy4.1
+sensorPin[&quot;sensor pin&quot;]
+v3_3[&quot;3.3V&quot;]
+GND
+end
+
+subgraph Capacitive Touch sensor
+module_VCC[&quot;VCC&quot;]
+module_GND[&quot;GND&quot;]
+module_SIG[&quot;SIG&quot;]
+end
+
+v3_3 --&gt; module_VCC
+module_GND --&gt; GND
+module_SIG --&gt; sensorPin
+    </pre></section>
+<section id="pulse-clock">
+<h3>Pulse clock<a class="headerlink" href="#pulse-clock" title="Link to this heading">#</a></h3>
+<pre  class="mermaid">
+        flowchart TB;
+subgraph experiment_teensy[&quot;Experiment Teensy&quot;]
+clock_pin[&quot;clock pin&quot;]
+GND
+USB
+end
+
+subgraph external_device[&quot;External Device&quot;]
+external_input[&quot;input pin&quot;]
+external_GND[&quot;GND&quot;]
+end
+
+clock_pin -- 10kOhm --&gt; external_input
+GND --- external_GND
+PC --- USB
+    </pre></section>
 </section>
 </section>
 
@@ -834,7 +1180,28 @@ The maximum providable frequency is 65_535.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-guides">Wiring guides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wiring-guides">Wiring guides</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#v-power">12V Power</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#led">LED</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#photoresistor">Photoresistor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beam-break-photo-interrupter">Beam break/photo interrupter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#potentiometer">Potentiometer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#valve">Valve</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#channel-valve-driver-board">4 Channel Valve Driver Board</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-valve-circuit">Manual Valve Circuit</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotary-encoder">Rotary Encoder</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-up-rotary-encoder">Pull-up Rotary Encoder</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-rotary-encoder">Direct Rotary Encoder</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#servo">Servo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tone-passive-buzzer">Tone Passive Buzzer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capacitive-touch-sensor">Capacitive Touch Sensor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pulse-clock">Pulse clock</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
