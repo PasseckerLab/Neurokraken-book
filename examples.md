@@ -17,7 +17,42 @@ Use `Ctrl + Alt + Q` to quit running tasks. In further developed tasks you might
 :local:
 ```
 
-## minimal
+## Minimal examples
+
+These examples are small introductory examples to get you started with Neurokraken
+
+### minimal
+
+This task just runs a minimal state loop forever until you end the run.
+
+```
+# setup configuration
+from neurokraken import Neurokraken, State
+from neurokraken.configurators import devices, Display, Camera, Microphone
+
+serial_in = {}
+serial_out = {}
+
+nk = Neurokraken(serial_in=serial_in, serial_out=serial_out, log_dir='./', mode='keyboard')
+
+# task design
+from neurokraken.controls import get
+
+class My_State(State):
+    def loop_main(self):
+        # your experiment code will loop here
+        return False, 0
+    
+task = {
+    'state_name': My_State(next_state='state_name'),
+}
+
+nk.load_task(task)
+
+nk.run()
+```
+
+### blink
 
 We will just show the color green on a display in this state and blink an LED every 5 seconds. This example is a good starting point to understand the basic structure of Neurokraken and then modify into your task of interest.
 
@@ -63,7 +98,7 @@ nk.load_task(task)
 nk.run()
 ```
 
-## quickstart
+### quickstart
 
 The example created in the quickstart chapter
 
@@ -101,7 +136,7 @@ nk.load_task(task)
 nk.run()
 ```
 
-## introduction
+### display
 
 Another short introduction example
 
