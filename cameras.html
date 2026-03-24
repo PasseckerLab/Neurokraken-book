@@ -393,8 +393,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name">name</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idx">idx</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#width-height">width, height</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-capture-fps">max_capture_fps</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-fps">vid_fps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps">fps</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-enabled">ui_view_enabled</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-step-and-ui-view-scale">ui_view_step and ui_view_scale</a></li>
 </ul>
@@ -454,21 +453,21 @@ document.write(`
 <p>Here are 3 more typical example with specified parameters</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Kayeton_mono_2.8-12mm&#39;</span><span class="p">,</span>
        <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1280</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span>
-       <span class="n">max_capture_fps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">vid_fps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+       <span class="n">fps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
        <span class="n">ui_view_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ui_view_step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ui_view_scale</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 <span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;main_view&#39;</span><span class="p">,</span>
        <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="p">,</span>
        <span class="n">cv2_backend</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_MSMF</span><span class="p">,</span>
-       <span class="n">max_capture_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">vid_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+       <span class="n">fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
        <span class="n">color2grey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># a color camera</span>
        <span class="n">ui_view_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ui_view_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ui_view_scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
 <span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;scientific_camera&#39;</span><span class="p">,</span>
        <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="c1"># 2,592 x 1,944</span>
        <span class="n">capturer</span><span class="o">=</span><span class="s1">&#39;harvesters&#39;</span><span class="p">,</span> <span class="n">harvesters_path_GenTL_cti</span><span class="o">=</span><span class="s1">&#39;C:/path/to/.cti/file&#39;</span><span class="p">,</span>
-       <span class="n">max_capture_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">vid_fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+       <span class="n">fps</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
        <span class="n">ui_view_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ui_view_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ui_view_scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -502,17 +501,11 @@ document.write(`
 <li><p>If width and height are unspecified you may end up with resolution video data than your camera can provide.</p></li>
 </ul>
 </section>
-<section id="max-capture-fps">
-<h3>max_capture_fps<a class="headerlink" href="#max-capture-fps" title="Link to this heading">#</a></h3>
+<section id="fps">
+<h3>fps<a class="headerlink" href="#fps" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>The maximum rate of image aquisition. Neurokraken will capture images as fast as your camera, and computer resources allow. Setting a maximum fps can help when you i.e. only want to use a 120fps camera at 60fps. Default to 5_000.</p></li>
-</ul>
-</section>
-<section id="vid-fps">
-<span id="id2"></span><h3>vid_fps<a class="headerlink" href="#vid-fps" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>The framerate for the saved video. Neurokraken logs each frame time so the playback speed of these frames does not matter much, but keeping it in the neighborhood of your capturing framerate creates a reasonable speed when the video file is watched on its own. Defaults to 30.</p></li>
-<li><p>You can check the fps your cameras practically achieve on a given setup with <code class="docutils literal notranslate"><span class="pre">ui_utils.framerates_to_string()</span></code></p></li>
+<li><p>The targeted fps. If the target cannot be reached, frames will be captured at the highest possible framerate. Defaults to 30.</p></li>
+<li><p>The camera’s video file will be encoded with this provided framerate. Ground truth mappings of experiment-time/video-frame/video-time can be found in the log.</p></li>
 </ul>
 </section>
 <section id="ui-view-enabled">
@@ -575,7 +568,6 @@ document.write(`
 <ul class="simple">
 <li><p>Save the capture to a video file in the log folder throughout the experiment duration. Defaults to True.</p></li>
 <li><p>The filename will be the provided <a class="reference internal" href="#camera-name"><span class="std std-ref">name</span></a> of this camera.</p></li>
-<li><p>The video will use the framerate provided to <a class="reference internal" href="#vid-fps"><span class="std std-ref">vid_fps</span></a></p></li>
 </ul>
 <section id="vid-codec">
 <h4>vid_codec<a class="headerlink" href="#vid-codec" title="Link to this heading">#</a></h4>
@@ -668,10 +660,10 @@ document.write(`
 <ul class="simple">
 <li><p>When using high resolution/high framerate cameras like <a class="reference internal" href="#camera-examples"><span class="std std-ref">the examples above</span></a> computers may reach their processing limit leading to reduced capturing speed. More modern PCs and PCs with more CPU cores will generally do better than repurposed old PCs in their capabilities. We found modern mini PCs to be surprisingly capable experiment hardware for their price. However when requiring more frames per second or a higher resolution from an important but limited camera the following steps can be taken:</p>
 <ul>
-<li><p>reduce the <code class="docutils literal notranslate"><span class="pre">max_capture_fps</span></code> or <code class="docutils literal notranslate"><span class="pre">width</span></code>/<code class="docutils literal notranslate"><span class="pre">height</span></code> of other less important cameras.</p></li>
+<li><p>reduce the <code class="docutils literal notranslate"><span class="pre">fps</span></code> or <code class="docutils literal notranslate"><span class="pre">width</span></code>/<code class="docutils literal notranslate"><span class="pre">height</span></code> of other less important cameras.</p></li>
 <li><p>When <code class="docutils literal notranslate"><span class="pre">ui_view=True</span></code>: increase the <code class="docutils literal notranslate"><span class="pre">ui_view_step</span></code> and lower the <code class="docutils literal notranslate"><span class="pre">ui_view_scale</span></code></p></li>
 <li><p>Process color camera data in greyscale <code class="docutils literal notranslate"><span class="pre">color2grey=True</span></code></p></li>
-<li><p>You can trade <code class="docutils literal notranslate"><span class="pre">max_capture_fps</span></code> against the resolution. i.e. on one pc a camera with <code class="docutils literal notranslate"><span class="pre">width=1920,</span> <span class="pre">height=1080</span></code> may achieve 60 fps but when used with <code class="docutils literal notranslate"><span class="pre">width=1280,</span> <span class="pre">height=720</span></code> run at 90fps. Note that cameras have a specific set of width/height combinations can will only work properly using one of these combinations.</p></li>
+<li><p>You can trade <code class="docutils literal notranslate"><span class="pre">fps</span></code> against the resolution. i.e. on one pc a camera with <code class="docutils literal notranslate"><span class="pre">width=1920,</span> <span class="pre">height=1080</span></code> may achieve 60 fps but when used with <code class="docutils literal notranslate"><span class="pre">width=1280,</span> <span class="pre">height=720</span></code> run at 90fps. Note that cameras have a specific set of width/height combinations can will only work properly using one of these combinations.</p></li>
 <li><p>GenICam cameras have a lower impact than typical USB cameras.</p></li>
 <li><p>You can check the performance of your last run experiment with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">tools/performance_test.py</span> <span class="pre">--last</span></code></p>
 <ul>
@@ -753,8 +745,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name">name</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idx">idx</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#width-height">width, height</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-capture-fps">max_capture_fps</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vid-fps">vid_fps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps">fps</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-enabled">ui_view_enabled</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-view-step-and-ui-view-scale">ui_view_step and ui_view_scale</a></li>
 </ul>

@@ -152,7 +152,7 @@ Cameras are documented in the [cameras chapter](cameras.md). Defaults to [ ]
 ```python
 from utils.configurators import Camera
 
-cameras = Camera(name='my_camera', idx=0, width=1280, height=720, max_capture_fps=60)
+cameras = Camera(name='my_camera', idx=0, width=1280, height=720, fps=60)
 nk = Neurokraken(..., cameras=cameras)
 ```
 
