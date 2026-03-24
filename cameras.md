@@ -19,21 +19,21 @@ Here are 3 more typical example with specified parameters
 ```python
 Camera(name='Kayeton_mono_2.8-12mm',
        idx=0, width=1280, height=720,
-       max_capture_fps=100, vid_fps=100,
+       fps=100,
        ui_view_enabled=True, ui_view_step=3, ui_view_scale=0.4)
 
 import cv2
 Camera(name='main_view',
        idx=0, width=1920, height=1080,
        cv2_backend=cv2.CAP_MSMF,
-       max_capture_fps=40, vid_fps=40,
+       fps=40,
        color2grey=False, # a color camera
        ui_view_enabled=True, ui_view_step=1, ui_view_scale=0.3)
 
 Camera(name='scientific_camera',
        idx=0, # 2,592 x 1,944
        capturer='harvesters', harvesters_path_GenTL_cti='C:/path/to/.cti/file',
-       max_capture_fps=40, vid_fps=40,
+       fps=40,
        ui_view_enabled=True, ui_view_step=1, ui_view_scale=0.2)
 ```
 
@@ -52,13 +52,10 @@ You can provide multiple cameras to the cameras list to use them together in the
 ### width, height
 - Cameras typically support different width/height combinations at different framerates. These combinations are often noted on the packaging and store webpage but can also easily be checked with the windows build-in "Camera" application (open the settings in the top left corner, then open the entry "video settings" which will show you supported resolutions, i.e. `1080p 16:9 30fps` and `720 16:9 60fps` and `480p 4:3 60fps`).
 - If width and height are unspecified you may end up with resolution video data than your camera can provide.
-### max_capture_fps
-- The maximum rate of image aquisition. Neurokraken will capture images as fast as your camera, and computer resources allow. Setting a maximum fps can help when you i.e. only want to use a 120fps camera at 60fps. Default to 5_000.
+### fps
+- The targeted fps. If the target cannot be reached, frames will be captured at the highest possible framerate. Defaults to 30.
+- The camera's video file will be encoded with this provided framerate. Ground truth mappings of experiment-time/video-frame/video-time can be found in the log.
 
-(vid_fps)=
-### vid_fps
-- The framerate for the saved video. Neurokraken logs each frame time so the playback speed of these frames does not matter much, but keeping it in the neighborhood of your capturing framerate creates a reasonable speed when the video file is watched on its own. Defaults to 30.
-- You can check the fps your cameras practically achieve on a given setup with `ui_utils.framerates_to_string()`
 ### ui_view_enabled
 - Prepare a py5image for live camera display in the ui. Default to False.
 - With ui_view_enabled=True you can access the current frame for display in your py5-based gui.
@@ -93,7 +90,6 @@ self.image(preview, 300, 100, 200, 200)
 ### save_as_vid
 - Save the capture to a video file in the log folder throughout the experiment duration. Defaults to True.
 - The filename will be the provided [name](camera_name) of this camera.
-- The video will use the framerate provided to [vid_fps](vid_fps)
 
 #### vid_codec
 - The codec used by the videowriter. Defaults to 'mp4v'
@@ -150,10 +146,10 @@ Many cameras automatically adjust their exposure time depending on the received 
 
 ## Improving camera performance
 - When using high resolution/high framerate cameras like [the examples above](camera_examples) computers may reach their processing limit leading to reduced capturing speed. More modern PCs and PCs with more CPU cores will generally do better than repurposed old PCs in their capabilities. We found modern mini PCs to be surprisingly capable experiment hardware for their price. However when requiring more frames per second or a higher resolution from an important but limited camera the following steps can be taken:
-  - reduce the `max_capture_fps` or `width`/`height` of other less important cameras.
+  - reduce the `fps` or `width`/`height` of other less important cameras.
   - When `ui_view=True`: increase the `ui_view_step` and lower the `ui_view_scale`
   - Process color camera data in greyscale `color2grey=True`
-  - You can trade `max_capture_fps` against the resolution. i.e. on one pc a camera with `width=1920, height=1080` may achieve 60 fps but when used with `width=1280, height=720` run at 90fps. Note that cameras have a specific set of width/height combinations can will only work properly using one of these combinations.
+  - You can trade `fps` against the resolution. i.e. on one pc a camera with `width=1920, height=1080` may achieve 60 fps but when used with `width=1280, height=720` run at 90fps. Note that cameras have a specific set of width/height combinations can will only work properly using one of these combinations.
   - GenICam cameras have a lower impact than typical USB cameras.
   - You can check the performance of your last run experiment with `python tools/performance_test.py --last`
     - If you observe latency spikes (tens of milliseconds) when using your camera revisit the cv2_backend choice and test your camera in bright light conditions against issues caused by autoexposure [(see Troubleshooting)](autoexposure)
