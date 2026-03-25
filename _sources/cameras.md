@@ -52,22 +52,24 @@ You can provide multiple cameras to the cameras list to use them together in the
 ### width, height
 - Cameras typically support different width/height combinations at different framerates. These combinations are often noted on the packaging and store webpage but can also easily be checked with the windows build-in "Camera" application (open the settings in the top left corner, then open the entry "video settings" which will show you supported resolutions, i.e. `1080p 16:9 30fps` and `720 16:9 60fps` and `480p 4:3 60fps`).
 - If width and height are unspecified you may end up with resolution video data than your camera can provide.
+(camera_fps)=
 ### fps
 - The targeted fps. If the target cannot be reached, frames will be captured at the highest possible framerate. Defaults to 30.
 - The camera's video file will be encoded with this provided framerate. Ground truth mappings of experiment-time/video-frame/video-time can be found in the log.
 
 ### ui_view_enabled
-- Prepare a py5image for live camera display in the ui. Default to False.
-- With ui_view_enabled=True you can access the current frame for display in your py5-based gui.
+- Whether to maintain a compressed/performant camera feed for live view in UI. The current frame can be accessed with `get.get_camera(i, preview=True)`. Defaults to False.
 ```python
-# in your ui.py
+# in your ui code
 preview = get.camera(0, preview=True)
 self.image(preview, 300, 100, 200, 200)
 ```
 - `frame = get.camera(idx, preview=False)` retrieves the full size current numpy array frame image for live processing applications/computer vision or displaying it in non-py5-based UIs.
   - This numpy array data is also available with cameras where preview=False, however high framerate, high resolution camera create a lot of pixel data which can be demanding to process at this full scale. Thus when the purpose is only a live preview in the ui, reducing the data to be displayed can save resources and allow higher framerates on limited systems.
+#### ui_view_format
+- `'py5'` or `'numpy'`. the data type of the preview frame provided by `get_camera(i, preview=True)`. Choose `'py5'` if your gui can display a Py5Image and `'numpy'` if your gui can be made to display an image based on a numpy ndarray/image. Defaults to 'py5'.
 #### ui_view_step and ui_view_scale
--  When ui_view_enabled=True, only update the the ui preview image every nth frame and reduce the size to a lower resolution.
+-  When ui_view_enabled=True, only update the the ui preview image every nth frame and reduce the size to a lower resolution scale.
 
 ### cv2 backend
 - Neurokraken uses `cv2.CAP_DSHOW` as default backend.
@@ -130,9 +132,7 @@ self.image(preview, 300, 100, 200, 200)
 
 ## on video/audio frame times
 
-Due to a technical limitation video and audio file time can be run at a different speed from from the task's current milliseconds. The file framerate has to be decided when the file/recording is started while the capabilities of a system may still be unclear or capturing intentionally is performed as fast as the system can process at a non-standard framerate. Neurokraken saves video and audio files with timestamps to ensure that frames are accurately relateable to the respective task time and events.
-
-We are working on an optional feature to automatically re-encode video and audio post-experiment completion for easier analysis.
+Video and Audio files may play back at a different speed than the original task under some circumstances, i.e. when a higher [fps target](camera_fps) was provided for a Camera() than the camera or system compute can support. The log entries for the camera/microphone contain ground truth timestamps that can be used to affirm good alignment, and to reencode files to the logged time window with tools like ffmpeg.
 
 (hacking_cameras)=
 ## Hacking cameras\.py
@@ -150,6 +150,5 @@ Many cameras automatically adjust their exposure time depending on the received 
   - When `ui_view=True`: increase the `ui_view_step` and lower the `ui_view_scale`
   - Process color camera data in greyscale `color2grey=True`
   - You can trade `fps` against the resolution. i.e. on one pc a camera with `width=1920, height=1080` may achieve 60 fps but when used with `width=1280, height=720` run at 90fps. Note that cameras have a specific set of width/height combinations can will only work properly using one of these combinations.
-  - GenICam cameras have a lower impact than typical USB cameras.
   - You can check the performance of your last run experiment with `python tools/performance_test.py --last`
     - If you observe latency spikes (tens of milliseconds) when using your camera revisit the cv2_backend choice and test your camera in bright light conditions against issues caused by autoexposure [(see Troubleshooting)](autoexposure)
