@@ -80,9 +80,54 @@ nk.run()
 
 - You can directly run this python script - Since we are using keyboard mode we don't need to connect a teensy.
 - `>>> python my_task.py`
-- As its loop_main is empty (outside of the return) this task will continue doing nothing until manually closed.
+- As its loop_main is empty of code (outside of the return) this task will continue doing nothing until manually closed.
 
-## Extend your task
+## General Neurokraken task layout
+
+Neurokraken tasks take the following form:
+1. A Neurokraken() object is created with the device configuration of your task/setup. 
+2. A task is loaded, which consists of any number of State container classes for your own python logic within.
+3. Begin the task run().
+
+````{mermaid}
+flowchart LR;
+
+neurokraken["Neurokraken()"]
+load_task["load_task()"]
+run["run()"]
+sensors["Sensors (serial_in)"]
+stimuli["Stimuli (serial_out)"]
+
+sensors --> neurokraken
+stimuli --> neurokraken
+Displays --> neurokraken
+Cameras --> neurokraken
+Microphones --> neurokraken
+Settings --> neurokraken
+
+neurokraken --> load_task
+
+subgraph t["Your task's Code"]
+statea["State A"]
+stateb["State B"]
+statedotdotdot["State ..."]
+Task
+end
+
+statea <--> stateb
+stateb <--> statedotdotdot
+statedotdotdot <--> statea
+
+statea --> Task
+stateb --> Task
+statedotdotdot --> Task
+
+Task --> load_task
+
+load_task --> run
+````
+
+## Extend your starting task
 
 - In this simple example we want to extend the minimal task to reward a subject for poking a sensor.
   - After a reward there will be 10 seconds delay until the sensor will be responsive again

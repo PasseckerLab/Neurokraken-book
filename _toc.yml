@@ -7,28 +7,28 @@ parts:
   - caption: Examples
     chapters:
     - file: examples
-  - caption: Reference
+    - file: examples_ui
+    - file: modes # keyboard and agent
+  - caption: Function Reference
     chapters:
     - file: controls
     - file: configuration
     - file: states
+  - caption: Devices Reference
+    chapters:
+    - file: cameras
+    - file: microphones
+    - file: device_library
+    - file: arduino_custom
+    - file: outside_devices
   - caption: Installation
     chapters:
     - file: installation
-  - caption : Common task patterns
-    chapters:
-    - file: patterns
-  - caption: Peripherals
-    chapters:
-    - file: device_library
-    - file: cameras
-    - file: microphones
-    - file: arduino_custom
-    - file: outside_devices
+  # - caption : Common task patterns
+  #   chapters:
+  #   - file: patterns
   - caption: Features
     chapters:
-    - file: modes # keyboard and agent
-    - file: UIs
     - file: ai_ml_cv
     - file: tools
     - file: runner_mode
@@ -37,5 +37,5 @@ parts:
     - file: building_your_setup
   - caption: Advanced
     chapters:
-    - file: for_developers
+    # - file: for_developers
     - file: faq.md

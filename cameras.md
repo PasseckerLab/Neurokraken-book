@@ -4,12 +4,14 @@
 (camera_examples)=
 ## Adding cameras to your task 
 
-Adding a camera can be as simple as adding a Camera element to your config cameras list: 
+Adding a camera is as simple as adding a Camera element (or list thereof) to Neurokraken():
 
 ```python
 from utils.configurators import Camera
 
 cameras = [Camera()]
+
+nk = Neurokraken(..., cameras=cameras, ...)
 ```
 
 Neurokraken supports USB connectable cameras ranging from minimal embedded application camera modules and webcams to specialized high framerate, high resolution GenICam protocol cameras.
@@ -67,7 +69,7 @@ self.image(preview, 300, 100, 200, 200)
 - `frame = get.camera(idx, preview=False)` retrieves the full size current numpy array frame image for live processing applications/computer vision or displaying it in non-py5-based UIs.
   - This numpy array data is also available with cameras where preview=False, however high framerate, high resolution camera create a lot of pixel data which can be demanding to process at this full scale. Thus when the purpose is only a live preview in the ui, reducing the data to be displayed can save resources and allow higher framerates on limited systems.
 #### ui_view_format
-- `'py5'` or `'numpy'`. the data type of the preview frame provided by `get_camera(i, preview=True)`. Choose `'py5'` if your gui can display a Py5Image and `'numpy'` if your gui can be made to display an image based on a numpy ndarray/image. Defaults to 'py5'.
+- `'py5'` or `'numpy'`. the data type of the preview frame provided by `get.camera(i, preview=True)`. Choose `'py5'` if your gui can display a Py5Image and `'numpy'` if your gui can be made to display an image based on a numpy ndarray/image. Defaults to 'py5'.
 #### ui_view_step and ui_view_scale
 -  When ui_view_enabled=True, only update the the ui preview image every nth frame and reduce the size to a lower resolution scale.
 
