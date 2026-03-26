@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'modes';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User Interfaces (UIs)" href="UIs.html" />
-    <link rel="prev" title="Integrating Outside Devices" href="outside_devices.html" />
+    <link rel="next" title="Controls, Task development and the .get-Interface" href="controls.html" />
+    <link rel="prev" title="UI Examples" href="examples_ui.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,35 +184,31 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Task Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_ui.html">UI Examples</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Keyboard and Agent Mode</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Function Reference</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="controls.html">Controls, Task development and the .get-Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
 <li class="toctree-l1"><a class="reference internal" href="states.html">States - Structuring task steps</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Devices Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cameras.html">Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arduino_custom.html">Add your own device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common task patterns</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="patterns.html">Common task patterns</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Peripherals</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cameras.html">Cameras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
-<li class="toctree-l1"><a class="reference internal" href="arduino_custom.html">Add your own device</a></li>
-<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Features</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Keyboard and Agent Mode</a></li>
-<li class="toctree-l1"><a class="reference internal" href="UIs.html">User Interfaces (UIs)</a></li>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ai_ml_cv.html">AI/ML/Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Neurokraken Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runner_mode.html">Runner Mode</a></li>
@@ -223,7 +219,6 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="for_developers.html">For Developers - Hacking the Neurokraken</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -365,7 +360,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -381,6 +378,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-agents">using agents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-simple">agent_simple</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-learning">agent_learning</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -392,7 +399,262 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="keyboard-and-agent-mode">
 <h1>Keyboard and Agent Mode<a class="headerlink" href="#keyboard-and-agent-mode" title="Link to this heading">#</a></h1>
-<p>This chapter is currently in development and will be available soon</p>
+<section id="using-agents">
+<h2>using agents<a class="headerlink" href="#using-agents" title="Link to this heading">#</a></h2>
+<p>The following tasks provide examples of how to use <code class="docutils literal notranslate"><span class="pre">mode='agent'</span></code> to provide the same task that can be run by subjects in the physical space to one’s written computer code to enage with the task instead. This allows for translational research between biological and AI subjects as well as automating task testing.</p>
+<ul class="simple">
+<li><p>The Neurokraken object is initialized with mode=’agent’ and an agent class. This class only needs to contain a function <code class="docutils literal notranslate"><span class="pre">act(self)</span></code> that can read in the environment and make an action, and a parameter <code class="docutils literal notranslate"><span class="pre">self.act_freq</span> <span class="pre">=</span> <span class="pre">int</span></code> - how frequently the agent will execute this function.</p></li>
+<li><p>While typical task code reads sensor data (<code class="docutils literal notranslate"><span class="pre">get.read_in()</span></code>) and sends out task controls (<code class="docutils literal notranslate"><span class="pre">get.send_out()</span></code>) the agent acts as the complementary opposite, accessing <code class="docutils literal notranslate"><span class="pre">get.serial_out[&lt;x&gt;][value]</span></code> to access the current state of stimulus peripherals, and updating <code class="docutils literal notranslate"><span class="pre">get.serial_in[&lt;x&gt;][value]</span></code> to provide sensor peripherals with its choices.</p>
+<ul>
+<li><p>The agent code can also be written to access get.log for access to historical events</p></li>
+<li><p>The agent can access task visual pixel data through a numpy array that we update every visual frame from loop_visual()</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="agent-simple">
+<h2>agent_simple<a class="headerlink" href="#agent-simple" title="Link to this heading">#</a></h2>
+<p>agent_simple is a minimal example of using an agent in a task. A servo moves to a position left/center/right while the agent has access to 2 touch sensors and will be rewarded if he pressed the left sensor if the servo moved left and if he pressed the right sensor if the  and the agent has 2 touch sensors and will press the left one if the servo points left and the right one if the servo points right.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An additional simple agent example in which a random agent steers a shape to alternating sides of the display can found in the <a class="reference internal" href="examples_ui.html#agent-steering"><span class="std std-ref">UI examples</span></a>.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+
+<span class="n">serial_in</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;touch_left&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">capacitive_touch</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]),</span>
+    <span class="s1">&#39;touch_right&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">capacitive_touch</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="p">[</span><span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;servo&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">servo</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>
+    <span class="s1">&#39;reward_valve&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="c1">#---------------------------------- AGENT ----------------------------------</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">act_freq</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># act() will be run every 2 seconds</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">serial_out</span><span class="p">[</span><span class="s1">&#39;servo&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I am touching the left sensor&#39;</span><span class="p">)</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">serial_in</span><span class="p">[</span><span class="s1">&#39;touch_left&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6000</span>
+        <span class="k">elif</span> <span class="n">get</span><span class="o">.</span><span class="n">serial_out</span><span class="p">[</span><span class="s1">&#39;servo&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">245</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I am touching the right sensor&#39;</span><span class="p">)</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">serial_in</span><span class="p">[</span><span class="s1">&#39;touch_right&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6000</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># not touching either</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">serial_in</span><span class="p">[</span><span class="s1">&#39;touch_left&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">serial_in</span><span class="p">[</span><span class="s1">&#39;touch_right&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">()</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="n">serial_in</span><span class="p">,</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;agent&#39;</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">agent</span><span class="p">)</span>
+
+<span class="c1">#----------------------------------- TASK -----------------------------------</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># create a numpy array to store the current frame for the agent</span>
+<span class="n">get</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Intertrial</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;servo&#39;</span><span class="p">,</span> <span class="mi">127</span><span class="p">)</span>                <span class="c1"># arm in middle position</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Choice</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">servo_pos</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">245</span><span class="p">])</span> <span class="c1"># left or right position</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;servo&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">servo_pos</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;servo as position </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">servo_pos</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">servo_pos</span> <span class="o">==</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;touch_left&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4000</span><span class="p">:</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">servo_pos</span> <span class="o">==</span> <span class="mi">245</span> <span class="ow">and</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;touch_right&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4000</span><span class="p">:</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+    
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;wait&#39;</span><span class="p">:</span> <span class="n">Intertrial</span><span class="p">(</span><span class="n">max_time_s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;choice&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;choice&#39;</span><span class="p">:</span> <span class="n">Choice</span><span class="p">(</span><span class="n">max_time_s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;wait&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="agent-learning">
+<h2>agent_learning<a class="headerlink" href="#agent-learning" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>agent_learning is a more advanced example of an agent improving its choices with experience.</p></li>
+<li><p>This example is best undestood starting with the task in the bottom (it can also be run with <code class="docutils literal notranslate"><span class="pre">mode='keyboard'</span></code>) before going to the code of the agent above.</p></li>
+<li><p>In this task every 4 seconds the task changes to a random combination of display color (green/blue) and tone frequency (600Hz/1200Hz) leading to 2x2=4 stimulus combinations. The subject can make a decision to press a button or not. If the button was pressed at the combination Green/low freq or Blue/high freq, a reward will be delivered while the other 2 combinations only deliver a reward if the button was not pressed during the interval. This can be thought of as the followwing matrix of whether a button press is good:</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>low</p></th>
+<th class="head"><p>high</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>green</p></td>
+<td><p>+</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>blue</p></td>
+<td><p>-</p></td>
+<td><p>+</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>The example’s simple agent contains this press_good? matrix (initialized at 0) and will press the button if its table entry is positive.</p></li>
+<li><p>The agent keeps tracks of its most recent stimuli, action choice, and the reward outcome, and then increments or decrements the table entry based on what button decision was or would have been rewarding.</p></li>
+<li><p>the table will quickly develop to resemble the ideal choice matrix above.</p></li>
+<li><p>The difficulty with reinforcement learning is in the implementation, so this example is a bit forced (i.e. learning frequency = choice frequency = trial frequency = 4s) to show how how a learner can be implemented in neurokraken. More powerful learner models for research are going to be more complex than this.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Display</span><span class="p">,</span> <span class="n">devices</span>
+
+<span class="n">serial_in</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">binary_read</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;reward_valve&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span>
+    <span class="s1">&#39;beep&#39;</span><span class="p">:</span>         <span class="n">devices</span><span class="o">.</span><span class="n">tone</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">26</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">#---------------------------------- AGENT ----------------------------------</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">act_freq</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># act() will be run 5 times per second</span>
+        
+        <span class="c1"># is pressing a button good in this environment? &gt;0.5 yes, &lt;0.5 no.    # ideal matrix</span>
+        <span class="c1"># 1st dim green/blue/black color, 2nd dim low/high frequency           #     l  h</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pressgood_gb_lh</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>                                    <span class="c1"># g [[+, -],</span>
+                                <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span>                                    <span class="c1"># b  [-, +]]</span>
+     
+        <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_env</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_last_choice</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># the agent will make one decision every 4 seconds, and otherwise keep the button unpressed</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span>  <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_last_choice</span> <span class="o">+</span> <span class="mi">4000</span><span class="p">:</span>
+            <span class="c1"># --- learn from the outcome of the last action ---</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">log_rewards</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;controls&#39;</span><span class="p">][</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">]</span>
+                <span class="n">recent_rewards</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">log_rewards</span> <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">-</span> <span class="mi">4100</span><span class="p">]</span>
+                <span class="n">got_rewarded</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">recent_rewards</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;my last environment, choice, reward: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_env</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">did_press</span><span class="p">,</span><span class="w"> </span><span class="n">got_rewarded</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="c1"># should pressgood for the experienced environment be increased or decreased</span>
+                <span class="n">delta</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="ow">and</span> <span class="n">got_rewarded</span><span class="p">:</span>         <span class="n">delta</span> <span class="o">=</span> <span class="o">+</span><span class="mf">0.1</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">got_rewarded</span><span class="p">:</span>     <span class="n">delta</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="ow">and</span> <span class="n">got_rewarded</span><span class="p">:</span>     <span class="n">delta</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">got_rewarded</span><span class="p">:</span> <span class="n">delta</span> <span class="o">=</span> <span class="o">+</span><span class="mf">0.1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pressgood_gb_lh</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">last_env</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="bp">self</span><span class="o">.</span><span class="n">last_env</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">delta</span>
+                <span class="c1"># Now that we learned from this experience we can set it back to 0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;my new choice matrix:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pressgood_gb_lh</span><span class="p">)</span>
+            
+            <span class="c1"># --- act based on the environment and experience ---</span>
+            <span class="c1"># process the visual and audio into state spaces of 0 or 1 respectively</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">color</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="n">audio</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">serial_out</span><span class="p">[</span><span class="s1">&#39;beep&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">700</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_env</span> <span class="o">=</span> <span class="p">[</span><span class="n">color</span><span class="p">,</span> <span class="n">audio</span><span class="p">]</span>
+            
+            <span class="c1"># look up experience whether in this environment a button press is good and do the learned button action</span>
+            <span class="n">press_good</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pressgood_gb_lh</span><span class="p">[</span><span class="n">color</span><span class="p">][</span><span class="n">audio</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">press_good</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Observation: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_env</span><span class="si">}</span><span class="s1"> - I am pressing the button&#39;</span><span class="p">)</span>
+                <span class="n">get</span><span class="o">.</span><span class="n">serial_in</span><span class="p">[</span><span class="s1">&#39;button&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Observation: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_env</span><span class="si">}</span><span class="s1"> - I am waiting out this stimulus&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">did_press</span> <span class="o">=</span> <span class="kc">False</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_last_choice</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">serial_in</span><span class="p">[</span><span class="s1">&#39;button&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">()</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="n">serial_in</span><span class="p">,</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> 
+                 <span class="n">display</span><span class="o">=</span><span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;agent&#39;</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">agent</span><span class="p">)</span>
+
+<span class="c1">#----------------------------------- TASK -----------------------------------</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span><span class="o">,</span><span class="w"> </span><span class="nn">winsound</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># create a numpy array to store the current frame for the agent</span>
+<span class="n">get</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Choice</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">600</span><span class="p">,</span> <span class="mi">1200</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_t</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_was_pressed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">winsound</span><span class="o">.</span><span class="n">Beep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="mi">2000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;beep&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
+        <span class="c1"># color and tone form 2x2 combinations. 2 combinations will reward pressing the button during</span>
+        <span class="c1"># the 4s state and 2 combinations (green+low, blue+high) will reward waiting out the 4s</span>
+        <span class="c1"># without pressing it</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_was_pressed</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;green&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">==</span>  <span class="mi">600</span><span class="p">)</span> <span class="ow">or</span> \
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;blue&#39;</span>  <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">==</span> <span class="mi">1200</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---REWARD---&#39;</span><span class="p">)</span>
+                    <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">button_was_pressed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_t</span> <span class="o">&gt;</span> <span class="mi">3900</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_was_pressed</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;green&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">==</span> <span class="mi">1200</span><span class="p">)</span> <span class="ow">or</span> \
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;blue&#39;</span>  <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">==</span>  <span class="mi">600</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---REWARD---&#39;</span><span class="p">)</span>
+                    <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward_valve&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;blue&#39;</span><span class="p">:</span>
+            <span class="n">sketch</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;green&#39;</span><span class="p">:</span>
+            <span class="n">sketch</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># update the frame data</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">get_np_pixels</span><span class="p">(</span><span class="n">bands</span><span class="o">=</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;choice&#39;</span><span class="p">:</span> <span class="n">Choice</span><span class="p">(</span><span class="n">max_time_s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;choice&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -426,20 +688,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="outside_devices.html"
+       href="examples_ui.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Integrating Outside Devices</p>
+        <p class="prev-next-title">UI Examples</p>
       </div>
     </a>
     <a class="right-next"
-       href="UIs.html"
+       href="controls.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">User Interfaces (UIs)</p>
+        <p class="prev-next-title">Controls, Task development and the .get-Interface</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -449,6 +711,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-agents">using agents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-simple">agent_simple</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-learning">agent_learning</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

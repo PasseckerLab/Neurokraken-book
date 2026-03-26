@@ -1,0 +1,989 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>UI Examples &#8212; Book Of The Neurokraken</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples_ui';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Keyboard and Agent Mode" href="modes.html" />
+    <link rel="prev" title="Task Examples" href="examples.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="introduction.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/book.png" class="logo__image only-light" alt="Book Of The Neurokraken - Home"/>
+    <script>document.write(`<img src="_static/book.png" class="logo__image only-dark" alt="Book Of The Neurokraken - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introduction.html">
+                    Neurokraken Introduction and Overview
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Task Examples</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">UI Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Keyboard and Agent Mode</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Function Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="controls.html">Controls, Task development and the .get-Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">States - Structuring task steps</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Devices Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cameras.html">Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arduino_custom.html">Add your own device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ai_ml_cv.html">AI/ML/Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Neurokraken Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner_mode.html">Runner Mode</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="building_your_setup.html">Building Your Setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/PasseckerLab/Neurokraken" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/examples_ui.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>UI Examples</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal-examples">Minimal examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#krakengui">Krakengui</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dearpygui">dearpygui</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyside6">Pyside6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tkinter">Tkinter</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#live-camera">live camera</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-interactions-and-live-plotting">UI interactions and live-plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-interacting-task">UI-interacting task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-ui">Interacting UI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#live-plotting">Live plotting</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ui-examples">
+<h1>UI Examples<a class="headerlink" href="#ui-examples" title="Link to this heading">#</a></h1>
+<section id="minimal-examples">
+<h2>Minimal examples<a class="headerlink" href="#minimal-examples" title="Link to this heading">#</a></h2>
+<p>The following chapters show 4 UI frameworks (krakengui, dearpygui, tkinter, pyside6) used with a minimal Neurokraken task. The respective UI contains containing a text input to set a tone device’s frequency and a text field showing the current task milliseconds.</p>
+<p>UI window can be inserted into a task just before <code class="docutils literal notranslate"><span class="pre">nk.run()</span></code>. A common pattern in UI frameworks is that the code element of a button, slider, text input, … is provided with a callback function whose code will be executed when the user triggers the element.</p>
+<section id="krakengui">
+<h3>Krakengui<a class="headerlink" href="#krakengui" title="Link to this heading">#</a></h3>
+<p>Kraken-gui is a set of simple gui elements and plotting functionalities for py5. Utilizing a py5 sketch enables custom visualizations beyond existing gui elements while also providing great flexibility in how to place elements. Py5’s high compute efficiency also makes it well suited to run alongside/as part of neurokraken tasks.</p>
+<p>You can find krakengui at <a class="github reference external" href="https://github.com/alexanderwallerus/kraken-gui">alexanderwallerus/kraken-gui</a>.</p>
+<p>Minimal UI:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">tone</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">32</span><span class="p">)}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="p">{},</span> <span class="n">serial_out</span><span class="o">=</span><span class="p">{},</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Nothing</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">({</span><span class="s1">&#39;my_state&#39;</span><span class="p">:</span> <span class="n">Nothing</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;my_state&#39;</span><span class="p">)})</span>
+
+<span class="c1"># ----------------------- UI -----------------------</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">py5</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sketch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">krakengui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gui</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">change_freq</span><span class="p">(</span><span class="n">freq</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;freq&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">freq</span><span class="p">))</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">UI</span><span class="p">(</span><span class="n">Sketch</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">gui</span><span class="o">.</span><span class="n">Text_Input</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span> <span class="n">on_enter</span><span class="o">=</span><span class="n">change_freq</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;time (ms): </span><span class="si">{</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">quitting</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exit_sketch</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">key_pressed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="n">ui</span> <span class="o">=</span> <span class="n">UI</span><span class="p">()</span>
+<span class="n">ui</span><span class="o">.</span><span class="n">run_sketch</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="dearpygui">
+<h3>dearpygui<a class="headerlink" href="#dearpygui" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://github.com/hoffstadt/dearpygui">dearpygui</a> is an easy python interface to the extensive component range of the Dear-ImGui C++ library.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dearpygui</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">tone</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">32</span><span class="p">)}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="p">{},</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Nothing</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">({</span><span class="s1">&#39;my_state&#39;</span><span class="p">:</span> <span class="n">Nothing</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;my_state&#39;</span><span class="p">)})</span>
+
+<span class="c1"># ----------------------- UI -----------------------</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dearpygui.dearpygui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dpg</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">update_text</span><span class="p">():</span>
+    <span class="n">dpg</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;displayed_text&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Current time: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">input_callback</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">text_input</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">text_input</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">text_input</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;updated frequency to </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">text_input</span><span class="p">)</span><span class="si">}</span><span class="s1">hz&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_pygui</span><span class="p">():</span>
+    <span class="n">dpg</span><span class="o">.</span><span class="n">create_context</span><span class="p">()</span>
+    
+    <span class="k">with</span> <span class="n">dpg</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Neurokraken&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">220</span><span class="p">):</span>
+         <span class="n">dpg</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Current time: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;displayed_text&quot;</span><span class="p">)</span>
+         <span class="n">dpg</span><span class="o">.</span><span class="n">add_input_text</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;new frequency&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span>
+                            <span class="n">callback</span><span class="o">=</span><span class="n">input_callback</span><span class="p">,</span> <span class="n">on_enter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">dpg</span><span class="o">.</span><span class="n">create_viewport</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neurokraken&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+    <span class="n">dpg</span><span class="o">.</span><span class="n">setup_dearpygui</span><span class="p">()</span>
+    <span class="n">dpg</span><span class="o">.</span><span class="n">show_viewport</span><span class="p">()</span>
+    
+    <span class="k">while</span> <span class="n">dpg</span><span class="o">.</span><span class="n">is_dearpygui_running</span><span class="p">():</span>
+        <span class="n">update_text</span><span class="p">()</span>
+        <span class="n">dpg</span><span class="o">.</span><span class="n">render_dearpygui_frame</span><span class="p">()</span>
+    
+    <span class="n">dpg</span><span class="o">.</span><span class="n">destroy_context</span><span class="p">()</span>
+
+<span class="c1"># run pyside6 as a thread for non-blocking execution of the successive nk.run() code</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">run_pygui</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="pyside6">
+<h3>Pyside6<a class="headerlink" href="#pyside6" title="Link to this heading">#</a></h3>
+<p>Pyside6 is a GUI framework based on the popular QT toolkit.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyside6</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">tone</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">32</span><span class="p">)}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="p">{},</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Nothing</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">({</span><span class="s1">&#39;my_state&#39;</span><span class="p">:</span> <span class="n">Nothing</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;my_state&#39;</span><span class="p">)})</span>
+
+<span class="c1"># ----------------------- UI -----------------------</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QTimer</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleGUI</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Current time: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_label</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_input</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_input</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;Set frequency:&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_input</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_text_entered</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_input</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">QTimer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">33</span><span class="p">)</span> <span class="c1"># update the label every 33ms (30fps)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Current time: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_text_entered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_input</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_input</span><span class="o">.</span><span class="n">text</span><span class="p">()))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;updated frequency to </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_input</span><span class="o">.</span><span class="n">text</span><span class="p">())</span><span class="si">}</span><span class="s1">hz&#39;</span><span class="p">)</span>
+            
+<span class="k">def</span><span class="w"> </span><span class="nf">run_gui</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">()</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">SimpleGUI</span><span class="p">()</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+
+<span class="c1"># run pyside6 as a thread for non-blocking execution of the successive nk.run() code</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">run_gui</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="tkinter">
+<h3>Tkinter<a class="headerlink" href="#tkinter" title="Link to this heading">#</a></h3>
+<p>Tkinter is a UI framework pre-bundled with python which does not need to be separately installed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">tone</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">32</span><span class="p">)}</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="p">{},</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Nothing</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">({</span><span class="s1">&#39;my_state&#39;</span><span class="p">:</span> <span class="n">Nothing</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;my_state&#39;</span><span class="p">)})</span>
+
+<span class="c1"># ----------------------- UI -----------------------</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_gui</span><span class="p">():</span>
+    <span class="n">text_field</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">change_frequency</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">text_field</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">text_field</span><span class="o">.</span><span class="n">get</span><span class="p">()))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;updated frequency to </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">text_field</span><span class="o">.</span><span class="n">get</span><span class="p">())</span><span class="si">}</span><span class="s1">hz&#39;</span><span class="p">)</span>
+            
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_label</span><span class="p">():</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Current time: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Schedule next update in 33ms</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="n">update_label</span><span class="p">)</span>
+
+    <span class="c1"># window parameters</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;140x70&quot;</span><span class="p">)</span>
+
+    <span class="c1"># label showing the current time</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">update_label</span><span class="p">()</span>
+
+    <span class="c1"># Text field that updates the frequency on Enter</span>
+    <span class="n">text_field</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">text_field</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+    <span class="n">text_field</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Return&gt;&quot;</span><span class="p">,</span> <span class="n">change_frequency</span><span class="p">)</span>
+
+    <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+
+<span class="c1"># run tkinter as a thread for non-blocking execution of the successive nk.run() code</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">run_gui</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="live-camera">
+<h2>live camera<a class="headerlink" href="#live-camera" title="Link to this heading">#</a></h2>
+<p>You can access a live camera frame with <a class="reference internal" href="cameras.html"><span class="std std-doc">get.camera()</span></a>.</p>
+<p>Depending on which image datatype your gui of choice works with, you can define the Camera()’s ui_view_format as ‘py5’ or ‘numpy’ to retrieve the frame as a Py5Image or numpy ndarray respectively. In the following py5/krakengui-based example `ui_format=py5’ makes sense, and the retrieved current frame is displayed in the draw loop. Other frameworks will typically require you to regularly update the displayed image in the same process used in the previous examples to update the displayed current experiment time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span><span class="p">,</span> <span class="n">Camera</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+
+<span class="n">camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_camera&#39;</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1280</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                <span class="n">ui_view_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ui_view_format</span><span class="o">=</span><span class="s1">&#39;py5&#39;</span><span class="p">,</span>
+                <span class="n">ui_view_step</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ui_view_scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,)</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="p">{},</span> <span class="n">serial_out</span><span class="o">=</span><span class="p">{},</span> <span class="n">cameras</span><span class="o">=</span><span class="n">camera</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;keyboard&#39;</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Nothing</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">({</span><span class="s1">&#39;my_state&#39;</span><span class="p">:</span> <span class="n">Nothing</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;my_state&#39;</span><span class="p">)})</span>
+
+<span class="c1"># ----------------------- UI -----------------------</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">py5</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sketch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">krakengui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gui</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">UI</span><span class="p">(</span><span class="n">Sketch</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">camera_frame</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">camera</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">preview</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">camera_frame</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">quitting</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exit_sketch</span><span class="p">()</span>
+
+<span class="n">ui</span> <span class="o">=</span> <span class="n">UI</span><span class="p">()</span>
+<span class="n">ui</span><span class="o">.</span><span class="n">run_sketch</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="ui-interactions-and-live-plotting">
+<h2>UI interactions and live-plotting<a class="headerlink" href="#ui-interactions-and-live-plotting" title="Link to this heading">#</a></h2>
+<p>The following example has the form of an alternating-side shape steering task performed by an artificial agent, which provides a rich range of possible UI-based interactions and live data visualizations.</p>
+<p>A rectangle alternatingly has to be steered over a line displayed on the left or right side of the screen. Interactions are exemplified with a button, a slider, and a text input to interact with the task and the log as well as bindings to quit the task upon closing the UI.</p>
+<p>The button toggles the color of the moved rectangle rendered between cyan and red. The slider controls the reward size, which can be confirmed in the log under the reward device’s name <code class="docutils literal notranslate"><span class="pre">get.['controls']['reward']</span></code>. The text field will append its content and a timestamp to a log list <code class="docutils literal notranslate"><span class="pre">get.log['notes']</span></code> that was self-added beforehand. This can be useful to manually log observations directly as part of the running experiment log. When using text fields a common pitfall is that, their data type commonly is a string and when using it for a numerical entry like the reward size one will have to convert number to an int() or float() beforehand to avoid errors.</p>
+<p>As variables need to be shared between the task and UI a common pattern shown here is to use <code class="docutils literal notranslate"><span class="pre">get.</span></code> as a global namespace accessible to all components.</p>
+<section id="ui-interacting-task">
+<span id="agent-steering"></span><h3>UI-interacting task<a class="headerlink" href="#ui-interacting-task" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neurokraken</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Display</span><span class="p">,</span> <span class="n">devices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neurokraken.controls</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py5</span> <span class="c1"># for py5&#39;s noise function to drive our agent&#39;s actions</span>
+
+<span class="n">serial_in</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;steering_wheel&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">rotary_encoder</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">])}</span>
+<span class="n">serial_out</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="n">devices</span><span class="o">.</span><span class="n">timed_on</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">40</span><span class="p">)}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">act_freq</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># 100hz</span>
+      
+    <span class="k">def</span><span class="w"> </span><span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># noise provides a series of random steering positions we can scale to the wheel range</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">serial_in</span><span class="p">[</span><span class="s1">&#39;steering_wheel&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">py5</span><span class="o">.</span><span class="n">noise</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">400</span> 
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="n">serial_in</span><span class="o">=</span><span class="n">serial_in</span><span class="p">,</span> <span class="n">serial_out</span><span class="o">=</span><span class="n">serial_out</span><span class="p">,</span> 
+                 <span class="n">display</span><span class="o">=</span><span class="n">Display</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)),</span> <span class="n">agent</span><span class="o">=</span><span class="n">Agent</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;agent&#39;</span><span class="p">)</span>
+
+<span class="c1"># Task</span>
+
+<span class="n">get</span><span class="o">.</span><span class="n">colored_red</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># button controlled </span>
+<span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># text field controlled</span>
+<span class="n">get</span><span class="o">.</span><span class="n">reward_size</span> <span class="o">=</span> <span class="mi">50</span>    <span class="c1"># slider controlled</span>
+<span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># log of rewarded reached sides</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Steer_alternating</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_right</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">read_in</span><span class="p">(</span><span class="s1">&#39;steering_wheel&#39;</span><span class="p">)</span> <span class="c1"># for this task the range is physically limited to [-150, 150]</span>
+        <span class="n">reached</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_right</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">reached</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_right</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span><span class="p">:</span>
+            <span class="n">reached</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
+        <span class="k">if</span> <span class="n">reached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_right</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_right</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">,</span> <span class="n">reached</span><span class="p">])</span>
+            <span class="n">get</span><span class="o">.</span><span class="n">send_out</span><span class="p">(</span><span class="s1">&#39;reward&#39;</span><span class="p">,</span> <span class="n">get</span><span class="o">.</span><span class="n">reward_size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">loop_visual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">pos_in_visual</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">rect_mode</span><span class="p">(</span><span class="n">sketch</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">colored_red</span><span class="p">:</span>
+            <span class="n">sketch</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sketch</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">pos_in_visual</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">stroke</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_right</span><span class="p">:</span>
+            <span class="n">sketch</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sketch</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+<span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;steer&#39;</span><span class="p">:</span> <span class="n">Steer_alternating</span><span class="p">(</span><span class="n">next_state</span><span class="o">=</span><span class="s1">&#39;steer&#39;</span><span class="p">)}</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">load_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="c1"># UI code will be inserted here</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="interacting-ui">
+<h3>Interacting UI<a class="headerlink" href="#interacting-ui" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span> <span class="c1"># The entire task above until just before nk.run()</span>
+
+<span class="c1"># UI-called functions</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">change_color</span><span class="p">():</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">colored_red</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">get</span><span class="o">.</span><span class="n">colored_red</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">change_reward_size</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">reward_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;updated reward to </span><span class="si">{</span><span class="n">get</span><span class="o">.</span><span class="n">reward_size</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_note</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;adding timestamped note: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1"> to the log&#39;</span><span class="p">)</span>
+    <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;notes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">get</span><span class="o">.</span><span class="n">time_ms</span><span class="p">,</span> <span class="n">text</span><span class="p">])</span>
+
+<span class="c1"># UI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">py5</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sketch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">krakengui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gui</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">UI</span><span class="p">(</span><span class="n">Sketch</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Col</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span> <span class="k">as</span> <span class="n">col</span><span class="p">:</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;switch color&#39;</span><span class="p">,</span> <span class="n">on_click</span><span class="o">=</span><span class="n">change_color</span><span class="p">))</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">Slider</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;reward size&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">on_change</span><span class="o">=</span><span class="n">change_reward_size</span><span class="p">))</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gui</span><span class="o">.</span><span class="n">Text_Input</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;add note to log&#39;</span><span class="p">,</span> <span class="n">on_enter</span><span class="o">=</span><span class="n">add_note</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">quitting</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exit_sketch</span><span class="p">()</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">key_pressed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span> <span class="k">pass</span> <span class="c1"># a minimal key_pressed function is required for krakengui&#39;s text input to work properly</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">exiting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">get</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="n">ui</span> <span class="o">=</span> <span class="n">UI</span><span class="p">()</span>
+<span class="n">ui</span><span class="o">.</span><span class="n">run_sketch</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">nk</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="live-plotting">
+<h3>Live plotting<a class="headerlink" href="#live-plotting" title="Link to this heading">#</a></h3>
+<p>This chapter extends the previous UI to include live plotting of the recent continuous steering positions as well as discrete data in the form of the rewarded left/right events.</p>
+<p>For live plots we generally don’t want to reprocess and plot the millions of datapoints of an advanced task every 60th of a second with the rest of the UI loop.
+A common pattern is to use a repeating thread or to create and act upon a variable for the time since the last update at a lower frequency.
+Similarly as neurokraken can collect 1000 datapoints per second per sensor a good practice is to reduce the amount of processed data to what is essential for the visualization, i.e. by limiting the time window and/or only using every xth datapoint.</p>
+<p>For the live-plot we add 2 lines to the end of <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">setup()</span></code> that will help us keep track of the time since we last updated the plot, and store the plot image, which starts out empty but will be regularly updated based on the former line.</p>
+<p>At the end of <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">draw()</span></code> we display the plot image, and then if sufficient time has passed, update the plot image.</p>
+<p>Our log entries are lists of lists containing [time, value] pairs, thus at 5000 entries we find ourselves with a [5000,2] sized 2D array of lists. A nice trick to flip the axis of 2D lists like these so that we end up with one list of times and one with values to easily plot out is to use <code class="docutils literal notranslate"><span class="pre">list(zip(*&lt;list_name&gt;))</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">last_plot_time</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4000</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">plot_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_image</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RGB</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_image</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>  
+
+    <span class="c1"># update the plot every 5 seconds</span>
+    <span class="k">if</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_plot_time</span> <span class="o">&gt;</span> <span class="mi">5_000</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_plot_time</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span>
+        <span class="c1"># plot steering</span>
+        <span class="c1"># only plot the recent time and save some compute by only checking every 3rd entry</span>
+        <span class="n">recent_steerings</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;steering_wheel&#39;</span><span class="p">][::</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">-</span> <span class="mi">40_000</span><span class="p">]</span>
+        <span class="n">times</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">recent_steerings</span><span class="p">))</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">1000</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">]</span>
+        <span class="n">plt</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">350</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">sketch</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+
+        <span class="c1"># plot reached sides if sides have been reached</span>
+        <span class="n">recent_reached</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">get</span><span class="o">.</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">get</span><span class="o">.</span><span class="n">time_ms</span> <span class="o">-</span> <span class="mi">40_000</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">recent_reached</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">times</span><span class="p">,</span> <span class="n">sides</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">recent_reached</span><span class="p">))</span>
+            <span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">1000</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">]</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span> <span class="k">if</span> <span class="n">side</span><span class="o">==</span><span class="s1">&#39;left&#39;</span> <span class="k">else</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">]</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="o">=</span><span class="n">times</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="n">sides</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">diameter</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_image</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">to_py5image</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;t_seconds&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>      
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Task Examples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="modes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Keyboard and Agent Mode</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal-examples">Minimal examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#krakengui">Krakengui</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dearpygui">dearpygui</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyside6">Pyside6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tkinter">Tkinter</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#live-camera">live camera</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-interactions-and-live-plotting">UI interactions and live-plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-interacting-task">UI-interacting task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-ui">Interacting UI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#live-plotting">Live plotting</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Neuroraken developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC0 (2025).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

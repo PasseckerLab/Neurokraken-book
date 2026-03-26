@@ -150,7 +150,7 @@ Running high compute data processing as part of neurokraken tasks
 - computer vision, machine learning, AI, ...
 - Cutils Examples: live position tracking using Cutie
 
-### [UIs](UIs)
+### [UIs](examples_ui.md)
 
 Add a window to display and plot experiment data, camera views and override experiment variables
 
@@ -192,11 +192,11 @@ Adding a new custom self-made addition to the device library
 
 If you are interested in adding a new device and/or its Arduino code to your task, this is the place to start.
 
-### [for_developers](for_developers)
+<!-- ### [for_developers](for_developers)
 
 How the Neurokraken works - useful for hacking-in new functionalities.
 - the networker: Automatic live updating of python side sensor input, automatic logging, execution of python side controls on arduino.
-- the main loop and other threads. Internal timing of processes
+- the main loop and other threads. Internal timing of processes -->
 
 ### [FAQ](faq)
 

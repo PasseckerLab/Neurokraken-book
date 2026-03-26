@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Microphones" href="microphones.html" />
-    <link rel="prev" title="Device Library - Sensors, Stimuli, Peripheral Devices, Arduino" href="device_library.html" />
+    <link rel="prev" title="States - Structuring task steps" href="states.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -185,34 +185,30 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Task Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_ui.html">UI Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Keyboard and Agent Mode</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Function Reference</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="controls.html">Controls, Task development and the .get-Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration - The Neurokraken Object</a></li>
 <li class="toctree-l1"><a class="reference internal" href="states.html">States - Structuring task steps</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Devices Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cameras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arduino_custom.html">Add your own device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common task patterns</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="patterns.html">Common task patterns</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Peripherals</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="device_library.html">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cameras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="microphones.html">Microphones</a></li>
-<li class="toctree-l1"><a class="reference internal" href="arduino_custom.html">Add your own device</a></li>
-<li class="toctree-l1"><a class="reference internal" href="outside_devices.html">Integrating Outside Devices</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Features</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="modes.html">Keyboard and Agent Mode</a></li>
-<li class="toctree-l1"><a class="reference internal" href="UIs.html">User Interfaces (UIs)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ai_ml_cv.html">AI/ML/Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Neurokraken Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runner_mode.html">Runner Mode</a></li>
@@ -223,7 +219,6 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="for_developers.html">For Developers - Hacking the Neurokraken</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -444,10 +439,12 @@ document.write(`
 <span id="id1"></span><h1>Cameras<a class="headerlink" href="#cameras" title="Link to this heading">#</a></h1>
 <section id="adding-cameras-to-your-task">
 <span id="camera-examples"></span><h2>Adding cameras to your task<a class="headerlink" href="#adding-cameras-to-your-task" title="Link to this heading">#</a></h2>
-<p>Adding a camera can be as simple as adding a Camera element to your config cameras list:</p>
+<p>Adding a camera is as simple as adding a Camera element (or list thereof) to Neurokraken():</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">utils.configurators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span>
 
 <span class="n">cameras</span> <span class="o">=</span> <span class="p">[</span><span class="n">Camera</span><span class="p">()]</span>
+
+<span class="n">nk</span> <span class="o">=</span> <span class="n">Neurokraken</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">cameras</span><span class="o">=</span><span class="n">cameras</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Neurokraken supports USB connectable cameras ranging from minimal embedded application camera modules and webcams to specialized high framerate, high resolution GenICam protocol cameras.</p>
@@ -529,7 +526,7 @@ document.write(`
 <section id="ui-view-format">
 <h4>ui_view_format<a class="headerlink" href="#ui-view-format" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">'py5'</span></code> or <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code>. the data type of the preview frame provided by <code class="docutils literal notranslate"><span class="pre">get_camera(i,</span> <span class="pre">preview=True)</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">'py5'</span></code> if your gui can display a Py5Image and <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code> if your gui can be made to display an image based on a numpy ndarray/image. Defaults to ‘py5’.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'py5'</span></code> or <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code>. the data type of the preview frame provided by <code class="docutils literal notranslate"><span class="pre">get.camera(i,</span> <span class="pre">preview=True)</span></code>. Choose <code class="docutils literal notranslate"><span class="pre">'py5'</span></code> if your gui can display a Py5Image and <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code> if your gui can be made to display an image based on a numpy ndarray/image. Defaults to ‘py5’.</p></li>
 </ul>
 </section>
 <section id="ui-view-step-and-ui-view-scale">
@@ -711,12 +708,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="device_library.html"
+       href="states.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Device Library - Sensors, Stimuli, Peripheral Devices, Arduino</p>
+        <p class="prev-next-title">States - Structuring task steps</p>
       </div>
     </a>
     <a class="right-next"
